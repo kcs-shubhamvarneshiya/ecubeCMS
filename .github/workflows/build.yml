@@ -27,15 +27,15 @@ jobs:
 
           dotnet tool install --global dotnet-sonarscanner
           pwd  
-          
+          ls /root/.dotnet/tools/
           #ls "C:\Program Files (x64)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin"
           
           
-          SonarScanner.MSBuild.exe begin /k:"eCubeMemberCMSWebApp" /d:sonar.host.url="https://sonarqube.kcspl.in" /d:sonar.token="dca7a8f306acdaa720a1feec1a94215cfa08f846"
+          /root/.dotnet/tools/SonarScanner.MSBuild.exe begin /k:"eCubeMemberCMSWebApp" /d:sonar.host.url="https://sonarqube.kcspl.in" /d:sonar.token="dca7a8f306acdaa720a1feec1a94215cfa08f846"
           
           MsBuild.exe  /t:Rebuild
           
-          SonarScanner.MSBuild.exe end /d:sonar.login="dca7a8f306acdaa720a1feec1a94215cfa08f846"
+          /root/.dotnet/tools/SonarScanner.MSBuild.exe end /d:sonar.login="dca7a8f306acdaa720a1feec1a94215cfa08f846"
           
       - name: Check SonarQube Quality Gate    
         run: |

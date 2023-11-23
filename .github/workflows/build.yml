@@ -31,13 +31,13 @@ jobs:
           curl -v -O https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/5.15.0.80890/sonar-scanner-msbuild-5.15.0.80890-net46.zip
           ls -ltrha
           #find . -name "*.zip" | while read filename; do unzip -o -d "`dirname "$filename"`" "$filename"; done;
-          find . -name "*.zip" | xargs -P 5 -I fileName sh -c 'unzip -o -d "$(dirname "fileName")/$(basename -s .zip "fileName")" "fileName"'
+          #find . -name "*.zip" | xargs -P 5 -I fileName sh -c 'unzip -o -d "$(dirname "fileName")/$(basename -s .zip "fileName")" "fileName"'
           ls -ltrha
-          export PATH=$PATH:pwd
+          #export PATH=$PATH:pwd
           
-          SonarScanner.MSBuild.exe begin /k:"eCubeMemberCMSWebApp" /d:sonar.host.url="https://sonarqube.kcspl.in" /d:sonar.login="dca7a8f306acdaa720a1feec1a94215cfa08f846"
-          MsBuild.exe /t:Rebuild
-          SonarScanner.MSBuild.exe end /d:sonar.login="dca7a8f306acdaa720a1feec1a94215cfa08f846"
+          #SonarScanner.MSBuild.exe begin /k:"eCubeMemberCMSWebApp" /d:sonar.host.url="https://sonarqube.kcspl.in" /d:sonar.login="dca7a8f306acdaa720a1feec1a94215cfa08f846"
+          #MsBuild.exe /t:Rebuild
+          #SonarScanner.MSBuild.exe end /d:sonar.login="dca7a8f306acdaa720a1feec1a94215cfa08f846"
           
       - name: Check SonarQube Quality Gate    
         run: |

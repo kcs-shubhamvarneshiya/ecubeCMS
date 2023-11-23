@@ -27,7 +27,7 @@ jobs:
 
           dotnet tool install --global dotnet-sonarscanner
           pwd  
-          ls /root/.dotnet/tools/
+          #ls /root/.dotnet/tools/
           #ls "C:\Program Files (x64)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin"
           
           

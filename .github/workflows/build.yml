@@ -26,6 +26,10 @@ jobs:
           echo "starting analyzing.."  
 
           dotnet tool install --global dotnet-sonarscanner
+
+          ls C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin
+          ls C:\Program Files (x64)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin
+          pwd  
           
           SonarScanner.MSBuild.exe begin /k:"eCubeMemberCMSWebApp" /d:sonar.host.url="https://sonarqube.kcspl.in" /d:sonar.token="dca7a8f306acdaa720a1feec1a94215cfa08f846"
           

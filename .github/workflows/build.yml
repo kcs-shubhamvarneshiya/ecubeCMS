@@ -19,8 +19,12 @@ jobs:
       - name: Setup .NET 5.x
         uses: actions/setup-dotnet@v3
         with:
-        # Semantic version range syntax or exact version of a dotnet version
-              dotnet-version: '5.0.x'     
+              dotnet-version: '5.0.x'    
+
+      - name: Setup MSBuild
+        uses: msbuild/setup-msbuild@v1
+        with:
+                msbuild-version: 'latest'      
 
       - name: SonarQube Scan
         run: |

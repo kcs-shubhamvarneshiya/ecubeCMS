@@ -28,8 +28,9 @@ jobs:
           #dotnet tool install --global dotnet-sonarscanner
           
           pwd
-          curl -o ./ https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/5.15.0.80890/sonar-scanner-msbuild-5.15.0.80890-net46.zip
-          unzip sonar-scanner-msbuild-5.15.0.80890-net46.zip
+          curl -o ./sonar-scanner.zip https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/5.15.0.80890/sonar-scanner-msbuild-5.15.0.80890-net46.zip
+          ls
+          unzip sonar-scanner.zip
           export PATH=$PATH:pwd
           
           SonarScanner.MSBuild.exe begin /k:"eCubeMemberCMSWebApp" /d:sonar.host.url="https://sonarqube.kcspl.in" /d:sonar.login="dca7a8f306acdaa720a1feec1a94215cfa08f846"

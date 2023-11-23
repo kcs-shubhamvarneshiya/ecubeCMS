@@ -28,11 +28,11 @@ jobs:
           dotnet tool install --global dotnet-sonarscanner
           pwd
           
-          dontnet SonarScanner.MSBuild.exe begin /k:"eCubeMemberCMSWebApp" /d:sonar.host.url="https://sonarqube.kcspl.in" /d:sonar.token="dca7a8f306acdaa720a1feec1a94215cfa08f846"
+          dotnet SonarScanner.MSBuild.exe begin /k:"eCubeMemberCMSWebApp" /d:sonar.host.url="https://sonarqube.kcspl.in" /d:sonar.token="dca7a8f306acdaa720a1feec1a94215cfa08f846"
           
           MsBuild.exe  /t:Rebuild
           
-          dontnet SonarScanner.MSBuild.exe end /d:sonar.login="dca7a8f306acdaa720a1feec1a94215cfa08f846"
+          dotnet SonarScanner.MSBuild.exe end /d:sonar.login="dca7a8f306acdaa720a1feec1a94215cfa08f846"
           
       - name: Check SonarQube Quality Gate    
         run: |

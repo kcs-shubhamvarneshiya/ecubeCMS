@@ -1,0 +1,90 @@
+﻿@model EcubeWebPortalCMS.Models.ServiceSupportModel
+@{
+    ViewBag.Title = "Service Support";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("ServiceSupport", "ServiceSupport", FormMethod.Post, new { @id = "frmServiceSupport", @class = "form_validation_ttip well stdform" }))
+{    
+    <div class="row-fluid">
+        <div class="span12">
+            <h4 class="heading">
+                @ViewBag.Title
+            </h4>
+        </div>
+        <div class="row-fluid">
+            <div class="span2" style="width: 5%;">
+                Request#: 
+            </div>
+            <div class="span2" style="margin: auto">
+                @Html.DisplayTextFor(m => m.Id)
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.HdnIFrame)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span2" style="width: 5%">
+                Member: 
+            </div>
+            <div class="span5" style="margin: auto">
+                @Html.DisplayTextFor(m => m.MemberName) -  @Html.DisplayTextFor(m => m.MemberCode)
+                @Html.HiddenFor(m => m.MemberName) @Html.HiddenFor(m => m.MemberCode)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Support Type
+                </label>
+                @Html.DropDownListFor(m => m.ServiceSupportTypeId, Model.SupportTypeList, new { @class = "span5 required alphanumwithspc", @next = "StatusId", disabled = "true" })
+                @Html.HiddenFor(m => m.ServiceSupportTypeId)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span2" style="width: 8%;">
+                Request Detail: 
+            </div>
+            <div class="span4" style="margin: auto;">
+                @Html.DisplayTextFor(m => m.Description)
+                @Html.HiddenFor(m => m.Description)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Status
+                </label>
+                @Html.DropDownListFor(m => m.StatusId, Model.StatusList, new { @class = "span5 required", @next = "Description" })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span1" style="width: 3%;">
+                Date: 
+            </div>
+            <div class="span7" style="margin: auto;">
+                @Html.DisplayTextFor(m => m.CreatedOn)
+                @Html.HiddenFor(m => m.CreatedOn)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Response
+                </label>
+                @Html.TextAreaFor(m => m.Response, new { @class = "span5 required", @rows = "4", @next = "ResponseBy", @placeholder = "Please Enter Response.", @maxlength = "8000" })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Responsible Person
+                </label>
+                @Html.TextBoxFor(m => m.ResponseBy, new { @class = "span5 required", @placeholder = "Please Enter Responsible Person.", @maxlength = "100" })
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <input class="btn btn-inverse" id="btnSubmit" name="inputSubmit" type="submit" value="Save" title="Save Service Support" />
+        <input class="btn cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" title="Cancel Service Support" />
+    </div>
+}
+<script src="~/Scripts/Utility/ServiceSupport.js"></script>

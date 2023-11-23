@@ -1,0 +1,85 @@
+@model EcubeWebPortalCMS.Models.BanquetBookingRequestModel
+@{
+    ViewBag.Title = "Banquet / Hall Request";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool isAdd = Convert.ToBoolean(ViewData["blAddRights"]);
+    bool isEdit = Convert.ToBoolean(ViewData["blEditRights"]);
+    bool isDelete = Convert.ToBoolean(ViewData["blDeleteRights"]);
+ }
+
+
+@if (Model != null)
+    {
+        <script type="text/javascript">
+            var selectedBanquetType = '@Model.BanquetType';
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+            var selectedBanquetType = 0;
+        </script>
+    }
+
+
+    @using (Html.BeginForm("BanquetBookingRequest", "BanquetBookingRequestView", FormMethod.Post, null))
+    {
+<div class="">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+        </h4>
+        @Html.Hidden("hfAdd", @isAdd)
+        @Html.Hidden("hfEdit", @isEdit)
+        @Html.Hidden("hfDelete", @isDelete)
+        <div class="ml-auto adduser-links">
+            @*@if(isAdd)
+                {
+                    @Html.ActionLink("Add New Banquet Request", "BanquetBookingRequest", "BanquetBookingRequest")
+                }*@
+            @if (isDelete)
+            {
+                <a class="btn btn-secondary ml-2" id="btnDeleteBanquetBookingRequest" href="javascript:void(0)">Delete Request</a>
+            }
+        </div>
+    </div>
+    <div class="clearfix contant-toph">
+        <div class="card shadow rounded overflow-hidden card-space">
+            <div class="row d-md-flex usearch-text room-book_req-view mb-md-3">
+                <div class="col-md-4 pr-md-3">
+                    <h5 class="mb-2 search-filter--title">
+                        Search
+                    </h5>
+                    <input type="text" id="txtBanquetBookingRequestSearch" placeholder="Search" class="form-control form-control-sm" />
+                </div>
+                <div class="col-md-4 pr-md-3">
+                    <h5 class="mb-2 search-filter--title">
+                        Status
+                    </h5>
+                    @Html.DropDownList("ddlBanquetBookingRequestSorting", new List<SelectListItem>()
+                                     {new SelectListItem { Text="--ALL--", Value = "10"},
+                                     new SelectListItem { Text="Pending Request", Value = "0"},
+                                     new SelectListItem { Text="Booked", Value = "1"},
+                                     new SelectListItem { Text="Cancel", Value = "2"}
+                                     }, new { @class = "form-control form-control-sm" })
+                </div>
+                <div class="col-md-4 pr-md-3">
+                    <h5 class="mb-2 search-filter--title">
+                        Banquet Type
+                    </h5>
+                    @Html.HiddenFor(model => Model.BanquetType, new { @id = "hdnddlBanquetType" })
+                    @Html.DropDownList("ddlBanquetType", new SelectList(string.Empty, "Value", "Text"), "--ALL--", new { @class = "form-control form-control-sm" })
+                </div>
+            </div>
+            <div class=" user-contant mt-3">
+                <div id="dvBanquetBookingRequest" class="card shadow rounded overflow-hidden">
+                    <table id="tblBanquetBookingRequest"></table>
+                    <div id="dvBanquetBookingRequestFooter"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    }
+
+<script src="~/Scripts/Utility/BanquetBookingRequestView.js"></script>

@@ -1,0 +1,166 @@
+@model EcubeWebPortalCMS.Models.RoomBookingModel
+@{
+    ViewBag.Title = "Room Master";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("RoomBooking", "RoomBooking", FormMethod.Post, new { @id = "frmRoomBooking", @class = "form_validation_ttip well stdform" }))
+{
+
+<div class="">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+        </h4>
+        @Html.HiddenFor(m => m.HdnSession)
+    </div>
+    <div class="pan">
+        <div class="card shadow rounded overflow-hidden card-space">
+            @Html.HiddenFor(m => m.HdnIFrame)
+            @Html.HiddenFor(m => m.Id)
+            <div class="row">
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-2">
+                        Room Type<span class="f_req text-danger">*</span>
+                    </h5>
+                    @Html.TextBoxFor(m => m.RoomBookingName, new { @class = " required form-control ", @maxlength = "50", @tabindex = "2", @next = "Description" })
+                </div>
+
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-2">
+                        Member Rate<span class="f_req text-danger">*</span>
+                    </h5>
+                    @Html.TextBoxFor(m => m.Member, new { @class = " TwoDecimal form-control", @maxlength = "6", @tabindex = "3", @next = "Guest" })
+                </div>
+
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-2">
+                        Guest Rate<span class="f_req text-danger">*</span>
+                    </h5>
+                    @Html.TextBoxFor(m => m.Guest, new { @class = " TwoDecimal form-control", @maxlength = "6", @tabindex = "4", @next = "ProfilePic" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 mb-3 pb-3">
+                    <h5 class="mb-2">
+                        Description<span class="f_req text-danger">*</span>
+                    </h5>
+                    @Html.TextAreaFor(m => m.Description, new { @class = "description-height form-control ", @maxlength = "300", @tabindex = "5" })
+                    <span class="text-danger d-block pt-1">Note: Maximum 300 Characters Allow.</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-2">
+                        Room Image<span class="f_req text-danger">*</span>
+                    </h5>
+                    @* @Html.TextBoxFor(m => m.ProfilePic, new { @class = "  alphanumwithspc form-control ", @maxlength = "200", @tabindex = "6", @next="btnSubmit" })*@
+                    <input type="file" id="ImgProfilePic" tabindex="6" />
+                    @Html.Hidden("hdnImgProfilePic", Model.ProfilePic)
+                <div>
+                    @{ var RoomImage = "../CMSUpload/Images/RoomImage/ProfilePic/" + Model.ProfilePic;
+                    }
+                    <img id="aRoomImage" alt="" src="@RoomImage" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" class="movie-mobile--img mt-2" />
+                    <span class="d-flex py-2 text-danger"><span>Note: &nbsp; </span><span>Allowed Format: .jpg, .gif, .png;<br /> Allowed Size: 251 X 355</span></span>
+
+                </div>
+                </div>
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-2">
+                        Terms & Conditions<span class="f_req text-danger">*</span>
+                    </h5>
+                    @* @Html.TextBoxFor(m => m.ProfilePic, new { @class = "alphanumwithspc form-control ", @maxlength = "200", @tabindex = "6", @next="btnSubmit" })*@
+                    <input type="file" id="FlUploadTerms" tabindex="7" />
+                    @Html.Hidden("hdnFlUploadTerms", Model.Terms)
+                    <div class="mt-2">
+                        <img src="~/Content/Image/PDF_logo.png" id="ImgFilePdf" style="width: 40px; margin: 5px 0; display: block;"  />
+                        <span id="lblFlUploadTerms">@Model.Terms</span>
+                        <span class="d-flex py-2 text-danger"><span>Note: &nbsp; </span><span> Allowed Format: .pdf; <br /> Allowed Maximum Size: 3 MB</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-md-flex border-bottom py-4 mb-4">
+        <h4 class="heading mb-4 m-md-0">
+            Room TAX Detail
+        </h4>
+    </div>
+    <div class="card shadow rounded overflow-hidden card-space">
+        <div class="">
+            @Html.HiddenFor(m => m.RoomBookingDetailId)
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3 pb-3">
+                <h5 class="mb-2">
+                    Tax Percentage<span class="f_req text-danger">*</span>
+                </h5>
+                @Html.TextBoxFor(m => m.TaxPercentage, new {@id = "TaxPercentage", @class = "TwoDecimal form-control", @maxlength = "3", @tabindex = "8", @next = "TaxDescription" })
+            </div>
+            <div class="col-md-4 mb-3 pb-3">
+                <h5 class="mb-2">
+                    Tax Description<span class="f_req text-danger">*</span>
+                </h5>
+                @Html.TextBoxFor(m => m.TaxDescription, new { @id = "TaxDescription", @class = "  form-control ", @maxlength = "100", @tabindex = "9", @next = "btnAddRoomBookingDetail" })
+            </div>
+        </div>
+        <div class="d-flex justify-content-end mt-2 mb-2">
+            <input class="btn btn-primary mr-2 btn-inverse" id="btnAddRoomBookingDetail" name="inputSubmit" type="button" value="Add" tabindex="10" title='Add Room Detail' />
+            <input class="btn btn-secondary" id="btnCancelRoomBookingDetail" name="inputCancel" type="button" value="Cancel" tabindex="11" title='Cancel Room Detail' />
+        </div>
+        <div class="clearfix contant-toph">
+            <div class="my-4 adduser-links">
+                <a class="btn btn-primary" id="btnDeleteRoomBookingDetail" href="javascript:void(0)">Delete Room TAX Detail</a>
+            </div>
+        </div>
+        <div class="user-contant">
+            <div id="dvRoomBookingDetail" class="card shadow rounded overflow-hidden">
+                <table id="tblRoomBookingDetail"></table>
+                <div id="dvRoomBookingDetailFooter" style="text-align: center;"></div>
+            </div>
+        </div>
+        @*<div class="">
+            <h3>Room Images</h3>
+        </div>
+        <div class="">
+            @Html.HiddenFor(m => m.RoomBookingGallaryId)
+        </div>
+        <div class="">
+            <div class="">
+                <div class="">
+                                <h5 class="mb-2">
+            Gallary Image
+        </h5>
+                    <input type="file" id="GallaryImageFileUpload" multiple tabindex="12" />
+                    @Html.HiddenFor(m => m.GallaryImage, new { id = "GallaryImage" })
+                    @Html.Hidden("hdnAAAConfig", Model.hdnAAAConfig)
+                        <div class="">
+                        <span>Note : (.jpg, .gif, .png Formats Allow ; Size : 396 x 555)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <input class="btn btn-inverse" id="btnAddRoomBookingGallary" name="inputSubmit" type="button" value="Add" tabindex="14" title='Add Room Image' />
+            <input class="btn" id="btnCancelRoomBookingGallary" name="inputCancel" type="button" value="Cancel" tabindex="15" title='Cancel Room Image' />
+        </div>
+        <div class="">
+            <div class=" clearfix contant-toph">
+                <ul class="adduser-links">
+                    <li><a id="btnDeleteRoomBookingGallary" href="javascript:void(0)">Delete Room Image</a></li>
+                </ul>
+            </div>
+            <div class=" user-contant">
+                <div id="dvRoomBookingGallary">
+                    <table id="tblRoomBookingGallary"></table>
+                    <div id="dvRoomBookingGallaryFooter" style="text-align: center;"></div>
+                </div>
+            </div>
+        </div>*@
+        <div class="d-flex justify-content-end mt-3">
+            <input class="btn btn-primary mr-2" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="16" title='Save Room' />
+            <input class="btn btn-secondary cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="17" title='Cancel Room' />
+        </div>
+    </div>
+</div>
+}
+<script src="~/Scripts/Utility/RoomBooking.js"></script>

@@ -1,0 +1,41 @@
+﻿@model EcubeWebPortalCMS.Models.ServiceSupportLogModel
+@{
+    ViewBag.Title = "Service Support Log";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("ServiceSupportLog", "ServiceSupportLog", FormMethod.Post, new { @id = "frmUser", @class = "form_validation_ttip well stdform" }))
+{
+    <div class="row-fluid">
+        <div class="span12">
+            <h4 class="heading">
+                @ViewBag.Title
+            </h4>
+        </div>
+        <div class="span12 clearfix contant-toph">
+            <div class="usearch-text">
+                <label>
+                    Search           
+                </label>
+                <input type="text" id="txtServiceSupportLogSearch" />
+            </div>
+          
+            <div class="usearch-text">
+                  &nbsp;
+                <label>
+                    Status
+                </label>
+                @Html.DropDownListFor(m => m.StatusId, Model.StatusList, new { @id="ddlstatus" ,@class = "span7 required" })
+
+            </div>
+        </div>
+        <div class="span12 user-contant">
+            <div id="dvSupportLog">
+                <table id="tblSupportLog"></table>
+                <div id="dvSupportLogFooter"></div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script src="~/Scripts/Utility/ServiceSupportLog.js"></script>

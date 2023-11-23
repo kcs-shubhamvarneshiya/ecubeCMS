@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Karnavati_QC" Class="RoomBookingDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.1.80\sql2012;Initial Catalog=Karnavati_QC;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ECubeCMSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.RoomBooking" Member="RoomBooking">
+    <Type Name="RoomBooking">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoomBookingName" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Member" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Guest" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="ProfilePic" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="DeletedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeletedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RoomBookingDetail" Member="RoomBookingDetail">
+    <Type Name="RoomBookingDetail">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoomBookingId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="TaxPercentage" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="TaxDescription" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="DeletedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeletedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RoomBookingGallary" Member="RoomBookingGallary">
+    <Type Name="RoomBookingGallary">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoomBookingId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="GallaryImage" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="DeletedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeletedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Function Name="dbo.MS_CountRoomBooking" Method="MS_CountRoomBooking">
+    <ElementType Name="MS_CountRoomBookingResult">
+      <Column Name="Result" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_CountRoomBookingGallary" Method="MS_CountRoomBookingGallary">
+    <ElementType Name="MS_CountRoomBookingGallaryResult">
+      <Column Name="Result" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_CountRoomBookingTextDetail" Method="MS_CountRoomBookingTextDetail">
+    <ElementType Name="MS_CountRoomBookingTextDetailResult">
+      <Column Name="Result" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_DeleteRoomBooking" Method="MS_DeleteRoomBooking">
+    <Parameter Name="IdList" Parameter="idList" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="DeletedBy" Parameter="deletedBy" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_DeleteRoomBookingResult">
+      <Column Name="TotalReference" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_DeleteRoomBookingGallary" Method="MS_DeleteRoomBookingGallary">
+    <Parameter Name="IdList" Parameter="idList" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="DeletedBy" Parameter="deletedBy" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_DeleteRoomBookingGallaryResult">
+      <Column Name="TotalReference" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_DeleteRoomBookingTextDetail" Method="MS_DeleteRoomBookingTextDetail">
+    <Parameter Name="IdList" Parameter="idList" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="DeletedBy" Parameter="deletedBy" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_DeleteRoomBookingTextDetailResult">
+      <Column Name="TotalReference" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetRoomBookingGallaryAll" Method="MS_GetRoomBookingGallaryAll">
+    <ElementType Name="MS_GetRoomBookingGallaryAllResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RoomBookingId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="RoomBookingName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="GallaryImage" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetRoomBookingGallaryById" Method="MS_GetRoomBookingGallaryById">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_GetRoomBookingGallaryByIdResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RoomBookingId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="GallaryImage" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetRoomBookingGallaryByRoomBookingId" Method="MS_GetRoomBookingGallaryByRoomBookingId">
+    <Parameter Name="RoomBookingId" Parameter="roomBookingId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_GetRoomBookingGallaryByRoomBookingIdResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RoomBookingId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="RoomBookingName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="GallaryImage" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetRoomBookingTextDetailById" Method="MS_GetRoomBookingTextDetailById">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_GetRoomBookingTextDetailByIdResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RoomBookingId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="TaxPercentage" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="TaxDescription" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetRoomBookingTextDetailByRoomBookingId" Method="MS_GetRoomBookingTextDetailByRoomBookingId">
+    <Parameter Name="RoomBookingId" Parameter="roomBookingId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_GetRoomBookingTextDetailByRoomBookingIdResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RoomBookingId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="RoomBookingName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="TaxPercentage" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="TaxDescription" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetRoomBookinTextDetailAll" Method="MS_GetRoomBookinTextDetailAll" IsComposable="true">
+    <Return Type="object" />
+  </Function>
+  <Function Name="dbo.MS_GetRoomGallaryByRoomBookingId" Method="MS_GetRoomGallaryByRoomBookingId">
+    <Parameter Name="RoomBookingId" Parameter="roomBookingId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_GetRoomGallaryByRoomBookingIdResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RoomBookingId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="RoomBookingName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="GallaryImage" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_InsertOrUpdateRoomBookingGallary" Method="MS_InsertOrUpdateRoomBookingGallary">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="RoomBookingId" Parameter="roomBookingId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="GallaryImage" Parameter="gallaryImage" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="UserId" Parameter="userId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_InsertOrUpdateRoomBookingGallaryResult">
+      <Column Name="InsertedId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_InsertOrUpdateRoomBookingTextDetail" Method="MS_InsertOrUpdateRoomBookingTextDetail">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="RoomBookingId" Parameter="roomBookingId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="TaxPercentage" Parameter="taxPercentage" Type="System.Decimal" DbType="Decimal(10,2)" />
+    <Parameter Name="TaxDescription" Parameter="taxDescription" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="UserId" Parameter="userId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_InsertOrUpdateRoomBookingTextDetailResult">
+      <Column Name="InsertedId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_SearchRoomBookingDetail" Method="MS_SearchRoomBookingDetail">
+    <Parameter Name="Rows" Parameter="rows" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Page" Parameter="page" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Search" Parameter="search" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="Sort" Parameter="sort" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="MS_SearchRoomBookingDetailResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RoomBookingId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="RoomBookingName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="TaxPercentage" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="TaxDescription" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_SearchRoomBookingGallary" Method="MS_SearchRoomBookingGallary">
+    <Parameter Name="Rows" Parameter="rows" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Page" Parameter="page" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Search" Parameter="search" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="Sort" Parameter="sort" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="MS_SearchRoomBookingGallaryResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RoomBookingId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="RoomBookingName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="GallaryImage" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetRoomBookingAll" Method="MS_GetRoomBookingAll">
+    <ElementType Name="MS_GetRoomBookingAllResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RoomBookingName" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Member" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Guest" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="ProfilePic" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Terms" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetRoomBookingById" Method="MS_GetRoomBookingById">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_GetRoomBookingByIdResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RoomBookingName" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Member" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Guest" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="ProfilePic" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Terms" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_InsertOrUpdateRoomBooking" Method="MS_InsertOrUpdateRoomBooking">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="RoomBookingName" Parameter="roomBookingName" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Member" Parameter="member" Type="System.Decimal" DbType="Decimal(10,2)" />
+    <Parameter Name="Guest" Parameter="guest" Type="System.Decimal" DbType="Decimal(10,2)" />
+    <Parameter Name="ProfilePic" Parameter="profilePic" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="Terms" Parameter="terms" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="UserId" Parameter="userId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_InsertOrUpdateRoomBookingResult">
+      <Column Name="InsertedId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_SearchRoomBooking" Method="MS_SearchRoomBooking">
+    <Parameter Name="Rows" Parameter="rows" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Page" Parameter="page" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Search" Parameter="search" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="Sort" Parameter="sort" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="MS_SearchRoomBookingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RoomBookingName" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Member" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Guest" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="ProfilePic" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Terms" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

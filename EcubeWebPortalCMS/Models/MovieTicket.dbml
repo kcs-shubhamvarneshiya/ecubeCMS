@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ClubO7_Dev" Class="MovieTicketDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.1.80\sql2014;Initial Catalog=ClubO7_Dev;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ECubeCMSConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.MS_GetMemberBookedMovieTicketList" Method="MS_GetMemberBookedMovieTicketList">
+    <Parameter Name="MemberCode" Parameter="memberCode" Type="System.String" DbType="VarChar(25)" />
+    <Parameter Name="MCode" Parameter="mCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="TicketNo" Parameter="ticketNo" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="MS_GetMemberBookedMovieTicketListResult">
+      <Column Name="MovieId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="MovieName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ShowKeyDate" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="MovieTheatreId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="MovieShowId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="MovieBookingId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="PaymentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.String" DbType="VarChar(7)" CanBeNull="true" />
+      <Column Name="MovieTheatreName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetMovieBookingDetail" Method="MS_GetMovieBookingDetail">
+    <Parameter Name="MovieBookingMasterId" Parameter="movieBookingMasterId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="MS_GetMovieBookingDetailResult">
+      <Column Name="TicketId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ShowDate" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SHowTime" Type="System.String" DbType="VarChar(7)" CanBeNull="true" />
+      <Column Name="Screen" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FinalPrice" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="MovieName" Type="System.String" DbType="NVarChar(153) NOT NULL" CanBeNull="false" />
+      <Column Name="Seats" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PANNumber" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MemberName" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
+      <Column Name="ClubName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="NoOfSeat" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GuestCount" Type="System.Decimal" DbType="Decimal(38,0)" CanBeNull="true" />
+      <Column Name="MemberCount" Type="System.Decimal" DbType="Decimal(38,0)" CanBeNull="true" />
+      <Column Name="GuestRate" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="MemberRate" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="ClassName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MemberId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

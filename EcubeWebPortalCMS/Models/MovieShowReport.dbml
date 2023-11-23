@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ClubO7_Dev" Class="MovieShowReportDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.1.80\sql2014;Initial Catalog=ClubO7_Dev;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ECubeCMSConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.MS_MovieShowDate" Method="MS_MovieShowDate">
+    <ElementType Name="MS_MovieShowDateResult">
+      <Column Name="Date" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="DateNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DaysName" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_MovieShowDateDetail" Method="MS_MovieShowDateDetail">
+    <Parameter Name="Date" Parameter="date" Type="System.DateTime" DbType="Date" />
+    <ElementType Name="MS_MovieShowDateDetailResult">
+      <Column Name="ShowDate" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="MovieShowName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StartTime" Type="System.String" DbType="VarChar(7)" CanBeNull="true" />
+      <Column Name="EndTime" Type="System.String" DbType="VarChar(7)" CanBeNull="true" />
+      <Column Name="MovieName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MovieCategory" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="MovieRating" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="MovieLanguage" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="MovieShowId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="MovieId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="MovieTheatreShowID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="TheatreID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="afterTimeOverShowHide" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalBookedSeats" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalSeats" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_MovieShowReport" Method="MS_MovieShowReport">
+    <Parameter Name="MovieTheatreShowID" Parameter="movieTheatreShowID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MovieClassID" Parameter="movieClassID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="MS_MovieShowReportResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="MovieSeatMasterId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RowTag" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="SeatNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SeatIndex" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SpaceBefore" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SpaceAfter" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NoOfSeats" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Height" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Width" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LeftPos" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TopPos" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RightToLeft" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="BothSideTag" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="MCodeWithPrefix" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(101) NOT NULL" CanBeNull="false" />
+      <Column Name="Relation" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="MemberRate" Type="System.Decimal" DbType="Decimal(18,4) NOT NULL" CanBeNull="false" />
+      <Column Name="GuestRate" Type="System.Decimal" DbType="Decimal(18,4) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetMovieScannedTicketReport" Method="GetMovieScannedTicketReport">
+    <Parameter Name="MovieDate" Parameter="movieDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="MovieId" Parameter="movieId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MovieTheatreId" Parameter="movieTheatreId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ShowId" Parameter="showId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TicketId" Parameter="ticketId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Membercode" Parameter="membercode" Type="System.String" DbType="VarChar(100)" />
+    <ElementType Name="GetMovieScannedTicketReportResult">
+      <Column Name="MovieId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="MovieName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MCodeWithPrefix" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BookingId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="MemberName" Type="System.String" DbType="VarChar(101) NOT NULL" CanBeNull="false" />
+      <Column Name="IsCheckedIn" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CheckedInTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CheckedInBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MovieShowName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BookingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="showid" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="MovieTheatreId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

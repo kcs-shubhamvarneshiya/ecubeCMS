@@ -1,0 +1,39 @@
+﻿@model EcubeWebPortalCMS.Models.NotificationModel
+@{
+    ViewBag.Title = "Notification";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Notification", "Notification", FormMethod.Post, new { @id = "frmNotification", @class = "form_validation_ttip well stdform" }))
+{
+<div class="">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+            @Html.HiddenFor(m => m.HdnSession)
+        </h4>
+    </div>
+    <div class="pan">
+        <div class="card shadow rounded overflow-hidden card-space row-fluid">
+            @Html.HiddenFor(m => m.HdnIFrame)
+            @Html.HiddenFor(m => m.Id)
+            <div class="row">
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-2">Title <span class="f_req text-danger">*</span></h5>
+                    @Html.TextBoxFor(m => m.NotificationTitle, new { @class = "span9 required alphanumwithspc form-control ", @maxlength = "50", @tabindex = "1", @next = "Description" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3 pb-3">
+                    <h5 class="mb-2">Description</h5>
+                    @Html.TextAreaFor(m => m.Description, new { @class = "span9 description-height form-control ", @maxlength = "500", @tabindex = "2" })
+                </div>
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+                <input class="btn btn-primary mr-2" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="3" title='Save Notification' />
+                <input class="btn btn-secondary cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="4" title='Cancel Notification' />
+            </div>
+        </div>
+    </div>
+</div>
+}
+<script src="~/Scripts/Utility/Notification.js"></script>

@@ -1,0 +1,90 @@
+﻿@using EcubeWebPortalCMS.Common
+@{
+    ViewBag.Title = "Feedback";
+    string AttatchmentURL = Functions.GetSettings("eCubeWebPortalURL") + "Document/Feedback/";
+}
+<style>
+    .ui-jqgrid {
+        font-size: 13px !important;
+    }
+
+    #divFeedback table tr td, tr th {
+        text-align: left !important;
+        padding: 10px !important;
+    }
+
+    .feedbackDetails {
+        color: #1c94c4;
+        white-space: pre-line;
+    }
+
+    .span11 {
+        min-height: 16px !important;
+    }
+    tr.ui-widget-content {
+        background: #fff;
+    }
+</style>
+<div class="row-fluid ">
+        <input type="hidden" value="@AttatchmentURL" id="hdfAttatchmentURL" />
+        <div class="span12" id="divFilter">
+            <div class="card shadow rounded overflow-hidden card-space">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="text" id="txtMemberCode" tabindex="1" class="span3 form-control" placeholder="Member Code" />
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" id="txtFromDate" tabindex="2" class="span3 date form-control" placeholder="From Date" />
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" id="txtToDate" tabindex="3" class="span3 date form-control" placeholder="To Date" />
+                    </div>
+                    <div class="col-md-12 d-flex justify-content-end mt-5">
+                        <input type="button" class="btn btn-inverse btn-primary" onclick="return SearchFeedBackList();"
+                               tabindex="4" value="Search" />
+                        <a class="ml-3 btn btn-inverse btn-secondary" tabindex="5" href="../Questionnaire/QuestionnaireView">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="divFeedback">
+            <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading mt-4">
+                <h3 class="heading mb-4 m-md-0" id="spantitle"></h3>
+            </div>
+            <div class="card shadow rounded overflow-hidden card-space mt-4 pt-2">
+                <div class="span12 user-contant" id="divList">
+                    <input type="hidden" id="hdfQuestionnaireId" value="@ViewBag.QuestionnaireId" />
+                    <div id="dvFeedBack">
+                    </div>
+                    <div style="text-align:center; display:none;" id="divNoRecords">
+                        <h3>No Records Found!</h3>
+                    </div>
+                </div>
+                <div class="span12 user-contant" id="divDetails" style="display:none;">
+                    <div>
+                        <div class="ui-jqgrid ui-widget ui-widget-content ui-corner-all">
+                            <div class="ui-state-default ui-jqgrid-hdiv" style="width: 100%;">
+                                <table class="ui-jqgrid-htable" style="width: 100%;" id="tblFeedBackDetails">
+                                    <thead>
+                                        <tr class="ui-jqgrid-labels">
+                                            <th class="ui-state-default ui-th-column ui-th-ltr ui-state-hover d-flex justify-content-between align-items-center">
+                                                <span id="spanTitle" class="span11"></span>
+                                                <a href="#" onclick="OnBackToList();" class="btn btn-inverse btn-primary btn-table-white">Back to List</a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="ui-widget-content jqgrow ui-row-ltr member-feedbackDetails">
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+    <script src="~/Scripts/Utility/FeedBack.js"></script>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Facility">
+  <DataContextMoniker Name="/FacilityDataContext" />
+  <nestedChildShapes>
+    <classShape Id="f5b5d063-1e58-413a-a90e-430aa4219df0" absoluteBounds="0.75, 1.25, 2, 2.9247054036458326">
+      <DataClassMoniker Name="/FacilityDataContext/FacilityCategory" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9f01f629-99b6-4f7b-8fba-64c578dda782" absoluteBounds="0.765, 1.71, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b379d314-e052-4f2a-a3ea-e43076701ece" absoluteBounds="3.375, 1.125, 2, 3.5016097005208326">
+      <DataClassMoniker Name="/FacilityDataContext/Facility" />
+      <nestedChildShapes>
+        <elementListCompartment Id="05aa310b-3c39-4200-af2c-58f1228e71fb" absoluteBounds="3.3899999999999997, 1.585, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 2.71235270182292); (3.375 : 2.71235270182292)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/FacilityDataContext/FacilityCategory/FacilityCategory_Facility" />
+      <nodes>
+        <classShapeMoniker Id="f5b5d063-1e58-413a-a90e-430aa4219df0" />
+        <classShapeMoniker Id="b379d314-e052-4f2a-a3ea-e43076701ece" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

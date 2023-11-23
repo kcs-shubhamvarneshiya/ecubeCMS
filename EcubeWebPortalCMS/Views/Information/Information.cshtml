@@ -1,0 +1,59 @@
+﻿@model EcubeWebPortalCMS.Models.InformationModel
+@{
+    ViewBag.Title = "Information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Information", "Information", FormMethod.Post, new { @id = "frmInformation", @class = "form_validation_ttip well stdform" }))
+{
+
+<div class="">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+            @Html.HiddenFor(m => m.HdnSession)
+        </h4>
+    </div>
+    <div class="pan">
+        <div class="card shadow rounded overflow-hidden card-space">
+            @Html.HiddenFor(m => m.HdnIFrame)
+            @Html.HiddenFor(m => m.InformationId)
+            <div class="row">
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-md-6 mb-3 pb-3">
+                            <h5 class="mb-2">
+                                Information Name <span class="f_req text-danger">*</span>
+                            </h5>
+                            @Html.TextBoxFor(m => m.Name, new { @class = "required alphanumwithspc form-control ", @maxlength = "50", @tabindex = "1", @next = "Description" })
+                        </div>
+                        <div class="col-md-6 mb-3 pb-3">
+                            <h5 class="mb-2">Sequence No</h5>
+                            @Html.TextBoxFor(m => m.SequenceNo, new { @class = "span9  required numwithspc form-control ", @maxlength = "3", @tabindex = "2", @next = "ImagePath" })
+                        </div>
+                        <div class="col-md-12 mb-3 pb-3">
+                            <h5 class="mb-2">Description</h5>
+                            @Html.TextAreaFor(m => m.Description, new { @class = "alphanumwithspc form-control ckeditor", @tabindex = "3", @next = "SequenceNo" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-2">Image</h5>
+                    <input type="file" id="ImagePath" tabindex="4" />
+                    @Html.HiddenFor(m => m.ImagePath, new { id = "ImagePath" })
+                    <img id="aImageName" alt="" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" src="@Model.ImagePath" class="mt-2 movie-mobile--img" />
+                </div>
+            </div>
+            
+            <div class="d-flex justify-content-end mt-3">
+                <input class="btn btn-primary mr-2" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="5" title='Save Information' />
+                <input class="btn btn-secondary cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="6" title='Cancel Information' />
+            </div>
+        </div>
+    </div>
+</div>
+}
+<script type="text/javascript">
+    CKEDITOR.replace('Description', { toolbar: '1', htmlEncodeOutput: true });
+</script>
+<script src="~/Scripts/Utility/Information.js"></script>
+<script src="~/Scripts/Library/ckeditor/ckeditor.js"></script>

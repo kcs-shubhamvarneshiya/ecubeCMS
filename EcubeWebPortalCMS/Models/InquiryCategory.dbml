@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="KBG_Dev" Class="InquiryCategoryDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=kcs-ovh-mssql01\SQL2014;Initial Catalog=KBG_Dev;User ID=eCubeeHSM" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ECubeCMSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.InquiryCategory" Member="InquiryCategories">
+    <Type Name="InquiryCategory">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Category" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="CategoryImage" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SeqNo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeletedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DeletedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.DeleteInquiryCategory" Method="DeleteInquiryCategory">
+    <Parameter Name="IdList" Parameter="idList" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="DeletedBy" Parameter="deletedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="DeleteInquiryCategoryResult">
+      <Column Name="TotalReference" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetAllInquiryCategory" Method="MS_GetAllInquiryCategory">
+    <ElementType Name="MS_GetAllInquiryCategoryResult">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryName" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="CategoryImage" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(300) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_InsertOrUpdateInquiryCategory" Method="MS_InsertOrUpdateInquiryCategory">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="InquiryCategoryName" Parameter="inquiryCategoryName" Type="System.String" DbType="VarChar(300)" />
+    <Parameter Name="Image" Parameter="image" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="MobileNo" Parameter="mobileNo" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Email" Parameter="email" Type="System.String" DbType="VarChar(300)" />
+    <Parameter Name="SeqNo" Parameter="seqNo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UserID" Parameter="userID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="MS_InsertOrUpdateInquiryCategoryResult">
+      <Column Name="InsertedId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_SearchInquiryCategory" Method="MS_SearchInquiryCategory">
+    <Parameter Name="Rows" Parameter="rows" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Page" Parameter="page" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Search" Parameter="search" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="Sort" Parameter="sort" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="MS_SearchInquiryCategoryResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SeqNo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetByInquiryCategoryID" Method="MS_GetByInquiryCategoryID">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="MS_GetByInquiryCategoryIDResult">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SeqNo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryImage" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

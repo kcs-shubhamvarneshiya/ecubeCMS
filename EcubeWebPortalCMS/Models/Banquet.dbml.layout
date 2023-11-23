@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Banquet">
+  <DataContextMoniker Name="/BanquetDataContext" />
+  <nestedChildShapes>
+    <classShape Id="43772716-b716-4063-9ebd-4e1c5436a3da" absoluteBounds="1, 1.125, 2, 3.5016097005208326">
+      <DataClassMoniker Name="/BanquetDataContext/Banquet" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1d7277cd-11b6-445a-8bf9-d66c9fcabd06" absoluteBounds="1.0150000000000001, 1.585, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4c4f3caa-0bac-4507-8164-ce38ee8e03bb" absoluteBounds="0.5, 0.875, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/BanquetDataContext/BanquetDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b3e268c2-e078-451d-a754-e06e22dd9d1b" absoluteBounds="0.515, 1.335, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2 : 1.125); (2 : 0.625); (1.5 : 0.625); (1.5 : 0.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BanquetDataContext/Banquet/Banquet_BanquetDetail" />
+      <nodes>
+        <classShapeMoniker Id="43772716-b716-4063-9ebd-4e1c5436a3da" />
+        <classShapeMoniker Id="4c4f3caa-0bac-4507-8164-ce38ee8e03bb" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

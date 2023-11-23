@@ -1,0 +1,105 @@
+﻿/*Karnavati*/
+.form-control:focus {
+    border-color: rgba(239,28,37,0.3) !important;
+}
+.text-primary {
+    color: #ef1c25 !important;
+}
+.text-secondary {
+    color: #222222 !important;
+}
+.bg-primary {
+    background-color: #ef1c25 !important;
+}
+.bg-secondary {
+    background-color: #222222 !important;
+}
+.btn-primary {
+    background-color: #ef1c25;
+    border-color: #ef1c25;
+}
+    .btn-primary:hover,
+    .btn-primary:focus, .btn-primary.focus,
+    .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
+        background-color: #222222;
+        border-color: #222222;
+    }
+.btn-secondary {
+    background-color: #222222;
+    border-color: #222222;
+}
+    .btn-secondary:hover,
+    .btn-secondary:focus, .btn-secondary.focus,
+    .btn-secondary:not(:disabled):not(.disabled):active,
+    .btn-secondary:not(:disabled):not(.disabled).active,
+    .show > .btn-secondary.dropdown-toggle {
+        background-color: #ef1c25;
+        border-color: #ef1c25;
+    }
+body #popup_container #popup_ok,
+body #popup_container #popup_cancel {
+    background: #ef1c25;
+    border-color: #ef1c25;
+}
+.usearch-text a.close {
+    background: #ef1c25 url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='red' xmlns='http://www.w3.org/2000/svg'%0A%3E%3Cpath d='M6.2253 4.81108C5.83477 4.42056 5.20161 4.42056 4.81108 4.81108C4.42056 5.20161 4.42056 5.83477 4.81108 6.2253L10.5858 12L4.81114 17.7747C4.42062 18.1652 4.42062 18.7984 4.81114 19.1889C5.20167 19.5794 5.83483 19.5794 6.22535 19.1889L12 13.4142L17.7747 19.1889C18.1652 19.5794 18.7984 19.5794 19.1889 19.1889C19.5794 18.7984 19.5794 18.1652 19.1889 17.7747L13.4142 12L19.189 6.2253C19.5795 5.83477 19.5795 5.20161 19.189 4.81108C18.7985 4.42056 18.1653 4.42056 17.7748 4.81108L12 10.5858L6.2253 4.81108Z' fill='white' /%3E%3C/svg%3E") no-repeat;
+    opacity: 1;
+    border-color: #ef1c25;
+}
+    body #popup_container #popup_ok:focus,
+    body #popup_container #popup_cancel:focus {
+        background-color: #222222;
+        border-color: #222222;
+    }
+    .page-sidebar .navbar-inner .sub-fluid-menu li a:hover, .page-sidebar .navbar-inner .sub-fluid-menu li a.MenuActive {
+        background: rgba(239,28,37,0.15);
+        color: #ef1c25;
+    }
+        .page-sidebar .navbar-inner .sub-fluid-menu li a:hover svg path, .page-sidebar .navbar-inner .sub-fluid-menu li a.MenuActive svg path {
+            fill: #ef1c25;
+        }
+        .page-sidebar .navbar-inner .sub-fluid-menu li a:hover.custom-stroke svg path, .page-sidebar .navbar-inner .sub-fluid-menu li a.MenuActive.custom-stroke svg path {
+            stroke: #ef1c25;
+        }
+            span.navbar-toggler-icon svg path {
+                fill: #ef1c25;
+            }
+        span.navbar-toggler-icon svg rect {
+            stroke: #ef1c25;
+        }
+.dropdown-item:hover, .dropdown-item:focus {
+    color: #ef1c25;
+}
+.dropdown-item.active, .dropdown-item:active {
+    background-color: #ef1c25;
+    color: #fff;
+}
+td a label.IconEdit + svg, td a label.IconView + svg, td label label.IconEdit + svg,
+td label label.IconDelete + svg, td a label.IconDelete + svg {
+    background: #ef1c25;
+}
+td label label.IconDelete + svg, td a label.IconDelete + svg {
+    background: #222222;
+}
+td a:hover label.IconEdit + svg, td a:hover label.IconView + svg {
+    background: #222222;
+}
+td a:hover label.IconDelete + svg {
+    background: #ef1c25;
+}
+input[type=file]:before {
+    background: #ef1c25;
+}
+.ui-widget-header {
+    background: #222222;
+}
+    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+        color: #222222;
+    }
+a:hover {
+    color: #ef1c25;
+}
+.ui-state-focus a, .ui-state-focus a:hover,
+.ui-state-focus a:link, .ui-state-focus a:visited, .ui-state-hover a, .ui-state-hover a:hover, .ui-state-hover a:link, .ui-state-hover a:visited {
+    color: #ef1c25 !important;
+}

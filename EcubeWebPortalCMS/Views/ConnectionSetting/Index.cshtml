@@ -1,0 +1,45 @@
+﻿@model EcubeWebPortalCMS.Models.ConnectionSettingModel
+
+@{
+    ViewBag.Title = "Connection Setting";
+    Layout = null;
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/Style/login")
+</head>
+<body class="login_page">
+    <div class="login_blockm">
+        <div class="login_box">
+            @using (Html.BeginForm("Index", "ConnectionSetting", FormMethod.Post, new { @id = "frmConnectionSetting", @class = "form_validation_ttip well stdform" }))
+            {
+                @Html.HiddenFor(m => m.IsAllowToChangeConfig)
+                <div class="top_b">
+                    @ViewBag.Title
+                </div>
+                <div id="errorInfo" class="alert alert-danger alert-login">  </div>
+                <div class="cnt_b">
+                    <div class="formRow">
+                        <div class="input-prepend">
+                            <span><b>ServerName</b></span>
+                            @Html.TextBoxFor(m => m.ServerName, new { @placeholder = "ServerName", @tabindex = "1", @title = "Enter ServerName", @autocomplete = "off" })
+                        </div>
+                    </div>
+                    <div class="formRow">
+                        <div class="input-prepend">
+                            <span><b>CatalogName</b></span>
+                            @Html.TextBoxFor(m => m.CatalogName, new { @placeholder = "CatalogName", @tabindex = "2", @title = "Enter CatalogName", @autocomplete = "off" })
+                        </div>
+                    </div>
+                </div>
+                <div class="btm_b clearfix">
+                    <button class="btn btn-inverse pull-right" type="button" id="btnSubmit">Submit</button>
+                </div>
+            }
+        </div>
+    </div>
+    @Scripts.Render("~/Scripts/ConnectionSetting")
+</body>
+</html>

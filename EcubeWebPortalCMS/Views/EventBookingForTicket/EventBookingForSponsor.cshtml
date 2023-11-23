@@ -1,0 +1,115 @@
+﻿@model EcubeWebPortalCMS.Models.EventBookingForSponsorModel
+@{
+    ViewBag.Title = "Event Booking For Sponsor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int EventID = Convert.ToInt32(ViewData["SelectEventID"]);
+    int GuestLimit = 0;
+    int ToSerialNo = 0;
+    int CuurentBooking = 0;
+}
+
+<style type="text/css">
+    body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    table {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+    }
+
+        table th {
+            background-color: #F7F7F7;
+            color: #333;
+            font-weight: bold;
+        }
+
+        table th, table td {
+            padding: 5px;
+            width: 300px;
+            border: 1px solid #ccc;
+        }
+</style>
+
+<div id="dvRate" class="panel panel-grey mt-5">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+        </h4>
+    </div>
+    <div class="panel-body pan">
+        <div class="card shadow rounded overflow-hidden card-space">
+            <div class="">
+                <div class="row d-flex align-items-end">
+                    <div class="col-md-4 mb-3 pb-3">
+                        <div class="row" style="align-self:right;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span id="SpanError" style="background-color: lightgray;">
+                                <h6 id="txth5" style="color:#e30016"></h6>
+                                <h6 id="txth6" style="color:#e30016"></h6>
+                            </span>
+                        </div>
+                        @*@Html.DropDownListFor(x => x.MemberNo, new SelectList(string.Empty, "Value", "Text", 0), "Select Member No.", new { @Id = "", @class = "span9  form-control", @tabindex = "2", @next = "BalanceAmount", @Style = "" })*@
+                        @Html.HiddenFor(model => model.Id, new { @id = "hfdId" })
+                        @Html.HiddenFor(model => model.MemberId, new { @id = "hfdMemberNoId" })
+                        <h5>
+                            Sponsor Name <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.SponsorName, new { @class = " form-control ", @maxlength = "50", @tabindex = "1", onchange = "SelectedIndexChangedMemberNoId()", @next = "CompanyName" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5>
+                            Company Name <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.CompanyName, new { @class = " form-control ", @maxlength = "50", @tabindex = "2", @next = "City" })
+                    </div>
+                    <div class="col-md-2 mb-3 pb-3">
+                        <h5>
+                            City <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.City, new { @class = " form-control ", @maxlength = "50", @tabindex = "3", @next = "GuestName" })
+                    </div>
+
+                    <div class="col-md-2 mb-3 pb-3">
+                        <h5>
+                            Booking Date <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.DropDownList("BookingDate",
+                        new SelectList("", "Value", "Text", 0),
+                        new { @class = "form-control validate[required] txtbox", @TabIndex = "1", onchange = "SelectedIndexChangedBookingDate()" }) @*required = "required"*@                        
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row">
+                    @Html.Hidden("hdnEventID", @EventID)
+                    @Html.Hidden("hdnGuestLimit", @GuestLimit)
+                    @Html.Hidden("hdnToSerialNo", @ToSerialNo)
+                    @Html.Hidden("hdnCuurentBooking", @CuurentBooking)
+                    <div class="col-md-4 mb-3 pb-3">
+                        <div id="webcam"></div>
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+
+
+                        <input class="btn btn-info small" id="btnCapture" name="inputSubmit" type="submit" value="Capture" tabindex="4"
+                               title="Capture">
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <div><img id="imgCapture" /></div>
+                    </div>
+                </div>
+                <hr />
+                <div class="d-flex justify-content-end mt-3">
+                    <input class="btn btn-primary mr-2" id="btnSave" name="inputSubmit" type="submit" value="Save" tabindex="5" title="Save EventCategory">
+                    <input class="btn btn-secondary Cancel" id="btnRateCancel" name="inputCancel" type="button" value="Cancel" tabindex="6" title="Cancel EventCategory">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>*@
+<script src="~/Scripts/Library/WebCam/WebCam.js"></script>
+<script src="~/Scripts/Utility/EventBookingForSponsor.js"></script>

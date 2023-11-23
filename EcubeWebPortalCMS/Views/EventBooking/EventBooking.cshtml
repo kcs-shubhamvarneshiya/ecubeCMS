@@ -1,0 +1,633 @@
+@model EcubeWebPortalCMS.Models.EventBookingModel
+
+@{
+    ViewBag.Title = "Event";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    bool isAddSchedule = Convert.ToBoolean(ViewData["blAddScheduleRights"]);
+    bool isEditSchedule = Convert.ToBoolean(ViewData["blEditScheduleRights"]);
+    bool isDeleteSchedule = Convert.ToBoolean(ViewData["blDeleteScheduleRights"]);
+
+    bool isAddRate = Convert.ToBoolean(ViewData["blAddRateRights"]);
+    bool isEditRate = Convert.ToBoolean(ViewData["blEditRateRights"]);
+    bool isDeleteRate = Convert.ToBoolean(ViewData["blDeleteRateRights"]);
+    string clubName = ViewData["ClubName"].ToString();
+}
+@using (Html.BeginForm("EventBooking", "EventBooking", FormMethod.Post, new { @id = "frmEvent", @class = "form_validation_ttip well stdform" }))
+{
+    if (Model != null && Model.ObjEventRateModel != null)
+    {
+        <script type="text/javascript">
+    /**/
+    var selectedEventCategory = '@Model.EventCategoryId';
+    /**/
+    /**/
+    var selectedEventTicketCategory = '@Model.ObjEventRateModel.EventTicketCategoryId';
+    /**/
+    /**/
+    var selectedAccounthead = '@Model.ObjEventRateModel.AccountheadId';
+    /**/
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+            var selectedEventCategory = 0;
+            var selectedEventTicketCategory = 0;
+            var selectedAccounthead = 0;
+        </script>
+    }
+
+    <div id="dvEvent" class="panel panel-grey">
+        <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+            <h4 class="heading mb-4 m-md-0">
+                @ViewBag.Title
+            </h4>
+        </div>
+        <div class="pan">
+            <div class="card shadow rounded overflow-hidden card-space">
+                <div class="row">
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Event Category <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.HiddenFor(model => model.Id, new { @id = "hfdId" })
+                        @Html.HiddenFor(model => model.EventCategoryId, new { @id = "hfdEventCategoryId" })
+                        @Html.DropDownList("EventCategoryId", new SelectList("", "Value", "Text", 0), new { @class = "form-control validate[required] txtbox", @TabIndex = "1" }) @*required = "required"*@
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Event Title  <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.EventTitle, new { @class = " form-control ", @maxlength = "50", @tabindex = "2", @next = "EventScreen" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Event Place  <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.EventPlace, new { @class = "  alphanumwithspc form-control ", @maxlength = "50", @tabindex = "3", @next = "RegistrationDate" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Event Last Registration Date  <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.RegistrationDate, new { @class = " EventLastRegistration form-control", @maxlength = "15", @tabindex = "4", @next = "RegistrationEndTime" })
+                        @Html.Hidden("hfRegistrationDate", Model.RegistrationDate)
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Event Registration End Time  <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.RegistrationEndTime, new { @class = " required time form-control", @maxlength = "2", @tabindex = "5", @next = "EventDuration" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Event Duration  <span class="f_req"></span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.EventDuration, new { @class = "  numwospc form-control ", @maxlength = "15", @tabindex = "6", @next = "GuestLimit" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Guest Limit <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.GuestLimit, new { @class = "  numwospc form-control", @maxlength = "3", @tabindex = "7", @next = "EventStartTime" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Event Start Time
+                        </h5>
+                        @if (Model.Id > 0)
+                        {
+                            @Html.TextBoxFor(m => m.EventStartTime, new { @class = " required time form-control", @maxlength = "15", @tabindex = "8", @next = "EventEndTime", disabled = "disabled" })
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(m => m.EventStartTime, new { @class = " required time form-control", @maxlength = "15", @tabindex = "8", @next = "EventEndTime" })
+                        }
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Event End Time
+                        </h5>
+                        @if (Model.Id > 0)
+                        {
+                            @Html.TextBoxFor(m => m.EventEndTime, new { @class = " required time form-control", @maxlength = "15", @tabindex = "9", @next = "ArtistsInfo", disabled = "disabled" })
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(m => m.EventEndTime, new { @class = " required time form-control", @maxlength = "15", @tabindex = "9", @next = "ArtistsInfo" })
+                        }
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Allow event entry before start time in Scanner App (Minutes)<span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(x => x.EventEntryBefore, new { @class = " form-control numwospc", @maxlength = "3", @tabindex = "10" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Allow event entry after start time in Scanner App (Minutes)<span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(x => x.EventEntryAfter, new { @class = " form-control numwospc", @maxlength = "3", @tabindex = "11" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2 min-h-45">
+                            Account Head <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.DropDownListFor(model => model.AccountHeadId, Model.AccountHeadList, new { @class = " required form-control", @TabIndex = "12" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Service Tax  <span class="f_req"></span>
+                        </h5>
+                        @Html.DropDownListFor(model => model.TaxMasterId, Model.TaxMasterList, new { @class = " required form-control", @TabIndex = "13", @next = "GuestLimit" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3 d-flex align-items-center">
+                        @Html.CheckBoxFor(x => x.IsMaximumTicketForFamilyMember, new { @class = " form-control", @tabindex = "14", @next = "MaximumTicketForFamilyMember" })
+                        <h5 class="ml-3 mb-0">
+                            Is Maximum Ticket For Family Member <span class="f_req text-danger">*</span>
+                        </h5>
+                    </div>
+                    <div class="hidden col-md-4 mb-3 pb-3" id="divMaximumTicketForFamilyMember">
+                        <h5 class="mb-2">
+                            Maximum Ticket For Family Member  <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.MaximumTicketForFamilyMember, new { @class = " numwospc  form-control", @maxlength = "2", @tabindex = "15", @next = "ArtistsInfo" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3 pb-3 d-flex">
+                        @if (Model.Id > 0)
+                        {
+                            @Html.CheckBoxFor(x => x.AllowMultipleCategory, new { @class = " form-control", @tabindex = "16", @next = "AllowMultipleCategory", disabled = "disabled" })
+                        }
+                        else
+                        {
+                            @Html.CheckBoxFor(x => x.AllowMultipleCategory, new { @class = " form-control", @tabindex = "16", @next = "AllowMultipleCategory" })
+                        }
+                        <h5 class="ml-3 mb-0">
+                            Allow Multiple Category booking for member in single event schedule.
+                        </h5>
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3 d-flex">
+                        @Html.CheckBoxFor(x => x.IsDisplayDetail, new { @class = " form-control", @tabindex = "17" })
+                        <h5 class="ml-3 mb-0">
+                            Is display member's details on event entry
+                        </h5>
+                    </div>
+                    <div class="col-md-6 mb-3 pb-3" style="display:none">
+                        <div class="">
+                            <h5 class="mb-2">
+                                Identification Code <span class="f_req text-danger">*</span>
+                            </h5>
+                            <h5 class="mb-2">
+                                @if (Model.Id > 0)
+                                {
+                                    @Html.RadioButtonFor(x => x.IsQRCode, "true", new { @class = "span5 form-control", @tabindex = "18", disabled = "disabled" })
+                                }
+                                else
+                                {
+                                    @Html.RadioButtonFor(x => x.IsQRCode, "true", new { @class = "span5 form-control", @tabindex = "18" })
+                                }QR
+                                @if (Model.Id > 0)
+                                {
+                                    @Html.RadioButtonFor(x => x.IsQRCode, "false", new { @class = "span5 form-control", @tabindex = "18", disabled = "disabled" })
+                                }
+                                else
+                                {
+                                    @Html.RadioButtonFor(x => x.IsQRCode, "false", new { @class = "span5 form-control", @tabindex = "18" })
+                                }Barcode
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-3">
+                            Event Attachment<span class="f_req"></span>
+                        </h5>
+                        <input type="file" id="EventAttachment" tabindex="19" />
+                        @Html.Hidden("hdnEventAttachment", Model.EventAttachment)
+                        <div class="">
+                            <span class="pt-2 pb-2 d-block text-danger">Note: Allowed Format: .pdf, .xlsx, .docx, .png, .jpg, .jpeg *image name should be image.jpg or image1.jpg</span>
+                            @{
+                                if (Model.EventAttachment != null && Model.EventAttachment != "")
+                                {
+                                    if (Model.EventAttachmentDisplay.ToLower().Contains("jpg") || Model.EventAttachmentDisplay.ToLower().Contains("png"))
+                                    {
+                                        <img id="AttachmentImage" alt="" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" src="@Model.EventAttachment" class="movie-mobile--img" style="display: block;" />
+                                    }
+                                    if (Model.EventAttachmentDisplay.ToLower().Contains("xlsx"))
+                                    {
+                                        <img src="~/Content/Image/Excel_Icon.png" id="XlsFile" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" style="width: 40px; margin: 5px 0; display: block;" />
+                                    }
+                                    if (Model.EventAttachmentDisplay.ToLower().Contains("pdf"))
+                                    {
+                                        <img src="~/Content/Image/Pdf_Icon.png" id="PDFfile" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" style="width: 40px; margin: 5px 0; display: block;" />
+                                    }
+                                    if (Model.EventAttachmentDisplay.ToLower().Contains("docx"))
+                                    {
+                                        <img src="~/Content/Image/Document_Icon.png" id="DocFile" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" style="width: 40px; margin: 5px 0; display: block;" />
+                                    }
+
+                                }
+                                <img id="AttachmentImage" alt="" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" src="@Model.EventAttachment" class="movie-mobile--img" style="display: none;" />
+                                <img src="~/Content/Image/Pdf_Icon.png" id="PDFfile" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" style="width: 40px; margin: 5px 0; display: none;" />
+                                <img src="~/Content/Image/Document_Icon.png" id="DocFile" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" style="width: 40px; margin: 5px 0; display: none;" />
+                                <img src="~/Content/Image/Excel_Icon.png" id="XlsFile" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" style="width: 40px; margin: 5px 0; display: none;" />
+                                if (Model.Id > 0)
+                                {
+                                    if (@Model.EventAttachmentDisplay != null && @Model.EventAttachmentDisplay != "")
+                                    {
+                                        int index = @Model.EventAttachmentDisplay.IndexOf("?");
+                                        if (index >= 0)
+                                            @Model.EventAttachmentDisplay = @Model.EventAttachmentDisplay.Substring(0, index);
+                                        <span id="lblEventAttachment">@Model.EventAttachmentDisplay</span>
+                                    }
+                                    else
+                                    {
+                                        <span id="lblEventAttachment">@Model.EventAttachment</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span id="lblEventAttachment">@Model.EventAttachment</span>
+                                }
+                            }
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4 mb-3 pb-3 d-block align-items-center" id="divCheckOutstadning">
+
+                        @Html.CheckBoxFor(x => x.IsCheckOutstanding, new { @class = " form-control", @tabindex = "14" })
+                        <h5 class="ml-3 mb-0 d-inline-block">
+                            Check Outstanding
+                        </h5>
+                        <div>
+                            <span class="pt-2 pb-2 d-block text-danger">Note: This checkbox used for to stop event booking for those member whose outstanding is more than the mentioned in outstanding box. If you want to use then click otherwise uncheck it.</span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-3 pb-3" id="divMemberOutstanding">
+                        <h5 class="mb-2">
+                            Outstanding Amount For Member
+                        </h5>
+                        @Html.TextBoxFor(m => m.OutstandingAmountForMember, new { @class = "form-control", @tabindex = "15", @next = "ArtistsInfo" })
+                    </div>
+                    @*<div class="hidden col-md-4 mb-3 pb-3">*@
+                        @*<h5 class="mb-2">
+                            Outstanding Amount For Member<span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.OutstandingAmountForMember, new { @class = "form-control", @tabindex = "15", @next = "ArtistsInfo" })*@
+                    @*</div>*@
+
+
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Event Banner Image<span class="f_req"></span>
+                        </h5>
+                        <input type="file" id="EventBannerImage" tabindex="20" />
+                        @Html.Hidden("hdnEventBannerImage", Model.EventBannerImage)
+                        <div class="mt-2">
+                            <img id="aEventBannerImage" alt="" src="@Model.EventBannerImage" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';"  class="movie-mobile--img" />
+                            <span class="pt-2 pb-2 d-block text-danger">Note: Allowed Format: .jpg, .gif, .png, .jpeg *image name should be image.jpg or image1.jpg</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Event List Image<span class="f_req"></span>
+                        </h5>
+                        <input type="file" id="EventImage" tabindex="21" />
+                        @Html.Hidden("hdnEventImage", Model.EventImage)
+                        <div class="mt-2">
+                            <img id="aEventImage" alt="" src="@Model.EventImage" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" class="movie-mobile--img" />
+                            <span class="pt-2 pb-2 d-block text-danger">Note: Allowed Format: .jpg, .gif, .png, .jpeg *image name should be image.jpg or image1.jpg </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Mobile Banner Image<span class="f_req"></span>
+                        </h5>
+                        <input type="file" id="EventMobileImage" tabindex="22" />
+                        @Html.Hidden("hdnEventMobileImage", Model.EventMobileImage)
+
+                        <div class="mt-2">
+                            <img id="aEventMobileImage" alt="" src="@Model.EventMobileImage" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" class="movie-mobile--img" />
+                            <span class="pt-2 pb-2 d-block text-danger">Note: Allowed Format: .jpg, .gif, .png, .jpeg *image name should be image.jpg or image1.jpg</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Artists Information
+                        </h5>
+                        @Html.TextAreaFor(m => m.ArtistsInfo, new { @class = "  alphanumwithspc form-control ckeditor", @maxlength = "250", @tabindex = "23", @next = "EventSynopsis" })
+                    </div>
+                    <div class="col-md-8 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Event Synopsis
+                        </h5>
+                        @Html.TextAreaFor(m => m.EventSynopsis, new { @class = "  alphanumwithspc form-control ckeditor", @maxlength = "250", @tabindex = "24", @next = "TermsConditions" })
+                    </div>
+                    <div class="col-md-8 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Terms & Conditions
+                        </h5>
+                        @Html.TextAreaFor(m => m.TermsConditions, new { @class = "  alphanumwithspc form-control ckeditor", @maxlength = "250", @tabindex = "25", @next = "EventImage" })
+                    </div>
+
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                    <input class="btn btn-inverse btn-primary mr-2" id="btnEventSubmit" name="inputSubmit" type="button" value="Save & Next" tabindex="26" title='Save Event' />
+                    <input class="btn btn-inverse btn-secondary Cancel" id="btnEventCancel" name="inputSubmit" type="button" value="Cancel" tabindex="27" title='Cancel' />
+                </div>
+            </div>
+            @*<div class="">
+                    <div class="">
+                        <div class="d-flex justify-content-end mt-3">
+                            <input class="btn btn-inverse btn-primary mr-2" id="btnEventSubmit" name="inputSubmit" type="button" value="Save & Next" tabindex="19" title='Save Event' />
+                            <input class="btn btn-inverse btn-secondary Cancel" id="btnEventCancel" name="inputSubmit" type="button" value="Cancel" tabindex="20" title='Cancel' />
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+
+    <div id="dvSchedule" class="panel panel-grey mt-5">
+        <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+            <h4 class="heading mb-4 m-md-0">
+                @ViewBag.Title Schedule
+            </h4>
+        </div>
+        <h4>@ViewBag.Message</h4>
+        <div class="panel-body pan">
+            <div class="card shadow rounded overflow-hidden card-space">
+                <div class="row d-flex align-items-end">
+                    <div class="col-4">
+                        <h5>
+                            Event From Date<span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.HiddenFor(model => model.ObjEventScheduleModel.Id, new { @id = "hfdScheduleId" })
+                        @Html.TextBoxFor(m => m.ObjEventScheduleModel.EventFromDate, new { @class = " dmmyyyyFromToDatePicker FromDatePicker form-control ", @maxlength = "15", @tabindex = "28", @next = "EventToDate" })
+
+                    </div>
+                    <div class="col-4">
+                        <h5>
+                            Event To Date<span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.ObjEventScheduleModel.EventToDate, new { @class = " dmmyyyyFromToDatePicker ToDatePicker form-control ", @maxlength = "15", @tabindex = "29", @next = "AvailableSeat" })
+                    </div>
+                    <div class="col-4">
+                        <input class="btn btn-inverse btn-primary" id="btnScheduleAdd" name="inputSubmit" type="button" value="Add Schedule" tabindex="30" title='Add Schedule' />
+                    </div>
+                </div>
+                <div class=" user-contant">
+                    @Html.Hidden("hfAddSchedule", @isAddSchedule)
+                    @Html.Hidden("hfEditSchedule", @isEditSchedule)
+                    @Html.Hidden("hfDeleteSchedule", @isDeleteSchedule)
+                    <div id="dvEventSchedule">
+                        <br />
+                        <table id="tblEventSchedule"></table>
+                        <div id="dvEventScheduleFooter"></div>
+                        <br />
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mt-1">
+                    <input class="btn btn-inverse btn-primary mr-2" id="btnScheduleNext" name="inputSubmit" type="button" value="Next" tabindex="31" title='Save & Next Schedule' />
+                    <input class="btn btn-inverse btn-secondary Cancel" id="btnScheduleCancel" name="inputSubmit" type="button" value="Cancel" tabindex="32" title='Cancel' />
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Hidden("hdnClientName", @clubName)
+    if (@clubName != "UmedClub")
+    {
+        <div id="dvRate" class="panel panel-grey mt-5">
+            <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+                <h4 class="heading mb-4 m-md-0">
+                    @ViewBag.Title Rate
+                </h4>
+            </div>
+            <div class="panel-body pan">
+                <div class="card shadow rounded overflow-hidden card-space">
+                    <div class="">
+                        <div class="row d-flex align-items-end">
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    Ticket Category <span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.HiddenFor(model => model.ObjEventRateModel.Id, new { @id = "hfdRateId" })
+                                @Html.HiddenFor(model => model.ObjEventRateModel.EventTicketCategoryId, new { @id = "hfdEventTicketCategoryId" })
+                                @Html.DropDownList("EventTicketCategoryId", new SelectList(string.Empty, "Value", "Text", 0), "Select Event Ticket Category", new { @class = "form-control validate[required] txtbox", @TabIndex = "33" })
+                            </div>
+                            @*<div class="col-md-4 mb-3 pb-3">
+                                    <h5>
+                                        Account Head <span class="f_req text-danger">*</span>
+                                    </h5>
+                                    @Html.HiddenFor(model => model.ObjEventRateModel.AccountheadId, new { @id = "hfdAccountheadId" })
+                                    @Html.DropDownList("AccountheadId", new SelectList(string.Empty, "Value", "Text", 0), "Select Account Head", new { @class = "validate[required] txtbox", @TabIndex = "23", style = "width: 255px; height: 30px;" })
+                                </div>*@
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    Member Fees<span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.MemberFees, new { @class = " TwoDecimal form-control ", @maxlength = "10", @tabindex = "34", @next = "SubMemberFees" })
+                            </div>
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    Sub Member Fees<span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.SubMemberFees, new { @class = "  TwoDecimal form-control ", @maxlength = "10", @tabindex = "35", @next = "GuestFees" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    Guest Fees <span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.GuestFees, new { @class = " TwoDecimal form-control ", @maxlength = "10", @tabindex = "36", @next = "NoOfSeats" })
+                            </div>
+
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    No.Of.Seats <span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.NoOfSeats, new { @class = "  numwithspc form-control ", @maxlength = "4", @tabindex = "37", @next = "MemberSeatLimit" })
+                            </div>
+                            @*--AddBy : Karan Shah on Date : 28-MAR-2017
+                                Description : Member Seat Limit and Guest Seat Limit
+                                No. of seats must equals to sum of Member seat Limit and Guest Seat Limit*@
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    Member Seat Limit <span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.MemberSeatLimit, new { @class = " numwithspc form-control ", @maxlength = "15", @tabindex = "38", @next = "GuestSeatLimit" })
+                            </div>
+                        </div>
+                        <div class="row d-flex align-items-end">
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    Guest Seat Limit <span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.GuestSeatLimit, new { @class = " numwithspc form-control ", @maxlength = "15", @tabindex = "39", @next = "btnRateAdd" })
+                            </div>
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5></h5>
+                                <input class="btn btn-inverse btn-primary lt" id="btnRateAdd" name="inputSubmit" type="button" value="Add Rate" tabindex="40" title='Add Rate' />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                @Html.Hidden("hfAddRate", @isAddRate)
+                                @Html.Hidden("hfEditRate", @isEditRate)
+                                @Html.Hidden("hfDeleteRate", @isDeleteRate)
+                                <div id="dvEventRate">
+                                    <br />
+                                    <table id="tblEventRate"></table>
+                                    <div id="dvEventRateFooter"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end mt-1">
+                            <input class="btn btn-inverse btn-secondary Cancel" id="btnRateCancel" name="inputSubmit" type="button" value="Cancel" tabindex="41" title='Cancel' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>}
+    else
+    {
+        <div id="dvRate" class="panel panel-grey mt-5">
+            <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+                <h4 class="heading mb-4 m-md-0">
+                    @ViewBag.Title Rate
+                </h4>
+            </div>
+            <div class="panel-body pan">
+                <div class="card shadow rounded overflow-hidden card-space">
+                    <div class="">
+                        <div class="row d-flex align-items-end">
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    Ticket Category <span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.HiddenFor(model => model.ObjEventRateModel.Id, new { @id = "hfdRateId" })
+                                @Html.HiddenFor(model => model.ObjEventRateModel.EventTicketCategoryId, new { @id = "hfdEventTicketCategoryId" })
+                                @Html.DropDownList("EventTicketCategoryId", new SelectList(string.Empty, "Value", "Text", 0), "Select Event Ticket Category", new { @class = "form-control validate[required] txtbox", @TabIndex = "33" })
+                            </div>
+                            @*<div class="col-md-4 mb-3 pb-3">
+                                    <h5>
+                                        Account Head <span class="f_req text-danger">*</span>
+                                    </h5>
+                                    @Html.HiddenFor(model => model.ObjEventRateModel.AccountheadId, new { @id = "hfdAccountheadId" })
+                                    @Html.DropDownList("AccountheadId", new SelectList(string.Empty, "Value", "Text", 0), "Select Account Head", new { @class = "validate[required] txtbox", @TabIndex = "23", style = "width: 255px; height: 30px;" })
+                                </div>*@
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    Member Fees<span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.MemberFees, new { @class = " TwoDecimal form-control ", @maxlength = "10", @tabindex = "34", @next = "SubMemberFees" })
+                            </div>
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    Member Child Fees<span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.SubMemberFees, new { @class = "  TwoDecimal form-control ", @maxlength = "10", @tabindex = "35", @next = "GuestFees" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    Guest Fees <span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.GuestFees, new { @class = " TwoDecimal form-control ", @maxlength = "10", @tabindex = "36", @next = "AffiliateMemberFee" })
+                            </div>
+
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    Affiliate Member Fees <span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.AffiliateMemberFee, new { @class = "  numwithspc form-control ", @maxlength = "4", @tabindex = "37", @next = "ParentFee" })
+                            </div>
+                            @*--AddBy : Karan Shah on Date : 28-MAR-2017
+                                Description : Member Seat Limit and Guest Seat Limit
+                                No. of seats must equals to sum of Member seat Limit and Guest Seat Limit*@
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    Parent Fees <span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.ParentFee, new { @class = " numwithspc form-control ", @maxlength = "15", @tabindex = "38", @next = "GuestChildFee" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    Guest Child Fees <span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.GuestChildFee, new { @class = " TwoDecimal form-control ", @maxlength = "10", @tabindex = "39", @next = "GuestRoomFee" })
+                            </div>
+
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    Guest Room Fees <span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.GuestRoomFee, new { @class = "  numwithspc form-control ", @maxlength = "4", @tabindex = "40", @next = "FromSerialNo" })
+                            </div>
+                            @*--AddBy : Karan Shah on Date : 28-MAR-2017
+                                Description : Member Seat Limit and Guest Seat Limit
+                                No. of seats must equals to sum of Member seat Limit and Guest Seat Limit*@
+                            @*<div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    Guest Seat Limit <span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.GuestSeatLimit, new { @class = " numwithspc form-control ", @maxlength = "15", @tabindex = "39", @next = "btnRateAdd" })
+                            </div>*@
+                        </div>
+
+                        <div class="row d-flex align-items-end">
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    From Serial No <span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.FromSerialNo, new { @class = " numwithspc form-control ", @maxlength = "15", @tabindex = "41", @next = "ToSerialNo" })
+                            </div>
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    To Serial No <span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.ToSerialNo, new { @class = " numwithspc form-control ", @maxlength = "15", @tabindex = "42", @next = "btnRateAdd" })
+                            </div>
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5>
+                                    No.Of.Seats. (Per day)<span class="f_req text-danger">*</span>
+                                </h5>
+                                @Html.TextBoxFor(m => m.ObjEventRateModel.NoOfSeats, new { @class = "  numwithspc form-control ", @maxlength = "4", @tabindex = "37", @next = "MemberSeatLimit" })
+                            </div>
+                            <div class="col-md-4 mb-3 pb-3">
+                                <h5></h5>
+                                <input class="btn btn-inverse btn-primary lt" id="btnRateAddUmed" name="inputSubmit" type="button" value="Add Rate" tabindex="43" title='Add Rate' />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                @Html.Hidden("hfAddRate", @isAddRate)
+                                @Html.Hidden("hfEditRate", @isEditRate)
+                                @Html.Hidden("hfDeleteRate", @isDeleteRate)
+                                <div id="dvEventRate">
+                                    <br />
+                                    <table id="tblEventRate"></table>
+                                    <div id="dvEventRateFooter"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end mt-1">
+                            <input class="btn btn-inverse btn-secondary Cancel" id="btnRateCancel" name="inputSubmit" type="button" value="Cancel" tabindex="44" title='Cancel' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+<script src="~/Scripts/Utility/EventBooking.js"></script>
+<script src="~/Scripts/Library/ckeditor/ckeditor.js"></script>

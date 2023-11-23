@@ -1,0 +1,35 @@
+﻿@model EcubeWebPortalCMS.Models.EventTicketModel
+@{
+    ViewBag.Title = "Event Ticket";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string cacheCleaner = DateTime.Now.ToString("ddMMyyyhhmmss");
+}
+
+<div class="">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+        </h4>
+    </div>
+    <div class="card shadow rounded overflow-hidden card-space">
+        <div class="row d-flex align-items-end">
+            <div class="col-md-4 mb-3 pb-3">
+                @Html.TextBoxFor(m => m.EventBookingId, new { @id = "txteventBookingId", placeholder = "Serial No", @class = "span9 form-control", @maxlength = "50", @tabindex = "4", @next = "Movie", @Style = "" })
+            </div>
+            <div class="col-md-4 mb-3 pb-3">
+                @Html.TextBoxFor(m => m.MemberCode, new { @id = "txtMemberCode", placeholder = "Member code", @class = "span9 form-control", @maxlength = "50", @tabindex = "5", @next = "Movie", @Style = "" })
+            </div>
+            <div class="col-md-4 mb-3 pb-3">
+                <input type="button" class="btn btn-inverse btn-primary" id="btnSearch" tabindex="6" value="Search" />
+            </div>
+        </div>
+        <div class="user-constant mt-3">
+            <div id="dvEventTicket" class="card shadow rounded overflow-hidden">
+                <table id="tblEventTicket"></table>
+                <div id="dvEventTicketFooter"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+   @* <link href="~/Content/Style/style.css" rel="stylesheet" />*@
+    <script src="~/Scripts/Utility/EventTicket.js?@cacheCleaner"></script>

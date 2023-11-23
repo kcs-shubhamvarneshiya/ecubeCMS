@@ -1,0 +1,283 @@
+﻿@model List<EcubeWebPortalCMS.Models.EventTicketModel>
+@using EcubeWebPortalCMS.Common;
+@{
+    ViewBag.Title = "PrintBookedEventTicket";
+    Layout = null;
+    string headerText = Functions.GetPropertyInfo().Name;
+    string clubName = Functions.GetSettings("ClubName2");
+    clubName = clubName.IsNullString() ? "KCSDemo" : clubName;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Event Ticket</title>
+    <link rel="shortcut icon" href="~/Content/Image/logo/@clubName/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/Style/css")
+    <link href="~/Content/waitMe.css" rel="stylesheet" />
+    <script src="~/Scripts/JQuery/jquery-1.11.0.js"></script>
+    <script src="~/Scripts/printjs/jspdf.js"></script>
+    <script src="~/Scripts/printjs/html2canvas.js"></script>
+
+    <script>
+        $(document).ready(function ($) {
+            window.print();
+        });
+
+        function downloadEventBooking() {
+            html2canvas(document.getElementById('eventBookingPrint')).then(function (canvas) {
+                $('#pdfimage').show();
+                var img = canvas.toDataURL("image/jpeg", 1.0);
+                document.getElementById("pdfimage").src = img
+
+                var doc = new jsPDF();
+                var specialElementHandlers = {
+                    '#editor': function (element, renderer) {
+                        return true;
+                    }
+                };
+                var value1 = 0;
+                var value2 = 0;
+                var value3 = 0;
+                var value4 = 0;
+                doc.addImage(document.getElementById("pdfimage"), 'jpeg', value1, value2, value3, value4);
+
+                doc.save('TicketPrint.pdf');
+                $('#pdfimage').hide();
+            });
+        }
+    </script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet'
+          type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700'
+          rel='stylesheet' type='text/css'>
+
+    <style type="text/css">
+        .ticketlogo {
+            display: none;
+            width: 1055px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            margin-bottom: 30px;
+        }
+
+        .ticket-row {
+            background-color: #ebeff4;
+            padding: 30px 0;
+        }
+
+        .ticketinformation {
+            max-width: 1055px;
+            margin: 0 auto;
+            padding: 20px 25px;
+        }
+
+        .printticket {
+            width: 1055px;
+            background-color: #ffffff;
+            margin: 0 auto;
+            border-radius: 6px;
+        }
+
+        .ticketqr-code {
+            width: 145px;
+        }
+
+        .ticketqr {
+            width: 195px;
+        }
+
+        .movietitle {
+            font-size: 30px;
+            color: #000;
+            font-weight: bold;
+            line-height: 34px;
+            padding: 0 0 30px;
+        }
+
+        .ticketlabel {
+            font-size: 16px;
+            line-height: 20px;
+            color: #000000;
+            padding: 0 0 3px;
+            font-weight: bold;
+        }
+
+        .ticketvalue {
+            font-size: 16px;
+            line-height: 20px;
+            color: #000;
+            font-weight: normal;
+        }
+
+        @@media print {
+            @@page {
+                background-color: #ebeff4 !important;
+                -webkit-print-color-adjust: exact;
+                margin: 0px !important;
+            }
+
+            body {
+                background-color: #ebeff4 !important;
+                -webkit-print-color-adjust: exact;
+            }
+
+            #footer {
+                display: none !important;
+            }
+
+            .ticketlogo {
+                background-color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+                padding: 25px;
+                display: block !important;
+                width: 730px !important;
+            }
+
+            .ticket-row {
+                padding: 0;
+            }
+
+            .printticket {
+                width: 730px !important;
+                background-color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+                border-radius: 6px;
+            }
+
+            .ticketqr {
+                width: 160px;
+            }
+
+            .movietitle {
+                font-size: 20px;
+                line-height: 24px;
+                padding: 0 0 20px;
+            }
+
+            .ticket-control {
+                text-align: center;
+                padding: 45px 0 60px;
+            }
+
+                .ticket-control a {
+                    padding: 0 15px 0 45px;
+                    height: 41px;
+                    line-height: 40px;
+                    border: 1px solid #a8b1b9;
+                    font-size: 16px;
+                    color: #484848;
+                    font-weight: 400;
+                    margin: 0;
+                    display: inline-block;
+                    background-color: #ffffff;
+                    background-position: 13px center;
+                    background-repeat: no-repeat;
+                }
+
+                    .ticket-control a.list-download {
+                        background-image: url(../image/download-icon.png);
+                    }
+
+                    .ticket-control a.list-print {
+                        background-image: url(../image/print-icon.png);
+                        margin-left: -5px;
+                    }
+        }
+    </style>
+
+</head>
+<body class="body" style=" background: #ebeff4;">
+    <div id="main-section">
+        <section id="main-section">
+
+            <div id="eventBookingPrint">
+                @foreach (var eventBookingDetail in Model.ToList())
+                {
+                    <section style="page-break-after: always">
+                        @*--AddBy : Karan Shah to break page after every section on print*@
+
+                        <div class="container-fluid ticket-row">
+
+                            <div class="ticke-div printticket">
+                                <table class="w-100">
+                                    <tr>
+                                        <td class="movieticketleft tickedivbg" valign="top" style="padding:25px 15px 25px 25px;">
+                                            <table class="w-100">
+                                                <tr>
+                                                    <td class="movietitle" colspan="3">@eventBookingDetail.EventTitle</td>
+                                                </tr>
+                                                <tr>
+                                                    @if (eventBookingDetail.UserPhoto1.Length > 0)
+                                                    {
+                                                        <td>
+                                                            <img src="@eventBookingDetail.UserPhoto1" alt="Image Not Available" />
+                                                        </td>
+                                                    }
+                                                    <td valign="top" width="271" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Ticket Category:</div>
+                                                        <div class="ticketvalue">@eventBookingDetail.EventTicketCategoryName</div>
+                                                    </td>
+                                                    <td valign="top" width="271" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Name:</div>
+                                                        <div class="ticketvalue">@eventBookingDetail.UserName</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" width="271" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Serial Id:</div>
+                                                        <div class="ticketvalue">@eventBookingDetail.EventTicketNo <span>Date/Time:</span> @eventBookingDetail.EventDate - @eventBookingDetail.EventStartTime</div>
+                                                    </td>
+                                                    <td valign="top" width="271" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Payment Type:</div>
+                                                        <div class="ticketvalue">@eventBookingDetail.PaymentType</div>
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+                                        </td>
+                                        <td width="35" style="padding: 0;">
+                                            <img style="width: 24px; background: #E2E2E2; object-fit: contain; height: 300px;" src="/Content/Image/ticket-dot.png">
+                                        </td>
+                                        @if (!string.IsNullOrEmpty(eventBookingDetail.QRCodePath) && eventBookingDetail.IsQRCode)
+                                        {
+                                            <td class="movieticketright ticketqr" align="center" colspan="2" style="width: 260px">
+                                                <img class="ticketqr-code" src="@eventBookingDetail.QRCodePath" alt="@eventBookingDetail.EventTitle" />
+                                            </td>
+                                        }
+                                        else if (!string.IsNullOrEmpty(eventBookingDetail.QRCodePath) && !eventBookingDetail.IsQRCode)
+                                        {
+                                            <td class="movieticketright ticketqr" align="center" colspan="2" style="width: 260px">
+                                                <img class="ticketqr-code" src="@eventBookingDetail.QRCodePath" alt="@eventBookingDetail.EventTitle" />
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="movieticketright ticketqr" align="center" colspan="2" style="width: 260px">
+                                            </td>
+                                        }
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="ticketinformation">
+                                <p style="">
+                                    <strong>Important Instructions</strong>
+                                    <br />
+                                    Seat once booked cannot be exchanged, cancelled or refunded.
+                                    The Credit Card and Credit Card Holder must be present at the counter
+                                </p>
+                            </div>
+
+                        </div>
+                    </section>
+
+                }
+            </div>
+        </section>
+    </div>
+    <img id="pdfimage" />
+</body>
+</html>

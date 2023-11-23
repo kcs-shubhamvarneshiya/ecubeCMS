@@ -1,0 +1,80 @@
+﻿@model EcubeWebPortalCMS.Models.ServiceSupportModel
+@{
+    ViewBag.Title = "Service Support Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row-fluid" id="dvServiceReport" style="padding-top: 15px;">
+    <div class="span12">
+        <h4 class="heading" style="border-bottom: 1px solid #dcdcdc; margin-bottom: 18px; padding-bottom: 5px; width:99%">
+            @Html.DisplayTextFor(m => m.CompanyName)
+        </h4>
+    </div>
+    <div class="row-fluid">
+        <div class="span2" style="width: 9%">
+            Request# : 
+        </div>
+        <div class="span2" style="margin: auto">
+            @Html.DisplayTextFor(m => m.Id)
+            @*@Html.HiddenFor(m => m.Id)*@
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span2" style="width: 9.2%">
+            Request Date: 
+        </div>
+        <div class="span2" style="margin: auto">
+            @Html.DisplayTextFor(m => m.CreatedOn)
+            @*@Html.HiddenFor(m => m.CreatedOn)*@
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span2" style="width: 9%">
+            Request For: 
+        </div>
+        <div class="span2" style="margin: auto">
+            @Html.DisplayTextFor(m => m.TypeName)
+            @*@Html.HiddenFor(m => m.TypeName)*@
+        </div>
+    </div>
+    <div class="row-fluid" style="margin-top: 0.5%">
+        <div class="span2 size" style="width: 9%">
+            @*Description:*@
+        </div>
+        <div class="span7" style="margin: auto">
+            @Html.DisplayTextFor(m => m.Description)
+            @*@Html.HiddenFor(m => m.Description)*@
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span2" style="width: 9%">
+            Request By: 
+        </div>
+        <div class="span4" style="margin: auto">
+            @Html.DisplayTextFor(m => m.MemberName) - @Html.DisplayTextFor(m => m.MemberCode)
+            @*@Html.HiddenFor(m => m.MemberName)*@
+            @*@Html.HiddenFor(m => m.MemberCode)*@
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span2" style="width: 9%">
+            Allocated To: 
+        </div>
+        <div class="span3" style="margin: auto">
+            @Html.DisplayTextFor(m => m.ResponseBy)
+            @*@Html.HiddenFor(m => m.ResponseBy)*@
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span2" style="width: 9%">
+            Remarks: 
+        </div>
+        <div class="span10" style="margin: auto">
+            <textarea class="span4 " name="Remarks" rows="4"></textarea>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <input class="btn btn-inverse" id="btnSubmit" name="inputSubmit" type="submit" value="Print" title="Save ServiceSupportReport" onclick="return Openpopup();" />
+</div>
+
+<script src="~/Scripts/Utility/ServiceSupportReport.js"></script>

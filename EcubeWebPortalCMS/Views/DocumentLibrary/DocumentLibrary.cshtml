@@ -1,0 +1,65 @@
+﻿@model EcubeWebPortalCMS.Models.DocumentLibraryModel
+@{
+    ViewBag.Title = "Document Library";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("DocumentLibrary", "DocumentLibrary", FormMethod.Post, new { @id = "frmDocumentLibrary", @class = "form_validation_ttip well stdform" }))
+{
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <br />
+                <h4 class="heading">
+                    @ViewBag.Title</h4>
+                <br />
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.DocumentId)
+        @Html.HiddenFor(m => m.HdnIFrame)
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Document Title
+                <span class="f_req text-danger">*</span>
+                </label>
+                @Html.TextBoxFor(m => m.Title, new { @class = "span5 required", @maxlength = "50", @tabindex = "2", @placeholder="Please Enter Document Title." })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Document Browse
+                <span class="f_req text-danger">*</span>
+                </label>
+                <input type="file" id="FileUploadDocument" />
+                @Html.Hidden("hdnFileUploadDocument", Model.DocumentName)
+                 <div class="form-group">
+                           <span>Note:Do Not Upload files having .exe extension.</span>
+                 </div>
+            </div>
+            @* <a target='_blank' href="/Documents/@Model.DocumentName">  @Model.DocumentName </a>*@
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Remark
+                </label>
+                @Html.TextBoxFor(m => m.Remark, new { @class = "span5", @maxlength = "50", @tabindex = "2", @placeholder="Please Enter Remark." })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Active
+                </label>
+                @Html.CheckBoxFor(m => m.IsActive)
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <input class="btn btn-inverse" id="btnSubmit" name="inputSubmit" type="submit" value="Save" title="Save Document" />
+        <input class="btn cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" title="Cancel Document" />
+    </div>
+}
+
+<script src="~/Scripts/Utility/DocumentLibrary.js"></script>

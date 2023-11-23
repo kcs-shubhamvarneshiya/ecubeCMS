@@ -1,0 +1,149 @@
+﻿@model EcubeWebPortalCMS.Models.EventBookingForPrintTokenModel
+@{
+    ViewBag.Title = "EventBookingForTicketPrint";
+}
+
+
+<style type="text/css">
+</style>
+<div id="dvRate" class="panel panel-grey mt-5">
+    <div class="panel-heading">
+        <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+            <h4 class="heading mb-4 m-md-0">
+                Event Booking Ticket
+            </h4>
+
+        </div>
+    </div>
+    <div class="panel-body pan">
+        <div class="card shadow rounded overflow-hidden card-space">
+
+            <div id="DivTicket">
+                @{
+
+                    if (Model.PrintList.Count > 0)
+                    {
+
+                        foreach (var item in Model.PrintList)
+                        {
+                            <div class="row" style="display: flex; justify-content: center;">
+                                <div id="DivBord1" style="padding: 8px 37px; display: flex;">
+                                    <div id="DivDash" style="border-right: 3px dashed;">
+
+                                        <div id="DivBord2" style="border: 1px solid black; width: 400px; height: 377px; margin-right: 15px;">
+                                            <div style="margin: 147px 0px 94px 64px;">
+                                                <table style="margin-left:40px;">
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="text-align: right; font-weight: bold;">No. <i> @item.SeriolNo</i></td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight: bold;"> @item.MemberNo</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight: bold;"> @item.MainMember</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td> @item.Relation</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight: bold;"> @item.Member_Name</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@item.Date</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="DivBord3" style="border: 1px solid black; width: 580px; height: 300px; margin-left: 15px;">
+                                        <div style="margin: 97px 0px 94px 64px;">
+
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 124px;">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+
+                                                                        <td><img width="98px" height="98px" src="@item.Photo" alt="Img"></td>
+
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                        <td style="width: 255px;">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="text-align: right; font-weight: bold;">No. <i> @item.SeriolNo </i></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="font-weight: bold;">
+                                                                            @item.MemberNo
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="font-weight: bold;"> @item.MainMember </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>@item.Relation</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="font-weight: bold;">@item.Member_Name</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            @item.Date
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                        <td>
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td><img width="98px" height="98px" src="@item.QR" alt="QR"></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p style="page-break-after: always;"></p>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center">
+                            <h2 class="text-black">No Available Event Ticket</h2>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-4">
+                    <div class="d-flex justify-content-end mt-3">
+                        <input class="btn btn-primary mr-2" id="BtnPrint" name="Print" type="submit" value="Print" onclick="Openpopup();" tabindex="2">
+                        <input class="btn btn-danger mr-2 Cancel" id="Cancel" name="Cancel" type="submit" value="Close" tabindex="2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/Utility/EventBookingForPrintToken.js"></script>

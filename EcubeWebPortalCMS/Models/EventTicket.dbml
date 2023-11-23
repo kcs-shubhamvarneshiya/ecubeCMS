@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ClubO7_Dev" Class="EventTicketDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.1.80\sql2014;Initial Catalog=ClubO7_Dev;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ECubeCMSConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.MS_GetBookedEventBooking" Method="MS_GetBookedEventBooking">
+    <Parameter Name="MemberId" Parameter="memberId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="EventBookingId" Parameter="eventBookingId" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="MemberCode" Parameter="memberCode" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="MS_GetBookedEventBookingResult">
+      <Column Name="EventTitle" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Column Name="MemberID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EventBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EventDate" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="EventStartTime" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="MemberCode" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetEventBookingDetail" Method="MS_GetEventBookingDetail">
+    <Parameter Name="EventBookingID" Parameter="eventBookingID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="MS_GetEventBookingDetailResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EventScheduleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MemberID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CRMPaymentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BaseAmount" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="TaxAmount" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="TotalAmount" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="Id1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EventBookingId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubMemberID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Guest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TicketsNO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserBaseAmount" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="UserTaxAmount" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="UserTotalAmount" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="AccountHeadId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TaxMasterId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EventDate" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="UserImage" Type="System.String" DbType="NVarChar(1600) NOT NULL" CanBeNull="false" />
+      <Column Name="UserPhoto1" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="EventTitle" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Column Name="EventPlace" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="EventDuration" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="EventStartTime" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="EventEndTime" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="MemberName" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
+      <Column Name="ClubName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ClubAddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Signature" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PaymentType" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="IsQRCode" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="EventTicketCategoryName" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="EventTicketNo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>

@@ -1,0 +1,36 @@
+@model EcubeWebPortalCMS.Models.EventCategoryModel
+@{
+    ViewBag.Title = "Event Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+ }
+@using (Html.BeginForm("EventCategory", "EventCategory", FormMethod.Post, new { @id = "frmEventCategory", @class = "form_validation_ttip well stdform" }))
+{
+<div class="">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+        </h4>
+    </div>
+
+    <div class="pan">
+        @Html.HiddenFor(m => m.HdnIFrame)
+        @Html.HiddenFor(m => m.Id)
+        <div class="card shadow rounded overflow-hidden card-space">
+            <div class="row">
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-2">
+                        Event Category Name <span class="f_req text-danger">*</span>
+                    </h5>
+                    @Html.TextBoxFor(m => m.EventCategoryName, new { @class = "form-control ", @maxlength = "50", @tabindex = "1", @next = "btnSubmit" })
+                </div>
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+                <input class="btn btn-primary mr-2" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="2" title='Save EventCategory' />
+                <input class="btn btn-secondary cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="3" title='Cancel EventCategory' />
+            </div>
+        </div>
+        
+    </div>
+</div>
+}
+<script src="~/Scripts/Utility/EventCategory.js"></script>

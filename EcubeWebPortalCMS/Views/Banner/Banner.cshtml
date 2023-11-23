@@ -1,0 +1,168 @@
+﻿@{
+    ViewBag.Title = "Banner";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model EcubeWebPortalCMS.Models.BannerModel
+
+@using (Html.BeginForm("Banner", "Banner", FormMethod.Post, new { @id = "frmBanner", @class = "form_validation_ttip well stdform" }))
+{
+    <div class="">
+        <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+            <h4 class="heading mb-4 m-md-0">
+                @ViewBag.Title
+                @Html.HiddenFor(m => m.HdnSession)
+            </h4>
+        </div>
+
+        <div class="pan">
+            <div class="card shadow rounded overflow-hidden card-space">
+                @Html.HiddenFor(m => m.HdnIFrame)
+                @Html.HiddenFor(m => m.BannerId)
+                <div class="row">
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">Banner Title<span class="f_req text-danger">*</span></h5>
+                        @Html.TextBoxFor(m => m.BannerTitle, new { @class = "required alphanumwithspc form-control ", @tabindex = "1" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">From Date<span class="f_req text-danger">*</span></h5>
+                        @Html.TextBoxFor(m => m.strFromDate, new { @class = " clsstrFromDate form-control ", @tabindex = "2", @autocomplete = "off" })
+
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">To Date<span class="f_req text-danger">*</span></h5>
+                        @Html.TextBoxFor(m => m.strToDate, new { @class = " clsstrToDate form-control ", @tabindex = "3", @autocomplete = "off" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="mb-2">Banner Description<span class="f_req text-danger">*</span></h5>
+                        @Html.TextAreaFor(m => m.BannerDescription, new { @class = "description-height form-control ckeditor ", @tabindex = "4" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-2">
+                        <span class="text-danger d-flex"><span>Note: &nbsp; </span><span>Allowed Format:.jpg, .gif, .png ; <br> Allowed Size: 1400 X 750</span></span>
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5>Image1</h5>
+                        <input type="file" id="Image1" class="image-input" tabindex="5" />
+                        @Html.HiddenFor(m => m.Image1, new { id = "Image1" })
+
+                        @if (!string.IsNullOrEmpty(Model.Image1))
+                        {
+                            <button class="text-danger close mr-1 close-btn" type="button" id="closeBtn1" data-image="Image1">
+                                <h3>
+                                    <svg width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="22" height="24" rx="2" fill="#CC1F1F" />
+                                        <path d="M14 9L8 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M8 9L14 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </h3>
+                            </button>
+                        }
+                        <br />
+                        <img id="aImage1" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" class="movie-mobile--img mt-2" alt="" src="@Model.Image1" />
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5>Image2</h5>
+                        <input type="file" id="Image2" class="image-input" tabindex="6" />
+                        @Html.HiddenFor(m => m.Image2, new { id = "Image2" })
+
+                        @if (!string.IsNullOrEmpty(Model.Image2))
+                        {
+                            <button class="text-danger close mr-1 close-btn" type="button" id="closeBtn2" data-image="Image2">
+                                <h3>
+                                    <svg width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="22" height="24" rx="2" fill="#CC1F1F" />
+                                        <path d="M14 9L8 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M8 9L14 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </h3>
+                            </button>
+                        }
+                        <br />
+                        <img id="aImage2" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" class="movie-mobile--img mt-2" alt="" src="@Model.Image2" />
+
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5>Image3</h5>
+                        <input type="file" id="Image3" class="image-input" tabindex="7" />
+                        @Html.HiddenFor(m => m.Image3, new { id = "Image3" })
+
+                        @if (!string.IsNullOrEmpty(Model.Image3))
+                        {
+                            <button class="text-danger close mr-1 close-btn" type="button" id="closeBtn3" data-image="Image3">
+                                <h3>
+                                    <svg width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="22" height="24" rx="2" fill="#CC1F1F" />
+                                        <path d="M14 9L8 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M8 9L14 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </h3>
+                            </button>
+                        }
+                        <br />
+                        <img id="aImage3" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" class="movie-mobile--img mt-2" alt="" src="@Model.Image3" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5>Image4</h5>
+                        <input type="file" id="Image4" class="image-input" tabindex="8" />
+                        @Html.HiddenFor(m => m.Image4, new { id = "Image4" })
+
+                        @if (!string.IsNullOrEmpty(Model.Image4))
+                        {
+                            <button class="text-danger close mr-1 close-btn" type="button" id="closeBtn4" data-image="Image4">
+                                <h3>
+                                    <svg width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="22" height="24" rx="2" fill="#CC1F1F" />
+                                        <path d="M14 9L8 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M8 9L14 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </h3>
+                            </button>
+                        }
+
+                        <br />
+                        <img id="aImage4" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" class="movie-mobile--img mt-2" alt="" src="@Model.Image4" />
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5>Image5</h5>
+                        <input type="file" id="Image5" class="image-input" tabindex="9" />
+                        @Html.HiddenFor(m => m.Image5, new { id = "Image5" })
+
+                        @if (!string.IsNullOrEmpty(Model.Image5))
+                        {
+                            <button class="text-danger close mr-1 close-btn" type="button" id="closeBtn5" data-image="Image5">
+                                <h3>
+                                    <svg width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="22" height="24" rx="2" fill="#CC1F1F" />
+                                        <path d="M14 9L8 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M8 9L14 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </h3>
+                            </button>
+                        }
+                        <img id="aImage5" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" class="movie-mobile--img mt-2" alt="" src="@Model.Image5" />
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex mb-3 pb-3">
+                    @{
+                        var isChecked = Model.IsActive ? true : false;
+                    }
+                    @Html.CheckBoxFor(m => m.IsActive, new { @class = "alphanumwithspc form-control", @maxlength = "50", @tabindex = "10", @next = "btnSubmit", @isChecked })
+                    <h5 class="mb-2 ml-2">
+                        Is Active
+                    </h5>
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                    <input class="btn btn-primary mr-2" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="8" title='Save Banner' />
+                    <input class="btn btn-secondary cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="9" title='Cancel Banner' />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/Library/ckeditor/ckeditor.js"></script>
+<script src="~/Scripts/Utility/Banner.js"></script>

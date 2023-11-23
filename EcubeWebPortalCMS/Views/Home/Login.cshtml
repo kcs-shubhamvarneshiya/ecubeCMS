@@ -1,0 +1,138 @@
+@using EcubeWebPortalCMS.Common;
+@model EcubeWebPortalCMS.Models.UserModel
+@{
+    Layout = null;
+    string headerText = Functions.GetPropertyInfo().Name;
+    string clubName = @Model.ClubName;
+    clubName = clubName.IsNullString() ? "KCSDemo" : clubName;
+}
+<!DOCTYPE html>
+
+<html class="h-100">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link rel="shortcut icon" href="~/Content/Image/logo/@clubName/favicon.ico" />
+    @Styles.Render("~/Content/Style/login")
+    <link rel="stylesheet" href="~/Content/Image/logo/@clubName/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <style>
+        .eye-password {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            position: relative;
+        }
+        .eye-password span {
+            position: absolute;
+            margin: 0 10px 0 0;
+        }
+    </style>
+</head>
+<body class="login_page h-100">
+    <div class="login_blockm h-100">
+        <div class="login_box h-100">
+            @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @id = "LoginForm", @autocomplete = "off", @class = "h-100" }))
+            {
+                <div class="d-lg-flex algin-items-center justify-content-between h-100">
+                    <div class="home_logo d-lg-flex align-items-center justify-content-center p-3 p-lg-0 pr-lg-5">
+                        <img src="~/Content/Image/logo/@clubName/login-back-cms.png" class="login-bg--banner" />
+                        @*<img src="~/Content/Image/logo/@clubName/inner-logos.png" height="50px" />
+                            <span style="display:none;">@headerText</span>*@
+                        <div>
+                            <img src="~/Content/Image/logo/@clubName/logo.svg" class="img-fluid" />
+                            @*<div style="display:none;">@headerText</div>*@
+                        </div>
+                    </div>
+                    <div class="login_form_box d-lg-flex flex-wrap align-items-center bg-white shadow-sm px-lg-5">
+                        <div class="px-3 py-5 w-100">
+                            <h3 class="top_b mb-4">Sign in to Admin Portal</h3>
+                            <hr />
+                            <div id="errorInfo" class="alert alert-danger alert-login"></div>
+                            <div class="cnt_b mt-md-5">
+                                <div class="formRow py-3">
+                                    <div class="input-prepend">
+                                        @*<span class="add-on"><i class="icon-user"></i></span>*@
+                                        <label class="h5">User Name</label>
+                                        @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Username", @tabindex = "1", @autocomplete = "off", @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="formRow py-3">
+                                    <div class="input-prepend">
+                                        @*<span class="add-on"><i class="icon-lock"></i></span>*@
+                                        <label class="h5">Password</label>
+                                        <div class="eye-password">
+                                            @Html.PasswordFor(m => m.Password, new { @placeholder = "Password", @tabindex = "2", @autocomplete = "off", @class = "form-control" })
+                                            <span id="toggle_pwd" class="fa fa-eye-slash field_icon" ></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<div class="formRow clearfix pb-4">
+                                        <label class="checkbox font-size-base cursor-pointer">
+                                            @Html.CheckBoxFor(m => m.RememberMe)
+                                            Remember Me
+                                        </label>
+                                    </div>*@
+                            </div>
+                            <div class="btm_b clearfix py-3 d-flex justify-content-center">
+                                <button class="btn btn-secondary btn-lg btn-inverse pull-right" type="submit" id="btnSignIn" tabindex="3">Sign In</button>
+                            </div>
+                        </div>
+                        <div class="login-footer px-3 w-100">
+                            <div class="row d-flex justify-content-center py-2">
+                                <label class="font-size-base cursor-pointer font-weight-bolder mb-0">
+                                    Version 2.0.3
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @using (Html.BeginForm("ForgotPassword", "Home", FormMethod.Post, new { @id = "frmForgotPassword", @autocomplete = "off" }))
+            {
+                <div id="pass_form">
+                    <div class="top_b">Can't sign in?</div>
+                    <div class="alert alert-info alert-login">
+                        Please enter your email address. You will receive a new password via email.
+                    </div>
+                    <div class="cnt_b">
+                        <div class="formRow clearfix">
+                            <div class="input-prepend">
+                                <span class="add-on">@@</span>
+                                @Html.TextBoxFor(m => m.EmailID, new { @placeholder = "Your Email Address", @tabindex = "1", @autocomplete = "off", @class = "emailid" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btm_b clearfix">
+                        <button id="btnSendPassword" class="btn btn-inverse pull-right" type="button" tabindex="2">Request New Password</button>
+                    </div>
+                </div>
+            }
+            <div class="links_b links_btm forgotp clearfix">
+                @*<span class="linkform"><a id="btnForgotPassword" href="#frmForgotPassword">Forgot password?</a></span>*@
+                <span class="linkform"><a id="btnLoginScreen" href="#LoginForm">Send Me Back</a></span>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/Scripts/login")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var Password = '@this.ViewBag.password';
+            if (Password != '') {
+                $("#Password").attr("value", Password);
+            }
+        });
+    </script>
+    <script type="text/javascript">
+            $(function () {
+                $("#toggle_pwd").click(function () {
+                    var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
+                    $(this).toggleClass("fa-eye fa-eye-slash");
+                    $("#Password").attr("type", type);
+                });
+            });
+        </script>
+
+</body>
+</html>

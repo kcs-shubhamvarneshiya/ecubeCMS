@@ -1,0 +1,128 @@
+@model EcubeWebPortalCMS.Models.BanquetModel
+@{
+    ViewBag.Title = "Banquet / Hall Master";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Banquet", "Banquet", FormMethod.Post, new { @id = "frmBanquet", @class = "form_validation_ttip well stdform" }))
+{
+
+<div class="">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+            @Html.HiddenFor(m => m.HdnSession)
+        </h4>
+    </div>
+    <div class="pan">
+        @Html.HiddenFor(m => m.HdnIFrame)
+        @Html.HiddenFor(m => m.Id)
+        <div class="card shadow rounded overflow-hidden card-space">
+            <div class="row">
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-2">
+                        Banquet Name<span class="f_req text-danger">*</span>
+                    </h5>
+                    @Html.TextBoxFor(m => m.BanquetName, new { @class = "required form-control ", @maxlength = "50", @tabindex = "2", @next = "Description" })
+                </div>
+
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-2">
+                        Minimum Capacity<span class="f_req text-danger">*</span>
+                    </h5>
+                    @Html.TextBoxFor(m => m.MinPersonCapcity, new { @class = "numwospc form-control", @maxlength = "5", @tabindex = "3", @next = "MaxPersonCapcity" })
+                </div>
+
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-2">
+                        Maximum Capacity<span class="f_req text-danger">*</span>
+                    </h5>
+                    @Html.TextBoxFor(m => m.MaxPersonCapcity, new { @class = "numwospc form-control", @maxlength = "5", @tabindex = "4", @next = "ProfilePic" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 mb-3 pb-3">
+                    <h5 class="mb-2">
+                        Description<span class="f_req text-danger">*</span>
+                    </h5>
+                    @Html.TextAreaFor(m => m.Description, new { @class = "description-height form-control ", @maxlength = "300", @tabindex = "5" })
+                    <div class="pt-1">
+                        <span class="text-danger">Note: Maximum 300 Characters Allow.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-2">
+                        Banquet Image<span class="f_req text-danger">*</span>
+                    </h5>
+                    @* @Html.TextBoxFor(m => m.ProfilePic, new { @class = "alphanumwithspc form-control ", @maxlength = "200", @tabindex = "6", @next="btnSubmit" })*@
+                    <input type="file" id="ImgProfilePic" tabindex="6" />
+                    @Html.Hidden("hdnImgProfilePic", Model.ProfilePic)
+                <div class="">
+                    @{ var BanquetImage = "../CMSUpload/Images/BanquetImage/ProfilePic/" + Model.ProfilePic;
+                    }
+                    <img id="aBanquetImage" alt="" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" src="@BanquetImage" class="movie-mobile--img mt-2" />
+                    <span class="text-danger pt-2 pb-2 d-flex"><span>Note: &nbsp; </span><span>Allowed Format: .jpg, .gif, .png; <br /> Allowed Size: 396 x 555</span></span>
+                </div>
+                </div>
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-2">
+                        Terms & Conditions<span class="f_req text-danger">*</span>
+                    </h5>
+                    @* @Html.TextBoxFor(m => m.Terms, new { @class = "alphanumwithspc form-control ", @maxlength = "200", @tabindex = "7", @next="btnSubmit" })*@
+                    <input type="file" id="FlUploadTerms" tabindex="7" />
+                    @Html.Hidden("hdnFlUploadTerms", Model.Terms)
+                    <div class="mt-2">
+                        <img src="~/Content/Image/PDF_logo.png" id="ImgFilePdf" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" style="width: 40px; margin: 5px 0; display: block;" />
+                        <span id="lblFlUploadTerms" style="display: block;">@Model.Terms</span>
+                    </div>
+                    <span class="text-danger pt-2 pb-2 d-flex"><span>Note: &nbsp; </span><span>Allowed Format: .pdf; <br />Allowed Maximum Size: 3 MB</span></span>
+                </div>
+            </div>
+            @*<div class="">
+            <h3>Banquet Inner Image</h3>
+        </div>
+        <div class="">
+            @Html.HiddenFor(m => m.BanquetDetailId)
+        </div>
+        <div class="">
+            <div class="row">
+                <div class="col-md-6 mb-3 pb-3">
+                    <h5 class="mb-2">
+                        Banquet Inner Image<span class="f_req text-danger">*</span>
+                    </h5>
+                    <input type="file" id="gallaryimagefileupload" tabindex="8" />
+                    @Html.HiddenFor(m => m.GallaryImage, new { id = "GallaryImage" })
+                    @Html.Hidden("hdnAAAConfig", Model.hdnAAAConfig)
+                    <div class="">
+                        <span>Note : (.jpg, .gif, .png Formats Allow ; Size : 396 x 555)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <input class="btn btn-inverse" id="btnAddBanquetDetail" name="inputSubmit" type="button" value="Add" tabindex="9" title='Add Banquet Detail' />
+            <input class="btn" id="btnCancelBanquetDetail" name="inputCancel" type="button" value="Cancel" tabindex="10" title='Cancel Banquet Detail' />
+        </div>
+        <div class="">
+            <div class="clearfix contant-toph">
+                <ul class="adduser-links">
+                    <li><a id="btnDeleteBanquetDetail" href="javascript:void(0)">Delete Banquet Detail</a></li>
+                </ul>
+            </div>
+            <div class="user-contant">
+                <div id="dvBanquetDetail">
+                    <table id="tblBanquetDetail"></table>
+                    <div id="dvBanquetDetailFooter" style="text-align: center;"></div>
+                </div>
+            </div>
+        </div>*@
+            <div class="d-flex justify-content-end mt-3">
+                <input class="btn btn-primary mr-2" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="11" title='Save Banquet' />
+                <input class="btn btn-secondary cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="12" title='Cancel Banquet' />
+            </div>
+        </div>
+</div>
+</div>
+}
+<script src="~/Scripts/Utility/Banquet.js"></script>

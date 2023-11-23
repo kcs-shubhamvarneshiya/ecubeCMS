@@ -1,0 +1,56 @@
+﻿@model EcubeWebPortalCMS.Models.ServiceSupportTypeModel
+@{
+    ViewBag.Title = "Service Support Type";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("ServiceSupportType", "ServiceSupportType", FormMethod.Post, new { @id = "frmUser", @class = "form_validation_ttip well stdform" }))
+{
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <br />
+                <h4 class="heading">
+                    @ViewBag.Title</h4>
+                <br />
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.HdnIFrame)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Name
+                <span class="f_req text-danger">*</span>
+                </label>                
+                 @Html.TextBoxFor(m => m.TypeName, new { @class = "span5 required alphanumwithspc", @maxlength = "50", @tabindex = "2", Placeholder = "Please enter Service Support Type Name", @next = "Decsription" })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Decsription
+                <span class="f_req text-danger">*</span>
+                </label>                
+                @Html.TextAreaFor(m => m.Description , new { @class = "span5 required alphanumwithspc", @maxlength = "500", @tabindex = "3", Placeholder = "Please enter Service Support Type Description", @next = "IsActive" })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                @Html.CheckBoxFor(m => m.IsActive, new { @tabindex = "10", @next = "btnSubmit" })
+                <label>
+                   Active
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <input class="btn btn-inverse" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="12" title="Save" />
+        <input class="btn cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="13" title="Cancel" />
+    </div>
+}
+
+<script src="~/Scripts/Utility/ServiceSupportType.js"></script>

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="karnavati_qc" Class="PostDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.1.80\sql2012;Initial Catalog=karnavati_qc;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ECubeCMSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Post" Member="Posts">
+    <Type Name="Post">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="PostDescription" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeletedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DeletedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Image1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Image2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Image3" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Image4" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Image5" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.InsertOrUpdatePost" Method="InsertOrUpdatePost">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="Image1" Parameter="image1" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Image2" Parameter="image2" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Image3" Parameter="image3" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Image4" Parameter="image4" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Image5" Parameter="image5" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="UserId" Parameter="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="InsertOrUpdatePostResult">
+      <Column Name="InsertedId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeletePost" Method="DeletePost">
+    <Parameter Name="IdList" Parameter="idList" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="DeletedBy" Parameter="deletedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="DeletePostResult">
+      <Column Name="TotalReference" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SearchPost" Method="SearchPost">
+    <Parameter Name="Rows" Parameter="rows" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Page" Parameter="page" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Search" Parameter="search" Type="System.String" DbType="VarChar(500)" />
+    <Parameter Name="Sort" Parameter="sort" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="SearchPostResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

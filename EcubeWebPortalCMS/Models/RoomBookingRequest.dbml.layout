@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="RoomBookingRequest">
+  <DataContextMoniker Name="/RoomBookingRequestDataContext" />
+  <nestedChildShapes>
+    <classShape Id="84aff5b3-a90d-4cce-9ae5-b479d336e12c" absoluteBounds="1.25, 1.25, 2, 5.0400211588541657">
+      <DataClassMoniker Name="/RoomBookingRequestDataContext/RoomBookingRequest" />
+      <nestedChildShapes>
+        <elementListCompartment Id="23dcc02e-45d8-4c95-b6d1-4d4a292cef50" absoluteBounds="1.2650000000000001, 1.71, 1.9700000000000002, 4.4800211588541661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

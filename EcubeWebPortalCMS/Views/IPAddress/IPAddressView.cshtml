@@ -1,0 +1,44 @@
+@{
+    ViewBag.Title = "IP Address";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool isAdd = Convert.ToBoolean(ViewData["blAddRights"]);
+    bool isEdit = Convert.ToBoolean(ViewData["blEditRights"]);
+    bool isDelete = Convert.ToBoolean(ViewData["blDeleteRights"]);
+ }
+<div class="row-fluid">
+    <div class="span12">
+        <h4 class="heading">
+            @ViewBag.Title
+        </h4>
+        @Html.Hidden("hfAdd", @isAdd)
+        @Html.Hidden("hfEdit", @isEdit)
+        @Html.Hidden("hfDelete", @isDelete)
+    </div>
+    <div class="span12 clearfix contant-toph">
+        <div class="usearch-text">
+            <label>
+                Search
+            </label>
+            <input type="text" id="txtIPAddressSearch" />
+        </div>
+        <ul class="adduser-links">
+            <li>
+                @if (isDelete)
+                {
+                    @Html.ActionLink("Add New IP Address", "IPAddress", "IPAddress")
+                }
+                @if (isDelete)
+                {
+                    <a id="btnDeleteIPAddress" href="javascript:void(0)">Delete IP Address</a>
+                }
+            </li>
+        </ul>
+    </div>
+    <div class="span12 user-contant">
+        <div id="dvIPAddress">
+            <table id="tblIPAddress"></table>
+            <div id="dvIPAddressFooter"></div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Utility/IPAddressView.js"></script>

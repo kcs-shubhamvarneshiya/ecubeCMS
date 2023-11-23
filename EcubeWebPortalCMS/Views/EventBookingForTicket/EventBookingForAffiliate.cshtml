@@ -1,0 +1,163 @@
+﻿@model EcubeWebPortalCMS.Models.EventBookingForAffiliateModel
+@{
+    ViewBag.Title = "Event Booking For Affiliate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int EventID = Convert.ToInt32(ViewData["SelectEventID"]);
+    string Type = string.Empty;
+
+    int GuestLimit = 0;
+    int ToSerialNo = 0;
+    int CuurentBooking = 0;
+}
+
+<style type="text/css">
+    body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    table {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+    }
+
+        table th {
+            background-color: #F7F7F7;
+            color: #333;
+            font-weight: bold;
+        }
+
+        table th, table td {
+            padding: 5px;
+            width: 300px;
+            border: 1px solid #ccc;
+        }
+</style>
+
+<div id="dvRate" class="panel panel-grey mt-5">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+        </h4>
+    </div>
+    <div class="panel-body pan">
+        <div class="card shadow rounded overflow-hidden card-space">
+            <div class="">
+                <div class="row d-flex align-items-end">
+                    <div class="col-md-4 mb-3 pb-3">
+                        <div class="row" style="align-self:right;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <br />
+                            <span id="SpanError" style="background-color: lightgray;">
+                                <h6 id="txth5" style="color:#e30016"></h6>
+                                <h6 id="txth6" style="color:#e30016"></h6>
+                            </span>
+                            <br />
+                        </div>
+                        <h5>
+                            Affiliated Club <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.HiddenFor(m => m.AffiliateMemberClubId, new { @id = "hfdAffiliateId" })
+                        @Html.DropDownList("AffiliateId", Model.AffiliateList, new { @class = "form-control validate[required] txtbox", @TabIndex = "3" })
+                    </div>
+                    <div class="col-md-2 mb-3 pb-3">
+                        <h5>
+                            Member No. <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.HiddenFor(model => model.Id, new { @id = "hfdId" })
+                        @Html.HiddenFor(model => model.MemberId, new { @id = "hfdMemberNoId" })
+                        @Html.TextBoxFor(m => m.AffiliateMemberCode, new { @id = "AffiliateMemberCode", @class = " form-control ", @maxlength = "50", @tabindex = "1", @next = "MemberName" })
+                    </div>
+                    <div class="col-md-3 mb-3 pb-3">
+                        <h5>
+                            Member Name <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.MemberName, new { @id = "MemberName", @class = " form-control ", @maxlength = "50", @tabindex = "2", @next = "ClubName" })
+                    </div>
+                    <div class="col-md-3 mb-3 pb-3">
+                        <div id="webcam"></div>                                                
+                    </div>
+                    @*@Html.DropDownListFor(x => x.MemberNo, new SelectList(string.Empty, "Value", "Text", 0), "Select Member No.", new { @Id = "", @class = "span9  form-control", @tabindex = "2", @next = "BalanceAmount", @Style = "" })*@
+                    @*@Html.HiddenFor(model => model.Id, new { @id = "hfdId" })
+            @Html.HiddenFor(model => model.MemberId, new { @id = "hfdMemberNoId" })
+            @Html.DropDownList("MemberId",
+            new SelectList("", "Value", "Text", 0),
+            new { @class = "form-control validate[required] txtbox", @TabIndex = "1", onchange = "SelectedIndexChangedMemberId()" })*@
+                </div>
+                <div class="row">
+                    <div class="col-md-3 mb-3 pb-3">
+                        @Html.Hidden("hdnEventID", @EventID)
+                        @Html.Hidden("hdnGuestLimit", @GuestLimit)
+                        @Html.Hidden("hdnToSerialNo", @ToSerialNo)
+                        @Html.Hidden("hdnCuurentBooking", @CuurentBooking)
+
+                        <h5>
+                            Booking Date <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.DropDownList("BookingDate",
+                        new SelectList("", "Value", "Text", 0),
+                        new { @class = "form-control validate[required] txtbox", @TabIndex = "1", onchange = "SelectedIndexChangedBookingDate()" }) @*required = "required"*@
+                        <br />
+                        <h5>
+                            Payment Mode <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.HiddenFor(m => m.PaymentId, new { @id = "paymentId" })
+                        @Html.DropDownList("paymentName", Model.PaymentList.Where(p => p.Text != "Member Account"), new { @class = "form-control validate[required] txtbox", @TabIndex = "6" })
+                        @Html.Hidden("hdnPaymentType", Type)
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5>
+                            City <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.City, new { @id = "City", @class = " form-control ", @maxlength = "50", @tabindex = "4", @next = "NoOfSeats" })
+                    </div>
+                    <div class="col-md-2 mb-3 pb-3">
+                        <h5>
+                            Amount(Rs.)<span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.Amount, new { @id = "Amount", @class = " TwoDecimal form-control ", disabled = "disabled", @maxlength = "10", @tabindex = "5", @next = "ClubName" })
+                        <br/>
+                        <input class="btn btn-info small" id="btnCapture" name="inputSubmit" type="submit" value="Capture" tabindex="2"
+                               title="Capture">
+                    </div>
+                    <div class="col-md-3 mb-3 pb-3">
+                         <img id="imgCapture" style="margin-top: -15%;width: 90%;height: 80%;" />
+                    </div>
+                </div>               
+                <div class="row" id="divOther" style="display:none;">
+                    <div class="col-md-4 mb-3 pb-3">
+                        @Html.TextBoxFor(m => m.ChequeNo, new { @id = "RefrenceNo", placeholder = "RefrenceNo", @class = " form-control ", @maxlength = "50", @tabindex = "7", @next = "Date" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        @Html.TextBoxFor(m => m.Date, new { @id = "Date", placeholder = "Date", @class = " date form-control ", @maxlength = "50", @tabindex = "8", @next = "Branch" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        @Html.TextBoxFor(m => m.Branch, new { @id = "Branch", placeholder = "Branch", @class = " form-control ", @maxlength = "50", @tabindex = "9", @next = "BankInfo" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        @Html.TextBoxFor(m => m.BankInfo, new { @id = "BankInfo", placeholder = "BankInfo", @class = " form-control ", @maxlength = "50", @tabindex = "10", @next = "Save" })
+                    </div>
+                </div>
+                <div class="row" id="divCard" style="display:none;">
+                    <div class="col-md-4 mb-3 pb-3">
+                        @Html.TextBoxFor(m => m.CardNo, new { @id = "CardNo", placeholder = "CreditCard No.", @class = " form-control ", @maxlength = "50", @tabindex = "7", @next = "Date" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        @Html.TextBoxFor(m => m.Date, new { @id = "Date1", placeholder = "Date", @class = " date form-control ", @maxlength = "50", @tabindex = "8", @next = "Branch" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        @Html.TextBoxFor(m => m.CardHolderName, new { @id = "CardHolderName", placeholder = "CardHolderName", @class = " form-control ", @maxlength = "50", @tabindex = "9", @next = "BankInfo" })
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end mt-1">            
+                <input class="btn btn-primary mr-2" id="btnSave" name="inputSubmit" type="submit" value="Save" tabindex="2" title="Save EventCategory">
+                <input class="btn btn-secondary Cancel" id="btnRateCancel" name="inputCancel" type="button" value="Cancel" tabindex="3" title="Cancel EventCategory">
+            </div>
+            </div>
+            </div>
+</div>
+
+@*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>*@
+<script src="~/Scripts/Library/WebCam/WebCam.js"></script>
+<script src="~/Scripts/Utility/EventBookingForAffiliate.js"></script>

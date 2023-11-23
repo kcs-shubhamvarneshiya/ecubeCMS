@@ -1,0 +1,774 @@
+﻿@using EcubeWebPortalCMS.Common;
+@model EcubeWebPortalCMS.Models.QuestionnaireModel
+@{
+    ViewBag.Title = "Feedback Questionnaire";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string imgpath = "";
+}
+@using (Html.BeginForm("Questionnaire", "Questionnaire", FormMethod.Post, new { @id = "frmQuestionnaire", @class = "form_validation_ttip well stdform" }))
+{
+    <style>
+        .spn-noteText {
+            font-style: italic;
+            font-size: 11px;
+            color: gray
+        }
+        textarea.form-control.description-height {
+            height: 100px;
+        }
+
+
+
+
+        .imgClose {
+            background: #fff;
+            border: 1px solid red;
+            padding: 8px;
+            margin: 0 10px;
+            border-radius: 5px;
+        }
+            .imgClose svg path, .imgClose svg rect {
+                fill: red;
+            }
+
+            .divOriginaltextBlock .divOriginaltext-right {
+                display: flex;
+                align-items: center;
+            }
+        .divOriginaltext-value img {
+            width: auto;
+        }
+        .divOriginal-panel {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            padding: 5px;
+        }
+
+        .divOriginaltext-panel {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .ui-widget-content {
+            background: transparent;
+            border: 1px solid #E2E2E2;
+            box-shadow: 0 0.2857rem 0.3571rem rgb(150 148 148 / 25%) !important;
+            border-radius: 0.5rem;
+            margin: 0 0 20px 0;
+        }
+
+        .divOriginaltext-value {
+            order: 0;
+            flex: 1;
+        }
+
+        .divOriginaltext-right {
+            order: 1;
+        }
+        input, button, select, optgroup, textarea {
+            margin: 0;
+            font-family: inherit;
+            display: block;
+            height: 2.5rem;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #ffffff;
+            background-clip: padding-box;
+            border: 1px solid #CDCDCD;
+            border-radius: 0.5rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        div.radio, div.radio input {
+            width: 22px;
+            height: 22px;
+        }
+        .form-control:disabled, .form-control[readonly] {
+            background-color: #E2E2E2;
+            opacity: 0.5;
+        }
+        
+        .divOriginaltextBlock {
+            width: 100%;
+        }
+            .divOriginaltextBlock .divOriginaltext-value {
+                flex: auto;
+            }
+        .span3 {
+            margin: 10px !important;
+            display: block;
+            vertical-align: top;
+            width: 30%;
+        }
+
+        .span12 {
+            margin: 0 !important;
+        }
+        .divOriginaltext-value input, .divOriginaltext-value select, .divOriginaltext-value textarea {
+            max-width: 300px;
+            width: 100%;
+        }
+    </style>
+    <div class="">
+        <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+            <h4 class="heading mb-4 m-md-0">
+                @ViewBag.Title
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.hdniFrame)
+                @Html.Hidden("hdnId", Model.Id.ToString().Encode())
+            </h4>
+        </div>
+        <div class="panel-body pan">
+            <div class="" id="divAddQuestionnaire">
+                <div class="card shadow rounded overflow-hidden card-space">
+                    <div class="row">
+                        <div class="col-md-4 mb-2 pb-2">
+                            <h5 class="mb-2">
+                                Questionnaire Title
+                                <span class="f_req text-danger">*</span>
+                            </h5>
+                            @Html.TextBoxFor(m => m.QuestionnaireTitle, new { @class = "form-control required", @autocomplete = "off", @maxlength = "500", @tabindex = "1", @placeholder = "" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-2 pb-2">
+                            <h5 class="mb-2">
+                                Description
+                            </h5>
+                            @Html.TextAreaFor(m => m.Description, new { @class = "description-height form-control", @autocomplete = "off", @maxlength = "500", @tabindex = "4", @placeholder = "" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 d-flex">
+                            <input type="checkbox" id="chkActive" tabindex="5" checked="@Model.IsActive" />
+                            <h5 class="ml-2">Is Active</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center border-bottom pt-4 pb-2 mb-3 main-form--heading ">
+                    <h4 class="heading mb-4 m-md-0">
+                        To create the Feedback / suggestion form
+                    </h4>
+                </div>
+
+                <div class="card shadow rounded overflow-hidden card-space">
+                    <div class="row">
+                        <div class="col-md-4 mb-2 pb-2">
+                            <h5 class="mb-2">
+                                Question Title
+                                <span class="f_req text-danger">*</span>
+                                <span class="spn-noteText">It will be displayed in Feedback Form.</span>
+                            </h5>
+                            <input type="text" id="txtQuestionTitle" class="form-control required" maxlength="500" tabindex="9" />
+                        </div>
+                        @*<div class="">
+                    <div class="col-md-4 mb-2 pb-2">
+                    <h5 class="mb-2">
+                            Abbreviation
+                            <span class="spn-noteText">
+                                I will be displayed in Detailed Feedback.
+                            </span>
+                        </h5>
+                        <input type="text" id="txtShortName" class="" tabindex="10" />
+                    </div>
+                </div>*@
+                        <div class="col-md-4 mb-2 pb-2">
+                            <h5 class="mb-2">
+                                Question Type
+                                <span class="f_req text-danger">*</span>
+                            </h5>
+                            @Html.DropDownListFor(m => m.QuestionTypeId, Model.LstQuestionType, new { @class = "form-control required", @tabindex = "11" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="" id="divMandatory">
+                                <div class="mb-3 d-flex">
+                                    <input type="checkbox" id="chkRequired" tabindex="13" />
+                                    <h5 class="ml-2">Mandatory</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="" id="divDisplayInSummary">
+                                <div class="mb-3 d-flex">
+                                    <input type="checkbox" id="chkIsDisplayInSummary" tabindex="14" />
+                                    <h5 class="ml-2">Display in Feedback List</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="" id="divDisplayInDetails">
+                                <div class="mb-3 d-flex">
+                                    <input type="checkbox" id="chkIsDisplayInDetail" tabindex="15" checked="checked" />
+                                    <h5 class="ml-2">Display in Detailed Feedback</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow rounded overflow-hidden mt-3 mb-5">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="graphicborder">
+                                        <div class="mb-3 d-flex">
+                                            <input type="checkbox" id="chkIsTitleBold" tabindex="18" />
+                                            <h5 class="ml-2">Bold</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="graphicborder">
+                                        <div class="mb-3 d-flex">
+                                            <input type="checkbox" id="chkIsTitleItalic" tabindex="19" />
+                                            <h5 class="ml-2">Italic</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="graphicborder">
+                                        <div class="mb-3 d-flex">
+                                            <input type="checkbox" id="chkIsTitleUnderline" tabindex="20" />
+                                            <h5 class="ml-2">Underline</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="row graphicborder">
+                                        <div class="col-md-4 mb-2 pb-2 input-append color" data-color-format="hex" data-color="#000000" id="divColorPicker">
+                                            <h5 class="mb-2">
+                                                Color
+                                                <span class="f_req text-danger">*</span>
+                                            </h5>
+                                            <div class="row align-items-center">
+                                                <div class="col-md-10 pr-0">
+                                                    <input type="text" id="txtTitleColor" class="form-control required" maxlength="7" tabindex="21" value="#000000" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <span class="add-on"><i></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-2 pb-2">
+                                            <h5 class="mb-2">
+                                                FontSize
+                                                <span class="f_req text-danger">*</span>
+                                            </h5>
+                                            <input type="text" id="txtFontSize" class="form-control numwithspc required" maxlength="3" tabindex="22" value="13" />
+                                        </div>
+                                        <div class="col-md-4 mb-2 pb-2">
+                                            <h5 class="mb-2">
+                                                Margin
+                                                <span class="f_req text-danger">*</span>
+                                                <span class="spn-noteText">It will leave the space after the question.</span>
+                                            </h5>
+                                            <input type="text" id="txtMargin" class="form-control numwithspc required" maxlength="3" tabindex="23" value="20" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row graphicborder hide" id="DivImageSetup">
+                        @*<div class="">
+                    <div class=' input-append'>
+                        <h5 class='control-label text-dark'> @Maintainaspectratio: <input type="checkbox" id="Checkratio" value="" checked /></h5>
+                    </div>
+                </div>*@
+                        <div class="col-md-4 mb-2 pb-2 input-append color" data-color-format="hex" data-color="#000000" id="">
+                            <h5 class="mb-2">
+                                Image Height
+                            </h5>
+                            <input type="number" id="txtImageHeight" class="form-control numwithspc txtImageHeightText" maxlength="7" tabindex="15" value="200" />
+                        </div>
+
+                        <div class="col-md-4 mb-2 pb-2">
+                            <h5 class="mb-2">
+                                Image Width
+                            </h5>
+                            <input type="number" id="txtImageWidth" class="form-control numwithspc txtImageWidthText" maxlength="7" tabindex="16" value="200" />
+                        </div>
+
+                        <div class="col-md-4 mb-2 pb-2">
+                            <h5 class="mb-2">
+                                Image align
+                            </h5>
+                            <select id="dpImageAlign" class="form-control">
+                                <option value="Left" selected>Left</option>
+                                <option value="Right">Right</option>
+                                <option value="Center">Center</option>
+                            </select>
+                        </div>
+                    </div>
+                    @*<div class="row graphicborder" id="InversCalculation">
+                <div class="">
+                    <div class=" input-append" id="InversCalculationColor">
+                        <h5 style="font-weight: bold;margin-bottom: 15px;">
+                            Calculation option
+                        </h5>
+                        <div class="col-md-6">
+                            <input type="radio" name="Calculationoption" id="CalculateSelected" value="1" checked="checked" /><h5 for="CalculateSelected" style="display:inline-block;margin-right: 55px;">CalculationSelected</h5>
+                            <input type="radio" name="Calculationoption" id="CalculateInvers" value="2" /><h5 for="CalculateInvers" style="display:inline-block"> Calculationinverse</h5>
+                        </div>
+                    </div>
+                    <div class=" input-append" style="margin:0">
+                        <h5 style="font-weight: bold;margin-bottom: 15px;">
+                            Show Summry Option
+                        </h5>
+                        <div class="col-md-6">
+                            <input type="radio" name="ShowSummryOption" id="showitemselected" value="1" checked="checked" /><label for="showitemselected" style="display:inline-block;margin-right: 55px;">ShowItemSelected</label>
+                            <input type="radio" name="ShowSummryOption" id="showitemnotselected" value="2" /><label for="showitemnotselected" style="display:inline-block"> ShowItemNotSelected</label>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+                    <div class="row">
+                        <div class="col-md-4 mb-2 pb-2 hide" id="divMaxLength">
+                            <h5 class="mb-2">
+                                MaxLength
+                                <span class="f_req text-danger">*</span>
+                            </h5>
+                            <input type="text" id="txtMaxLength" class="form-control numwospc required" maxlength="5" tabindex="21" />
+                        </div>
+                        <div class="col-md-4 mb-2 pb-2 hide" id="divHint">
+                            <h5 class="mb-2">
+                                Hint
+                            </h5>
+                            <input type="text" id="txtHint" class="form-control" maxlength="500" tabindex="21" />
+                        </div>
+                        <div id="dvOptionsDisplayType" class="col-md-4 mb-2 pb-2 hide">
+                            <h5 class="mb-2">
+                                Options Display Type
+                                <span class="f_req text-danger">*</span>
+                            </h5>
+                            <input type="radio" name="OptionsDisplayType" tabindex="21" id="rdbHorizontal" value="Horizontal" />
+                            <span style="margin-left: 0px; margin-right: 15px;">Horizontal</span>
+                            <input type="radio" name="OptionsDisplayType" tabindex="22" id="rdbVertical" value="Vertical" />
+                            <span style="margin-left: 0px; margin-right: 15px;">Vertical</span>
+                            <input type="hidden" id="OptionsDisplayType" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 hide" id="divStartValue">
+                            <div class="row">
+                                <div class="col-md-6 mb-2 pb-2">
+                                    <h5 class="mb-2">
+                                        Minimum<span class="f_req text-danger">*</span>
+                                    </h5>
+                                    <input type="text" id="txtStartValue" class="form-control numwospc required" maxlength="5" tabindex="21" />
+                                </div>
+                                <div class="col-md-6 mb-2 pb-2">
+                                    <h5 class="mb-2">
+                                        Maximum<span class="f_req text-danger">*</span>
+                                    </h5>
+                                    <input type="text" id="txtEndValue" class="form-control numwospc required" maxlength="5" tabindex="21" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-2 pb-2 hide" id="divGraphics">
+                            <h5 class="mb-2">
+                                Image<span class="f_req text-danger">*</span>
+                            </h5>
+                            <input type="file" id="txtImage" class="form-control" tabindex="21" accept="image/*" />
+                            <br />
+                            <img id="ImgGraphic" src="" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" class="movie-mobile--img" alt=" " />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow rounded overflow-hidden card-space my-3">
+                    <div class="row justify-content-between align-items-center mb-2 pb-2">
+                        <div class="col-md-4">
+                            <div class="hide" id="dvMOMS">
+                                <h5 class="mb-2">
+                                    No of Options
+                                    <span class="f_req text-danger">*</span>
+                                </h5>
+                                <input type="text" id="txtMOMSCount" class="form-control numwospc" maxlength="3" tabindex="21" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <input id="btnAdd" class="btn btn-primary btn-inverse" type="button" value="Add Question" tabindex="23" />
+                        </div>
+                    </div>
+                    <div id="dvMOMSTextbox" class="row">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 id="lblTotalQuestionCount" class="right bold">Total Questions:  @(Model.LstQuestionnaireQuestion != null ? Model.LstQuestionnaireQuestion.Count : 0)</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="divTemplate" class="ui-state-default question-container ui-sortable card shadow rounded overflow-hidden card-space my-3">
+                    @if (Model.LstQuestionnaireQuestion != null)
+                    {
+                        foreach (var item in Model.LstQuestionnaireQuestion)
+                        {
+                            string strForntSize = @item.FontSize.ToString() + "px";
+                            <div class="divOriginal ui-widget-content divOriginalui-widget p-3 mb-3" style="background:transparent" data-questiontype="@item.QuestionTypeId" data-masterid="@item.Id">
+                                <div id="divDetails@(item.Id)" class="divOriginal-panel clearfix" data-questiontype="@item.QuestionTypeId" data-masterid="@item.Id">
+                                    <div class="divOriginaltext-panel mb-1">
+                                        <span class="divOriginal-text">
+                                            <a data-toggle='modal' href='#divEditTemplate_@item.Id' style="font-size:@strForntSize  !important; color:@item.TitleTextColor !important;@(item.IsTitleBold ? "font-weight: bold;" : "") @(item.IsTitleItalic ? "font-style: italic;" : "") @(item.IsTitleUnderline ? "text-decoration: underline;" : "")">@item.QuestionTitle</a>
+                                        </span>
+                                        @if (item.QuestionTypeId != 16 && item.Required && item.QuestionTypeId != 23)
+                                        {
+                                            <span style="color:Red;">*</span>
+                                        }
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between divOriginaltextBlock">
+                                        <div class="divOriginaltext-value">
+                                            @if (item.QuestionTypeId == 1)
+                                            {
+                                                foreach (var Options in Model.LstQuestionnaireOptions.Where(x => x.QuestionId == item.Id).ToList())
+                                                {
+                                                    <input type="radio" value="@Options.NAME" disabled="disabled" />
+                                                    <span>@Options.NAME</span>
+                                                    if (item.OptionsDisplayType.ToLower() == "vertical")
+                                                    {
+                                                        <br />
+                                                    }
+                                                }
+                                            }
+                                            else if (item.QuestionTypeId == 2)
+                                            {
+                                                for (int i = 0; i <= 10; i++)
+                                                {
+                                                    <input type="radio" value="@i" disabled="disabled" />
+                                                    <span>@i</span>
+                                                    if (item.OptionsDisplayType.ToLower() == "vertical")
+                                                    {
+                                                        <br />
+                                                    }
+                                                }
+                                            }
+                                            else if (item.QuestionTypeId == 4 || item.QuestionTypeId == 8 || item.QuestionTypeId == 9 || item.QuestionTypeId == 10 || item.QuestionTypeId == 11 || item.QuestionTypeId == 19 || item.QuestionTypeId == 20 || item.QuestionTypeId == 22 || item.QuestionTypeId == 24 || item.QuestionTypeId == 26 || item.QuestionTypeId == 27 || item.QuestionTypeId == 28 || item.QuestionTypeId == 29 || item.QuestionTypeId == 30)
+                                            {
+                                                <input type="text" class="form-control" disabled="disabled" />
+                                            }
+                                            else if (item.QuestionTypeId == 3 || item.QuestionTypeId == 12 || item.QuestionTypeId == 13)
+                                            {
+                                                <textarea class="form-control" disabled="disabled"></textarea>
+                                            }
+                                            else if (item.QuestionTypeId == 5 || item.QuestionTypeId == 6)
+                                            {
+                                                foreach (var Options in Model.LstQuestionnaireOptions.Where(x => x.QuestionId == item.Id).ToList())
+                                                {
+                                                    <input type="@(item.QuestionTypeId == 5?"checkbox":"radio")" value="@Options.NAME" disabled="disabled" />
+                                                    <span>@Options.NAME</span>
+                                                    if (item.OptionsDisplayType.ToLower() == "vertical")
+                                                    {
+                                                        <br />
+                                                    }
+                                                }
+                                            }
+                                            else if (item.QuestionTypeId == 7)
+                                            {
+                                                <input type="radio" disabled="disabled" /><span>Yes</span>
+                                                if (item.OptionsDisplayType.ToLower() == "vertical")
+                                                {
+                                                    <br />
+                                                }
+                                                <input type="radio" disabled="disabled" /><span>No</span>
+                                                <br />
+                                                <input type="text" disabled="disabled" />
+                                            }
+                                            else if (item.QuestionTypeId == 14 || item.QuestionTypeId == 15)
+                                            {
+                                                <input type="radio" disabled="disabled" /><span>Yes</span>
+                                                <br />
+                                                <input type="radio" disabled="disabled" /><span>No</span>
+                                                <br />
+                                                <textarea disabled="disabled"></textarea>
+                                            }
+                                            else if (item.QuestionTypeId == 17)
+                                            {
+                                                <input type="file" disabled="disabled" />
+                                            }
+                                            else if (item.QuestionTypeId == 18 || item.QuestionTypeId == 21)
+                                            {
+                                                <select disabled="disabled">
+                                                    @foreach (var Options in Model.LstQuestionnaireOptions.Where(x => x.QuestionId == item.Id).ToList())
+                                                    {
+                                                        <option value="@Options.NAME">@Options.NAME</option>
+                                                    }
+                                                </select>
+                                            }
+                                        </div>
+                                        <div class="divOriginaltext-right ml-auto">
+                                            <span class="right">(@item.QuestionTypeName)</span>
+                                            <span class="right ml-1 cursor-pointer">
+                                                <img src="../../Content/Image/Delete.png" alt="Close" class="imgClose" />
+                                                @*<svg width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.4 4.8H15.6V3.6C15.6 2.64522 15.2207 1.72955 14.5456 1.05442C13.8705 0.379285 12.9548 0 12 0H9.6C8.64522 0 7.72955 0.379285 7.05441 1.05442C6.37928 1.72955 6 2.64522 6 3.6V4.8H1.2C0.88174 4.8 0.576515 4.92643 0.351472 5.15147C0.126428 5.37652 0 5.68174 0 6C0 6.31826 0.126428 6.62348 0.351472 6.84853C0.576515 7.07357 0.88174 7.2 1.2 7.2H2.4V20.4C2.4 21.3548 2.77928 22.2705 3.45442 22.9456C4.12955 23.6207 5.04522 24 6 24H15.6C16.5548 24 17.4705 23.6207 18.1456 22.9456C18.8207 22.2705 19.2 21.3548 19.2 20.4V7.2H20.4C20.7183 7.2 21.0235 7.07357 21.2485 6.84853C21.4736 6.62348 21.6 6.31826 21.6 6C21.6 5.68174 21.4736 5.37652 21.2485 5.15147C21.0235 4.92643 20.7183 4.8 20.4 4.8ZM8.4 3.6C8.4 3.28174 8.52643 2.97652 8.75147 2.75147C8.97651 2.52643 9.28174 2.4 9.6 2.4H12C12.3183 2.4 12.6235 2.52643 12.8485 2.75147C13.0736 2.97652 13.2 3.28174 13.2 3.6V4.8H8.4V3.6ZM16.8 20.4C16.8 20.7183 16.6736 21.0235 16.4485 21.2485C16.2235 21.4736 15.9183 21.6 15.6 21.6H6C5.68174 21.6 5.37652 21.4736 5.15147 21.2485C4.92643 21.0235 4.8 20.7183 4.8 20.4V7.2H16.8V20.4Z" fill="black"></path><rect x="7" y="11" width="8" height="2" fill="black"></rect><rect x="7" y="15" width="8" height="2" fill="black"></rect></svg>*@
+                                            </span>
+                                        </div>
+                                    </div>
+                                    @if (item.QuestionTypeId == 23)
+                                    {
+                                        if (!string.IsNullOrEmpty(item.ImagePath))
+                                        {
+                                            imgpath = "../CMSUpload/Questions/" + item.ImagePath;
+                                        }
+                                        <div class="divOriginaltext-value" style="text-align:@item.ImageAlign">
+                                            <img id="ImgGraphic_@(item.Id)" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" src="@imgpath" height="@item.ImageHeight" width="@item.ImageWidth" data-imagename="@item.ImagePath" alt=" " />
+                                        </div>
+                                        <input type="hidden" id="imageId_@item.Id" value="@item.ImageAlign" />
+                                    }
+                                </div>
+                            </div>
+                            <div id="divEditTemplate_@item.Id" class="divEditTemplate modal hide fade in bg-white">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="position-relative p-0" style="z-index:1">
+                                            <button id='@Model.Id' class='close' data-dismiss='modal'>×</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div>
+                                                <div class='stepy-wizzard form-horizontal'>
+                                                    <div class='control-group mb-3'>
+                                                        <h5 class='control-label text-dark'>Question Title <span class="f_req"> * </span> : </h5>
+                                                        <div class='controls'>
+                                                            <input id='txtPosition_@item.Id' type='hidden' value='@item.Position' />
+                                                            <input id='txtQuestionTitle_@item.Id' type='text' value='@item.QuestionTitle' maxlength="1000" class="form-control" style="max-width: 300px" />
+                                                        </div>
+                                                    </div>
+                                                    @*<div class='control-group'>
+                                <h5 class='control-label text-dark'>Abbreviation : </h5>
+                                <div class='controls'>
+                                    <input id='txtShortName_@item.Id' type='text' value='@item.ShortName' maxlength="18" style="width:100%;" />
+                                </div>
+                            </div>*@
+                                                    @if (item.QuestionTypeId != 16 && item.QuestionTypeId != 23 && item.QuestionTypeId != 25)
+                                                    {
+                                                        <div class='control-group'>
+                                                            <div class='controls mb-3 text-dark'>
+                                                                <input id='chkIsRequired_@item.Id' type='checkbox' @(item.Required ? " checked=checked" : "") /><span class="ml-2">Mandatory </span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    @if (item.QuestionTypeId != 17 && item.QuestionTypeId != 23 && item.QuestionTypeId != 25)
+                                                    {
+                                                        <div class='control-group'>
+                                                            <div class='controls mb-3 text-dark'>
+                                                                <input id='chkDisplayInSummary_@item.Id' type='checkbox' @(item.IsDisplayInSummary ? " checked=checked" : "") /><span class="ml-2">Display in Feedback List </span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    @if (item.QuestionTypeId != 25)
+                                                    {
+                                                        <div class='control-group'>
+                                                            <div class='controls mb-3 text-dark'>
+                                                                <input id='chkDisplayInDetail_@item.Id' type='checkbox' @(item.IsDisplayInDetail ? " checked=checked" : "") /><span class="ml-2">Display in Detailed Feedback </span>
+                                                            </div>
+                                                        </div>
+                                                    }
+
+                                                    <div class='control-group'>
+                                                        <div class='controls mb-3 text-dark'>
+                                                            <input id='chkIsTitleBold_@item.Id' type='checkbox' @(item.IsTitleBold ? " checked=checked" : "") /><span class="ml-2">Bold </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class='control-group'>
+                                                        <div class='controls mb-3 text-dark'>
+                                                            <input id='chkIsTitleItalic_@item.Id' type='checkbox' @(item.IsTitleItalic ? " checked=checked" : "") /><span class="ml-2">Italic </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class='control-group'>
+                                                        <div class='controls mb-3 text-dark'>
+                                                            <input id='chkIsTitleUnderline_@item.Id' type='checkbox' @(item.IsTitleUnderline ? " checked=checked" : "") /><span class="ml-2">Underline </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class='control-group input-append color mb-3' data-color-format="hex" data-color="@item.TitleTextColor" id="divColorPicker_@item.Id">
+                                                        <h5 class='control-label mb-3 text-dark'>Color <span class="f_req"> * </span> : </h5>
+                                                        <div class='controls d-flex align-items-center' style="max-width:300px">
+                                                            <input type="text" id="txtTitleColor_@item.Id" class="form-control required" maxlength="7" value="@item.TitleTextColor" />
+                                                            <span class="add-on ml-2"><i></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class='control-group mb-3'>
+                                                        <h5 class='control-label mb-3 text-dark'>FontSize <span class="f_req"> * </span> : </h5>
+                                                        <div class='controls' style="max-width:300px">
+                                                            <input id='txtFontSize_@item.Id' type='text' value='@item.FontSize' class="form-control numwithspc required" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class='control-group mb-3'>
+                                                        <h5 class='control-label mb-3 text-dark'>Margin<span class="f_req"> * </span>: </h5>
+                                                        <div class='controls' style="max-width:300px">
+                                                            <input id='txtMargin_@item.Id' type='text' value='@item.Margin' class="form-control numwithspc required" />
+                                                        </div>
+                                                    </div>
+                                                    @if (item.QuestionTypeId == 23)
+                                                    {
+                                                        <div class='control-group mb-3'>
+                                                            <h5 class='control-label mb-3 text-dark'> ImageHeight: </h5>
+                                                            <div class='controls' style="max-width:300px">
+                                                                <input type="number" data-id="@item.Id" id="txtImageHeight_@item.Id" class="form-control numwithspc txtImageHeight" maxlength="7" value="@item.ImageHeight" />
+                                                            </div>
+                                                        </div>
+                                                        <div class='control-group mb-3'>
+                                                            <h5 class='control-label mb-3 text-dark'> ImageWidth: </h5>
+                                                            <div class='controls' style="max-width:300px">
+                                                                <input data-id="@item.Id" id='txtImageWidth_@item.Id' type='number' value='@item.ImageWidth' class="form-control numwithspc txtImageWidth" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class='control-group mb-3'>
+                                                            <h5 class='control-label mb-3 text-dark'> Imagealign : </h5>
+                                                            <select id="dpImageAlign_@item.Id" class="form-control" style="max-width:300px">
+                                                                >
+                                                                <option value="Left">Left</option>
+                                                                <option value="Right">Right</option>
+                                                                <option value="Center">Center</option>
+                                                            </select>
+                                                        </div>
+                                                    }
+                                                    @if (item.QuestionTypeId == 3 || item.QuestionTypeId == 4 || item.QuestionTypeId == 12 || item.QuestionTypeId == 13 || item.QuestionTypeId == 27 || item.QuestionTypeId == 28 || item.QuestionTypeId == 29 || item.QuestionTypeId == 30)
+                                                    {
+                                                        <div class='control-group mb-3'>
+                                                            <h5 class='control-label mb-3 text-dark'>MaxLength<span class="f_req text-danger">*</span> : </h5>
+                                                            <div class='controls' style="max-width:300px">
+                                                                <input id='txtMaxlength_@item.Id' type='text' value='@item.MaxLength' class="form-control numwithspc" />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    @if (item.QuestionTypeId == 1 || item.QuestionTypeId == 2 || item.QuestionTypeId == 5 || item.QuestionTypeId == 6 || item.QuestionTypeId == 7)
+                                                    {
+                                                        <div class='control-group'>
+                                                            <h5 class='control-label mb-3 text-dark'>Options Display Type<span class="f_req"> * </span> : </h5>
+                                                            <div class='controls'>
+                                                                <input type="radio" name="OptionsDisplayType_@item.Id" tabindex="14" id="rdbHorizontal_@item.Id" value="Horizontal" @(item.OptionsDisplayType.ToLower() == "horizontal" ? " checked=\"checked\"" : "")>
+                                                                <span style="margin-left: 5px; margin-right: 15px;">Horizontal</span>
+                                                                <input type="radio" name="OptionsDisplayType_@item.Id" tabindex="15" id="rdbVertical_@item.Id" value="Vertical" @(item.OptionsDisplayType.ToLower() == "vertical" ? " checked=\"checked\"" : "")>
+                                                                <span style="margin-left: 5px; margin-right: 15px;">Vertical</span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    @*@if (item.QuestionTypeId == 1 || item.QuestionTypeId == 5 || item.QuestionTypeId == 6 || item.QuestionTypeId == 18 || item.QuestionTypeId == 21)
+                            {
+                                <div id="divOptions_@item.Id">
+                                    @foreach (var Options in Model.lstQuestionnaireOptions.Where(x => x.QuestionId == item.Id).ToList())
+                                    {
+                                        <div class='control-group'>
+                                            <h5 class='control-label mb-3 text-dark'>Image <span class="f_req"> * </span> : </h5>
+                                            <div class='controls'>
+                                                <input type="file" id="txtImage@(item.Id)" class="form-control GraphicImage" tabindex="21" accept="image/*" data-index="@(item.Id)" />
+                                                <br />
+                                                @if (!string.IsNullOrEmpty(item.ImagePath))
+                                                {
+                                                    imgpath = "../CMSUpload/Questions/" + item.ImagePath;
+                                                }
+                                                <img id="ImgGraphic@(item.Id)" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" src="@imgpath" width="20%" height="20%" data-imagename="@item.ImagePath" alt=" " />
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }*@
+                                                    @*@if (item.QuestionTypeId == 7 || item.QuestionTypeId == 14 || item.QuestionTypeId == 15)
+                            {
+                                <div class='control-group'>
+                                    <label class='control-label text-dark'>@Resources.magnitude.WeightForYes<span class="f_req text-danger">*</span> : </label>
+                                    <div class='controls'>
+                                        <input type="text" id="txtYesWeight_@item.Id" class=" numwospc required" maxlength="4" value="@item.WeightForYes" />
+                                    </div>
+                                </div>
+                                <div class='control-group'>
+                                    <label class='control-label text-dark'>@Resources.magnitude.WeightForNo<span class="f_req text-danger">*</span> : </label>
+                                    <div class='controls'>
+                                        <input type="text" id="txtNoWeight_@item.Id" class=" numwospc required" maxlength="4" value="@item.WeightForNo" />
+                                    </div>
+                                </div>
+                            }*@
+                                                    @*@if (item.QuestionTypeId == 19)
+                            {
+                                <div class='control-group'>
+                                    <label class='control-label text-dark'>TableGroupName : </label>
+                                    <div class='controls'>
+                                        <input id='txtTableGroup_@item.Id' type='text' value='@item.TableGroupName' class="" />
+                                    </div>
+                                </div>
+
+                            }*@
+                                                    @if (item.QuestionTypeId == 23)
+                                                    {
+                                                        <div class='control-group'>
+                                                            <h5 class='control-label mb-3 text-dark'>Image <span class="f_req"> * </span> : </h5>
+                                                            <div class='controls'>
+                                                                <input type="file" id="txtImage@(item.Id)" class="form-control GraphicImage" tabindex="21" accept="image/*" data-index="@(item.Id)" />
+                                                                <br />
+                                                                @if (!string.IsNullOrEmpty(item.ImagePath))
+                                                                {
+                                                                    imgpath = "../CMSUpload/Questions/" + item.ImagePath;
+                                                                }
+                                                                <img id="ImgGraphic@(item.Id)" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" src="@imgpath" width="20%" height="20%" data-imagename="@item.ImagePath" alt=" " />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    @if (item.QuestionTypeId == 26)
+                                                    {
+                                                        <div class='control-group'>
+                                                            <h5 class='control-label mb-3 text-dark'>DownloadExcelFile : </h5>
+                                                            <div class='controls'>
+                                                                <strong style="color:red;">* Note: </strong><span>Please Upload <a href="javascript:" onclick="btnDownloadSample(@item.Id);">ThisExcelFile</a> ForAutocomplete</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class='control-group'>
+                                                            <h5 class='control-label mb-3 text-dark'>UploadExcelFile : </h5>
+                                                            <div class='controls'>
+                                                                <input id="txt" class="fileUploadtxt hide form-control" type="text" value="" placeholder='SelecttheexcelfileforUpload'>
+                                                                <input id="btnFileup" class="btn btnBrowse" name="inputSubmit" type="button" value="Browse"
+                                                                       onclick="javascript: document.getElementById('inputExcelFile').click();"
+                                                                       tabindex="5" />
+                                                                <input id="inputExcelFile" type="file" class="fileUploadcontrol hide" name="img" onchange="ChangeText(this, 'txt');" />
+                                                                <input type="hidden" id="hdnFileName" />
+                                                                <input class="btn btn-primary" style="background-color:#515153; margin-left:20px;" id="btnSubmit1" onclick="btnImport(@item.Id);" name="inputSubmit" type="button" value="Upload" tabindex="5" title='UploadFile' />
+
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='modal-footer flex-column'>
+                                            <input class='btn btn-primary btn-inverse saveButton addbtn' id='@item.Id' type='button' value='Save' data-questiontypeid="@item.QuestionTypeId" />
+                                            <span class="spn-noteText">(Page will be refreshed. Your unsaved changes will be lost)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        }
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-3 form-actions">
+                        <input class="btn btn-primary mr-2" id="btnSubmit" name="inputSubmit" type="button" value="Submit" tabindex="25" title='Submit' />
+                        <input class="btn btn-secondary cancel mr-2" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="26" title='Cancel Questionnaire' />
+                        <input class="btn btn-secondary btn-inverse reset" id="btnReset" name="inputReset" type="reset" value="Reset" tabindex="27" title='Reset Questionnaire' />
+                    </div>
+                </div>
+        </div>
+    </div>
+
+}
+@using (Html.BeginForm("Questionnaire", "Questionnaire", FormMethod.Post, new { @id = "exl-rpt", action = "DownloadFileCSV" }))
+{
+    @Html.Hidden("blCSVPDF")
+    @Html.Hidden("strTableName")
+    @Html.Hidden("strSearchValue")
+    @Html.Hidden("strFilePath")
+}
+<link href="~/Scripts/Library/colorpicker/colorpicker.css" rel="stylesheet" />
+<script src="~/Scripts/Library/colorpicker/bootstrap-colorpicker.js"></script>
+<script src="~/Scripts/Utility/Questionnaire.js"></script>
+<script type="text/javascript">
+    function ChangeText(oFileInput, sTargetID) {
+        document.getElementById(sTargetID).value = oFileInput.value;
+    }
+</script>

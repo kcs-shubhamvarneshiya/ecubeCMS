@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="EventBookig">
+  <DataContextMoniker Name="/EventDataContext" />
+  <nestedChildShapes>
+    <classShape Id="becb5569-bbad-4f44-bc6a-a35553c350d7" absoluteBounds="5, 0.5, 2, 5.0400211588541657">
+      <DataClassMoniker Name="/EventDataContext/Event" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c438639f-ba67-4fe0-b2c7-83ae2ab619bf" absoluteBounds="5.0150000000000006, 0.96, 1.9700000000000002, 4.4800211588541661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2579c0f9-52a6-437d-8641-f8c5b47a0e8f" absoluteBounds="2.75, 2.75, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/EventDataContext/EventSchedule" />
+      <nestedChildShapes>
+        <elementListCompartment Id="84612cd3-15d7-4b22-bf99-bf62d36ee1b9" absoluteBounds="2.7650000000000006, 3.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5 : 4.11620198567708); (4.75 : 4.11620198567708)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/EventDataContext/Event/Event_EventSchedule" />
+      <nodes>
+        <classShapeMoniker Id="becb5569-bbad-4f44-bc6a-a35553c350d7" />
+        <classShapeMoniker Id="2579c0f9-52a6-437d-8641-f8c5b47a0e8f" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="13610b7b-6443-4571-a704-2054bf7292fe" absoluteBounds="0.5, 0.5, 2, 4.8477197265625">
+      <DataClassMoniker Name="/EventDataContext/EventRate" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f41a54b4-db8e-426a-b1ae-0fc8b2a0c04e" absoluteBounds="0.51500000000000057, 0.96, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5 : 1.53125); (2.5 : 1.53125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/EventDataContext/Event/Event_EventRate" />
+      <nodes>
+        <classShapeMoniker Id="becb5569-bbad-4f44-bc6a-a35553c350d7" />
+        <classShapeMoniker Id="13610b7b-6443-4571-a704-2054bf7292fe" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

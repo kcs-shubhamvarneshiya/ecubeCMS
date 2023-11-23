@@ -1,0 +1,84 @@
+﻿@model EcubeWebPortalCMS.Models.PostModel
+@{
+    ViewBag.Title = "Post";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Post", "Post", FormMethod.Post, new { @id = "frmPost", @class = "form_validation_ttip well stdform" }))
+{
+
+<div class="">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+            @Html.HiddenFor(m => m.HdnSession)
+        </h4>
+    </div>
+
+    <div class="pan">
+        <div class="card shadow rounded overflow-hidden card-space">
+            @Html.HiddenFor(m => m.HdnIFrame)
+            @Html.HiddenFor(m => m.Id)
+            <div class="row">
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-2">Post Name <span class="f_req text-danger">*</span></h5>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "required alphanumwithspc form-control ", @maxlength = "50", @tabindex = "1", @next = "Description" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3 pb-3">
+                    <h5 class="mb-2">Description</h5>
+                    @Html.TextAreaFor(m => m.Description, new { @class = "description-height form-control ", @maxlength = "250", @tabindex = "2", @next = "ImagePath" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-2">
+                    <span class="text-danger d-flex"><span>Note: &nbsp; </span><span>Allowed Format:.jpg, .gif, .png ; <br> Allowed Size: 1400 X 750</span></span>
+                </div>
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5>Image1</h5>
+                    <input type="file" id="Image1" tabindex="3" />
+                    @Html.HiddenFor(m => m.Image1, new { id = "Image1" })
+                    <br />
+                    <img id="aImage1" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" class="movie-mobile--img mt-2" alt="" src="@Model.Image1" />
+                </div>
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5>Image2</h5>
+                    <input type="file" id="Image2" tabindex="4" />
+                    @Html.HiddenFor(m => m.Image2, new { id = "Image2" })
+                    <br />
+                    <img id="aImage2" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" class="movie-mobile--img mt-2" alt="" src="@Model.Image2" />
+
+                </div>
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5>Image3</h5>
+                    <input type="file" id="Image3" tabindex="5" />
+                    @Html.HiddenFor(m => m.Image3, new { id = "Image3" })
+                    <br />
+                    <img id="aImage3" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" class="movie-mobile--img mt-2" alt="" src="@Model.Image3" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5>Image4</h5>
+                    <input type="file" id="Image4" tabindex="6" />
+                    @Html.HiddenFor(m => m.Image4, new { id = "Image4" })
+                    <br />
+                    <img id="aImage4" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" class="movie-mobile--img mt-2" alt="" src="@Model.Image4" />
+                </div>
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5>Image5</h5>
+                    <input type="file" id="Image5" tabindex="7" />
+                    @Html.HiddenFor(m => m.Image5, new { id = "Image5" })
+                    <br />
+                    <img id="aImage5" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" class="movie-mobile--img mt-2" alt="" src="@Model.Image5" />
+                </div>
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+                <input class="btn btn-primary mr-2" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="8" title='Save Post' />
+                <input class="btn btn-secondary cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="9" title='Cancel Post' />
+            </div>
+        </div>
+    </div>
+</div>
+}
+<script src="~/Scripts/Utility/Post.js"></script>

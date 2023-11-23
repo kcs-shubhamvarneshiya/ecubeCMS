@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ClubO7_Dev" Class="MenuMobileDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=kcs-ovh-mssql01\SQL2014;Initial Catalog=ClubO7_Dev;Persist Security Info=True;User ID=eCubeeHSM" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ClubO7_DevConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.MenuMobile" Member="MenuMobiles">
+    <Type Name="MenuMobile">
+      <Column Name="MenuId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ParentMenuId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SeqNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MenuKey" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="MenuDisplayName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="MenuIcon" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="IsSportsService" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ServicesId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeletedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="DeletedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.InsertOrUpdateMenu" Method="InsertOrUpdateMenu">
+    <Parameter Name="MenuId" Parameter="menuId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ParentMenuId" Parameter="parentMenuId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SeqNo" Parameter="seqNo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MenuKey" Parameter="menuKey" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="MenuDisplayName" Parameter="menuDisplayName" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="MenuIcon" Parameter="menuIcon" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="UserId" Parameter="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="InsertOrUpdateMenuResult">
+      <Column Name="InsertedId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.InsertOrUpdateSubMenu" Method="InsertOrUpdateSubMenu">
+    <Parameter Name="MenuId" Parameter="menuId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ParentMenuId" Parameter="parentMenuId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SeqNo" Parameter="seqNo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MenuKey" Parameter="menuKey" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="MenuDisplayName" Parameter="menuDisplayName" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="MenuIcon" Parameter="menuIcon" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="UserId" Parameter="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="InsertOrUpdateSubMenuResult">
+      <Column Name="InsertedSubMenuId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteMobileMenu" Method="DeleteMobileMenu">
+    <Parameter Name="IdList" Parameter="idList" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="DeletedBy" Parameter="deletedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="DeleteMobileMenuResult">
+      <Column Name="TotalReference" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SearchMenuMobile" Method="SearchMenuMobile">
+    <Parameter Name="Rows" Parameter="rows" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Page" Parameter="page" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Search" Parameter="search" Type="System.String" DbType="VarChar(500)" />
+    <Parameter Name="Sort" Parameter="sort" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="SearchMenuMobileResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MenuId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MenuKey" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="MenuDisplayName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="SeqNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubMenu" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

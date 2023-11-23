@@ -1,0 +1,19 @@
+﻿@using EcubeWebPortalCMS.Common;
+@model EcubeWebPortalCMS.Models.UserModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Home Page";
+    string clubName = @Model.ClubName;
+    clubName = clubName.IsNullString() ? "KCSDemo" : clubName;
+}
+
+<div class="main-blank--content">
+    @*<div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+            <h4 class="heading mb-4 m-md-0">
+                Home Page
+            </h4>
+        </div>
+        <div class="card shadow rounded overflow-hidden card-space" ">
+        </div>*@
+    <img src="~/Content/Image/logo/@clubName/logo.svg" class="img-fluid" />
+</div>

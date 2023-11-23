@@ -1,0 +1,50 @@
+@model EcubeWebPortalCMS.Models.IPAddressModel
+@{
+    ViewBag.Title = "IP Address";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+ }
+@using (Html.BeginForm("IPAddress", "IPAddress", FormMethod.Post, new { @id = "frmIPAddress", @class = "form_validation_ttip well stdform" }))
+{
+    <div class="row-fluid">
+        <div class="span12">
+            <h4 class="heading">
+                @ViewBag.Title
+            </h4>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="row-fluid">
+            @Html.HiddenFor(m => m.HdnIFrame)
+            @Html.HiddenFor(m => m.Id)
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    IP Address <span class="f_req text-danger">*</span>
+                </label>
+                @Html.TextBoxFor(m => m.IPAddressName, new { @class = "span5 required", @maxlength = "50", @tabindex = "2", @next="Description" })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Description
+                </label>
+                @Html.TextBoxFor(m => m.Description, new { @class = "span5", @maxlength = "500", @tabindex = "3", @next="IsActive" })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Is Active
+                </label>
+                @Html.CheckBoxFor(m => m.IsActive, new { @tabindex = "4", @next="btnSubmit" })
+            </div>
+        </div>
+        <div class="row-fluid span12">
+            <input class="btn btn-inverse" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="5" title='Save IP Address' />
+            <input class="btn cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="6" title='Cancel IP Address' />
+        </div>
+    </div>
+}
+<script src="~/Scripts/Utility/IPAddress.js"></script>

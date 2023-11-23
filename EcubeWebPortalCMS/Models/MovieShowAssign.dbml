@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ClubO7_Dev" Class="MovieShowAssignDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=kcs-ovh-mssql01\SQL2014;Initial Catalog=ClubO7_Dev;User ID=eCubeeHSM" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ECubeCMSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.MovieShowPeriod" Member="MovieShowPeriods">
+    <Type Name="MovieShowPeriod">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="DeletedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeletedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="MovieTheatreId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateToDisplay" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TimeToDisplay" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.MS_InsertorUpdateMovieShowPeriod" Method="MS_InsertorUpdateMovieShowPeriod">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="StartDate" Parameter="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="EndDate" Parameter="endDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.MS_DeleteMovieShowPeriod" Method="MS_DeleteMovieShowPeriod">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.MS_DeleteAssignMovieShows" Method="MS_DeleteAssignMovieShows">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="MS_DeleteAssignMovieShowsResult">
+      <Column Name="Result" Type="System.String" DbType="VarChar(7) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetMovieShowDetailsByPeriodId" Method="MS_GetMovieShowDetailsByPeriodId">
+    <Parameter Name="StartDate" Parameter="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="EndDate" Parameter="endDate" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetMovieBookingCount" Method="GetMovieBookingCount">
+    <Parameter Name="ShowId" Parameter="showId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetMovieBookingCountResult">
+      <Column Name="BookingRecord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.CheckMovieExistByShowTime" Method="CheckMovieExistByShowTime">
+    <Parameter Name="StartDate" Parameter="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="EndDate" Parameter="endDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="MovieId" Parameter="movieId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TheatreId" Parameter="theatreId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ShowId" Parameter="showId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="CheckMovieExistByShowTimeResult">
+      <Column Name="ShowCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetMovieShowPeriod" Method="MS_GetMovieShowPeriod">
+    <Parameter Name="Rows" Parameter="rows" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Page" Parameter="page" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Search" Parameter="search" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="Sort" Parameter="sort" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="DisplayPastRecord" Parameter="displayPastRecord" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="MS_GetMovieShowPeriodResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="MovieTheatreName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DateToDisplay" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TimeToDisplay" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_AssignMovieShows" Method="MS_AssignMovieShows">
+    <Parameter Name="XML" Parameter="xML" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="MovieTheatreId" Parameter="movieTheatreId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MovieShowPeriodId" Parameter="movieShowPeriodId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="MS_AssignMovieShowsResult">
+      <Column Name="MovieShowPeriodId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SaveMovieShowRate" Method="SaveMovieShowRate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MovieShowPeriodId" Parameter="movieShowPeriodId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ClassId" Parameter="classId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MemberCMSRate" Parameter="memberCMSRate" Type="System.Decimal" DbType="Decimal(18,4)" />
+    <Parameter Name="GuestCMSRate" Parameter="guestCMSRate" Type="System.Decimal" DbType="Decimal(18,4)" />
+    <Parameter Name="UserId" Parameter="userId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="SaveMovieShowRateResult">
+      <Column Name="InsertedId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>

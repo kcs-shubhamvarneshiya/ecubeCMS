@@ -1,0 +1,44 @@
+﻿@model EcubeWebPortalCMS.Models.MovieTicketModel
+@{
+    ViewBag.Title = "Movie Ticket";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+        </h4>
+    </div>
+    <div class="card shadow rounded overflow-hidden card-space">
+        <div class="row d-flex align-items-end">
+            <div class="col-md-4 mb-3 pb-3">
+                <h5 class="mb-2 input-label">
+                    Ticket No
+                </h5>
+                @Html.TextBoxFor(m => m.TicketId, new { @id = "txtTicketId", @class = "form-control", @maxlength = "50", @tabindex = "1", @next = "Movie", @Style = "" })
+            </div>
+            @*<div class="span3">
+                @Html.DropDownListFor(x => x.MemberId, new SelectList(string.Empty, "Value", "Text", 0), "Select Member Code", new { @Id = "ddlEvent", @class = "span9  form-control", @tabindex = "2", @next = "TicketId", @Style = "float:left !important; " })
+            </div>*@
+            <div class="col-md-4 mb-3 pb-3">
+                <h5 class="mb-2 input-label">
+                    Member code
+                </h5>
+                @Html.TextBoxFor(m => m.MemberCode, new { @id = "txtMemberCode", @class = "form-control", @maxlength = "50", @tabindex = "2", @Style = "" })
+            </div>
+            <div class="col-md-4 mb-3 pb-3">
+                <input type="button" class="btn btn-primary" id="btnSearch" tabindex="3" value="Search" />
+            </div>
+        </div>
+        <div class="user-constant mt-3">
+            <div id="dvMovieTicket" class="card shadow rounded overflow-hidden">
+                <table id="tblMovieTicket"></table>
+                <div id="dvMovieTicketFooter"></div>
+            </div>
+        </div>
+        </div>
+
+    </div>
+@*<link href="~/Content/Style/style.css?@DateTime.Now.ToString("ddmmyyyyhhMMsstt")" rel="stylesheet" />*@
+<script src="~/Scripts/Utility/MovieTicket.js?@DateTime.Now.ToString("ddmmyyyyhhMMsstt")"></script>

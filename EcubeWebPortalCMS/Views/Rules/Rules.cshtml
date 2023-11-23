@@ -1,0 +1,38 @@
+﻿
+<link href="~/Scripts/Library/ckeditor/skins/moono/editor.css" rel="stylesheet" />
+<link href="~/Scripts/Library/ckeditor/skins/moono/editor_gecko.css" rel="stylesheet" />
+<link href="~/Scripts/Library/ckeditor/skins/moono/dialog.css" rel="stylesheet" />
+<script src="~/Scripts/Library/ckeditor/ckeditor.js"></script>
+<script src="~/Scripts/Library/ckeditor/styles.js"></script>
+<script src="~/Content/ckeditor.js"></script>
+@model EcubeWebPortalCMS.Models.CustomPageModel
+@{
+    ViewBag.Title = "Rules";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool isAdd = Convert.ToBoolean(ViewData["blAddRights"]);
+}
+@using (Html.BeginForm("Rules", "Rules", FormMethod.Post, new { @id = "frmRules", @class = "form_validation_ttip well stdform" }))
+{    
+    <div class="row-fluid">
+         @Html.Hidden("hfAdd", @isAdd)
+        <div class="span12">
+            <h4 class="heading">
+                @ViewBag.Title
+            </h4>
+        </div>
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.HdnIFrame)
+        @Html.HiddenFor(m => m.PageName)
+        <div class="row-fluid">
+            <div class="span12">
+                @Html.TextAreaFor(m => m.PageContent, new { @id="PageContent1",@class = "ckeditor", @onkeydown = "return FocusChange(event, 'IsDisplay');" })
+            </div>
+        </div>
+        @Html.HiddenFor(m=>m.IsActive)
+    </div>
+    <div class="row-fluid">
+        <input class="btn btn-inverse" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="12" title="Save Rules" />
+        <input class="btn cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="13" title="Cancel Rules" />
+    </div>
+}
+<script src="~/Scripts/Utility/Rules.js"></script>

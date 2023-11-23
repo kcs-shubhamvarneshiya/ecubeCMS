@@ -1,0 +1,172 @@
+﻿@model EcubeWebPortalCMS.Models.MovieShowReportModel
+@{
+    ViewBag.Title = "Movie Booking Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool isAdd = Convert.ToBoolean(ViewData["blAddRights"]);
+    bool isEdit = Convert.ToBoolean(ViewData["blEditRights"]);
+    bool isDelete = Convert.ToBoolean(ViewData["blDeleteRights"]);
+    string cacheCleaner = DateTime.Now.ToString("ddMMyyyhhmmss");
+}
+
+
+<style type="text/css">
+    #tblMovieTheatre tr {
+        margin: 10px;
+    }
+
+        #tblMovieTheatre tr td {
+            vertical-align: central;
+            text-align: center;
+            font-size: 10px;
+            border: 1px solid;
+            width: 100px;
+            height: 100px;
+            padding: 0px !important;
+            line-height: 11px;
+        }
+
+    #tblMovieDetails {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        border-bottom: 1px solid black;
+    }
+
+        #tblMovieDetails td {
+            padding: 10px;
+        }
+
+            #tblMovieDetails td span {
+                font-weight: normal;
+            }
+    /*br {
+        line-height:5px;
+         display: block;
+        margin: 10px 0;
+
+    }*/
+    #tblMovieTheatre tr td b {
+        display: block;
+        margin-top: 5px;
+        font-size: 15px;
+    }
+
+    #tblMovieTheatre tr td span {
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 25px;
+        display: block;
+        margin-top: 3px;
+    }
+
+    hr {
+        padding: 0;
+        margin: 0;
+        border: 1px solid black;
+    }
+
+    .profileinner-img {
+        background: #fff;
+        width: 100%;
+        overflow: hidden;
+        height: 100%;
+        vertical-align: middle;
+        border-radius: 100%;
+        padding: 0px;
+        display: inline-block;
+        margin: 5px;
+    }
+
+        .profileinner-img img {
+            height: 86px;
+            width: 100%;
+            object-fit: cover;
+            /*border-radius: 100%;*/
+        }
+
+    #tblMovieAuditorium tr {
+        margin: 10px;
+    }
+
+        #tblMovieAuditorium tr td {
+            vertical-align: central;
+            text-align: center;
+            font-size: 10px;
+            border: 1px solid;
+            width: 30px;
+            height: 120px;
+            padding: 0px !important;
+            line-height: 11px;
+        }
+
+            #tblMovieAuditorium tr td b {
+                display: block;
+                margin-top: 5px;
+                padding: 0px 0px 0px 9px;
+                font-size: 12px;
+                writing-mode: vertical-rl;
+            }
+
+            #tblMovieAuditorium tr td span {
+                font-size: 20px;
+                font-weight: bold;
+                line-height: 25px;
+                display: block;
+                margin-top: 3px;
+            }
+
+    .main_partc,
+    .navbar-toggler {
+        display: none;
+    }
+
+    .main_rightp {
+        width: 100%;
+        padding: 0px;
+    }
+</style>
+<div class="">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+        </h4>
+        @Html.Hidden("hfAdd", @isAdd)
+        @Html.Hidden("hfEdit", @isEdit)
+        @Html.Hidden("hfDelete", @isDelete)
+        @Html.Hidden("hfDelete", @isDelete)
+        @Html.HiddenFor(m => m.WindowsTitle, new { @id = "applicationTitle" })
+    </div>
+    <div class="card shadow rounded overflow-hidden card-space">
+        <div class="row">
+            <div class="col-lg-4 mb-3 pb-3">
+                @Html.TextBoxFor(m => m.MovieDate, new { @class = "date form-control", @maxlength = "50", @tabindex = "1", @next = "Movie", @Style = "", @placeholder = "Show Date" })
+            </div>
+            <div class="col-lg-4 mb-3 pb-3">
+                @Html.DropDownListFor(m => m.MovieTheatreId, Model.LstMovieTheatreScreen, new { @class = "span2 form-control ", @tabindex = "2", @next = "MovieShow", @Style = "" })
+            </div>
+            <div class="col-lg-4 mb-3 pb-3">
+                @Html.DropDownListFor(x => x.Movie, Model.LstMovie, "Select Movie", new { @class = "span2  form-control", @tabindex = "3", @next = "MovieShow", @Style = "" })
+            </div>
+            <div class="col-lg-4 mb-3 pb-3">
+                @Html.DropDownListFor(x => x.MovieShow, Model.LstMovieShows, "Select Movie Show", new { @class = "span2  form-control", @tabindex = "4", @next = "MovieShowId", @Style = "" })
+            </div>
+            <div class="col-lg-4 mb-3 pb-3">
+                @Html.TextBoxFor(m => m.TicketId, new { placeholder = "Serial Id", @class = "span2 form-control numwithspc", @maxlength = "50", @tabindex = "5", @next = "MemberCode", @Style = "" })
+            </div>
+            <div class="col-lg-4 mb-3 pb-3">
+                @Html.TextBoxFor(m => m.MemberCode, new { placeholder = "Member code", @class = "span2 form-control", @maxlength = "50", @tabindex = "6", @next = "Movie", @Style = "" })
+            </div>
+            <div class="col-lg-12 d-flex justify-content-end">
+                <input type="button" class="btn btn-primary" id="btnSearch" tabindex="7" value="Search" />
+            </div>
+        </div>
+
+        <div class="user-constant">
+            <div id="dvMovieReport" class="card shadow rounded overflow-hidden mt-4">
+                <table id="tblMovieReport"></table>
+                <div id="dvMovieReportFooter"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+<script src="~/Scripts/Utility/MovieBookingReport.js?@cacheCleaner "></script>

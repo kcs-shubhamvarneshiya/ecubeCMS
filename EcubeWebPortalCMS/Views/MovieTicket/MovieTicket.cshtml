@@ -1,0 +1,315 @@
+﻿@model EcubeWebPortalCMS.Models.MovieTicketModel
+@using EcubeWebPortalCMS.Common;
+@{
+    Layout = null;
+    string headerText = Functions.GetPropertyInfo().Name;
+    string clubName = Functions.GetSettings("ClubName2");
+    clubName = clubName.IsNullString() ? "KCSDemo" : clubName;
+    string CilentName = "Clubo7";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Movie Ticket</title>
+    <link rel="shortcut icon" href="~/Content/Image/logo/@clubName/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/Style/css")
+    <link href="~/Content/waitMe.css" rel="stylesheet" />
+    <script src="~/Scripts/JQuery/jquery-1.11.0.js"></script>
+    <script src="~/Scripts/printjs/jspdf.js"></script>
+    <script src="~/Scripts/printjs/html2canvas.js"></script>
+
+
+    <script>
+        jQuery(document).ready(function ($) {
+            window.print();
+        });
+
+        function adownload() {
+
+            for (var i = 0; i < 2; i++) {
+                html2canvas(document.getElementById('ticket')).then(function (canvas) {
+                    $('#pdfimage').show();
+                    var img = canvas.toDataURL("image/png")
+                    document.getElementById("pdfimage").src = img
+
+                    var doc = new jsPDF()
+                    var specialElementHandlers = {
+                        '#editor': function (element, renderer) {
+                            return true;
+                        }
+                    };
+                    doc.addImage(document.getElementById("pdfimage"), 'PNG', 10, 10, 180, 75);
+
+                    doc.save('TicketPrint.pdf');
+                    $('#pdfimage').hide();
+                });
+
+            }
+        }
+
+    </script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet'
+          type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700'
+          rel='stylesheet' type='text/css'>
+    <style type="text/css">
+        .movieticketleft {
+            background-color: #ffffff;
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+        }
+
+        body {
+            background-color: #ebeff4 !important;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .movieticketright {
+            background-color: #ffffff;
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
+
+        .ticketlogo {
+            display: none;
+            width: 1055px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .ticket-row {
+            /*background-color: #f6f1ea;*/
+            padding: 30px 0;
+        }
+
+        .ticketinformation {
+            max-width: 1055px;
+            margin: 0 auto;
+            padding: 20px 25px;
+        }
+
+        .printticket {
+            width: 1055px;
+            /*background-color: #ffffff;*/
+            margin: 0 auto;
+            border-radius: 6px;
+        }
+
+        .ticketqr-code {
+            width: 145px;
+        }
+
+        .ticketqr {
+            width: 195px;
+        }
+
+        .movietitle {
+            font-size: 30px;
+            color: #000;
+            font-weight: bold;
+            line-height: 34px;
+            padding: 0 0 30px;
+        }
+
+        .ticketlabel {
+            font-size: 16px;
+            line-height: 20px;
+            color: #000000;
+            padding: 0 0 3px;
+            font-weight: bold;
+        }
+
+        .ticketvalue {
+            font-size: 16px;
+            line-height: 20px;
+            color: #000;
+            font-weight: normal;
+        }
+
+        @@media print {
+            @@page {
+                background-color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+                margin: 0px !important;
+            }
+
+            body {
+                background-color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+            }
+
+            #header {
+                display: none !important;
+            }
+
+            #footer {
+                display: none !important;
+            }
+
+            .ticketlogo {
+                background-color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+                padding: 25px;
+                display: block !important;
+                width: 730px !important;
+            }
+
+            .ticket-row {
+                padding: 0;
+                padding-top: 20px
+            }
+
+            .printticket {
+                width: 750px !important;
+                /*background-color: #ffffff !important;*/
+                -webkit-print-color-adjust: exact;
+                border-radius: 6px;
+            }
+
+            .ticketqr {
+                width: 160px;
+            }
+
+            .movietitle {
+                font-size: 20px;
+                line-height: 24px;
+                padding: 0 0 20px;
+            }
+
+            .movieticketleft {
+                background-color: #ffffff !important;
+                border-top-left-radius: 6px;
+                border-bottom-left-radius: 6px;
+            }
+
+            .movieticketright {
+                background-color: #ffffff !important;
+                border-top-right-radius: 6px;
+                border-bottom-right-radius: 6px;
+            }
+
+            .ticket-row {
+                background-color: #ebeff4 !important;
+                border-radius: 6px;
+            }
+        }
+    </style>
+</head>
+<body class="body">
+    <section id="main-section">
+        <div class="container">
+            <div class="inner-contain">
+                <div class="thankyouticket">
+                    <div id="ticket">
+                        <div class="ticketlogo">
+                            <h1>
+                                <a>
+                                    <img src="~/Content/@CilentName/Image/logo.png" alt="">
+                                </a>
+                            </h1>
+                        </div>
+                        <div class="ticket-row">
+                            <div class="printticket">
+                                <table class="w-100">
+                                    <tr>
+                                        <td class="movieticketleft" valign="top" style="padding:25px 15px 25px 25px;">
+                                            <table class="w-100">
+                                                <tr>
+                                                    <td colspan="3" class="movietitle">@Model.MovieName</td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" width="271" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Screen</div>
+                                                        <div class="ticketvalue">@Model.ClubName</div>
+                                                    </td>
+                                                    <td valign="top" width="271" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Show Date</div>
+                                                        <div class="ticketvalue">@Convert.ToDateTime(Model.ShowDate).ToString("ddd, dd MMM yyyy")</div>
+                                                    </td>
+                                                    <td valign="top" width="271" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Show Time</div>
+                                                        <div class="ticketvalue">@Model.SHowTime</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Serial Id#</div>
+                                                        <div class="ticketvalue">@Model.TicketId</div>
+                                                    </td>
+                                                    <td valign="top" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Class</div>
+                                                        <div class="ticketvalue">@Model.ClassName</div>
+                                                    </td>
+                                                    <td valign="top" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Seats</div>
+                                                        <div class="ticketvalue">@Model.Seats</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Member</div>
+                                                        <div class="ticketvalue">@Model.MemberCount</div>
+                                                    </td>
+                                                    <td valign="top" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Rate</div>
+                                                        <div class="ticketvalue">@Model.MemberRate</div>
+                                                    </td>
+                                                    <td valign="top" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Rate</div>
+                                                        <div class="ticketvalue">@(Model.MemberRate * Model.MemberCount)</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Guest</div>
+                                                        <div class="ticketvalue">@Model.GuestCount</div>
+                                                    </td>
+                                                    <td valign="top" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Rate</div>
+                                                        <div class="ticketvalue">@Model.GuestRate</div>
+                                                    </td>
+                                                    <td valign="top" style="padding:0 0 15px;">
+                                                        <div class="ticketlabel">Rate</div>
+                                                        <div class="ticketvalue">@(Model.GuestRate * Model.GuestCount)</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size:15px; padding:5px 0 0; border-top:1px solid #000; line-height:20px; color:#000; font-weight:bold;" colspan="2">TOTAL</td>
+                                                    <td style="font-size: 16px; padding: 5px 0 0; border-top: 1px solid #000; line-height: 20px; color: #000; font-weight: bold;">
+                                                        @((Model.MemberRate * Model.MemberCount) + (Model.GuestRate * Model.GuestCount))
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td width="35" style="padding: 0;">
+                                            <img style="width: 100%; height: auto;" src="~/Content/Image/ticket-dot.png" />
+                                        </td>
+                                        <td class="movieticketright ticketqr" align="center">
+                                            <img class="ticketqr-code" src="@Model.QRCodeImage" />
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                            <div class="ticketinformation">
+                                <p style="">
+                                    <strong>Important Instructions</strong>
+                                    <br />
+                                    Seat once booked cannot be exchanged, cancelled or refunded.
+                                    The Credit Card and Credit Card Holder must present this at the counter.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img id="pdfimage" />
+    </section>
+</body>
+</html>

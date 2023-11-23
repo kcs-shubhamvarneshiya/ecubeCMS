@@ -1,0 +1,695 @@
+@import '_variables';
+
+//
+// Navbar
+//
+
+.navbar-logo {
+       min-width: 16.875rem
+}
+
+//
+// Default Elements
+//
+
+.ui-jqgrid {
+    border: 0 none;
+    font-family: $font-family-sans-serif;
+    width: 100% !important;
+
+    .ui-jqgrid-view {
+        width: 100% !important;
+
+        .ui-jqgrid-hdiv, .ui-jqgrid-htable {
+            width: 100% !important
+        }
+
+        .ui-jqgrid-bdiv {
+            width: 100% !important
+        }
+
+        .ui-jqgrid-btable {
+            width: calc(100% - 1px) !important
+        }
+    }
+
+    .ui-jqgrid-pager {
+        background: $white !important;
+        height: auto !important;
+        width: 100% !important;
+
+        .ui-pager-control > {
+            table > {
+                tbody > {
+                    tr > {
+                        td {
+                            &:first-child {
+                                color: $black;
+                                padding: 1.125rem .75rem !important;
+                                width: auto !important;
+
+                                .ui-paging-info {
+                                    font-size: $h5-font-size;
+                                    font-weight: $font-weight-bold;
+                                    height: auto;
+                                    margin: 0;
+                                    padding: 0 1rem
+                                }
+                            }
+
+                            &:nth-child(2) {
+                                padding: 1.125rem .75rem !important;
+
+                                table {
+                                    tbody {
+                                        tr {
+                                            td {
+                                                &:nth-child(1) {
+                                                    padding: 0
+                                                }
+
+                                                &:nth-child(2) {
+                                                }
+
+                                                &:nth-child(3) {
+                                                    display: none
+                                                }
+
+                                                &:nth-child(4) {
+                                                    font-size: 0;
+                                                }
+
+                                                &:nth-child(5) {
+                                                    display: none
+                                                }
+
+                                                &:nth-child(6) {
+                                                }
+
+                                                &:nth-child(7) {
+                                                }
+
+                                                &:nth-child(8) {
+                                                }
+
+                                                .ui-pg-input, .ui-pg-selbox {
+                                                    border: $border-type-solid $border-width $gray-400;
+                                                    border-radius: $border-radius;
+                                                    -webkit-box-shadow: $box-shadow;
+                                                    -ms-box-shadow: $box-shadow;
+                                                    box-shadow: $box-shadow;
+                                                    font-size: $h5-font-size;
+                                                    height: 2.25rem;
+                                                    margin: 0 .5rem;
+                                                    padding: 0;
+                                                    text-align: center;
+                                                }
+
+                                                .ui-pg-selbox {
+                                                    padding-left: .5rem
+                                                }
+
+                                                &.ui-pg-button {
+                                                    background: transparent !important;
+                                                    height: auto !important;
+                                                    padding: 0;
+
+                                                    .ui-icon {
+                                                        height: 1.5rem;
+                                                        margin: 0 .325rem;
+                                                        width: 1.5rem;
+
+                                                        &.ui-icon-seek-first {
+                                                            background: url(../assets/images/icon-prev-first.svg) no-repeat center center
+                                                        }
+
+                                                        &.ui-icon-seek-prev {
+                                                            background: url(../assets/images/icon-prev.svg) no-repeat center center
+                                                        }
+
+                                                        &.ui-icon-seek-next {
+                                                            background: url(../assets/images/icon-next.svg) no-repeat center center
+                                                        }
+
+                                                        &.ui-icon-seek-end {
+                                                            background: url(../assets/images/icon-next-last.svg) no-repeat center center
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            &:nth-child(3) {
+                                display: none
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .ui-jqgrid-hbox {
+        padding-right: 0;
+        width: 100%;
+    }
+
+    .loading {
+        background-color: $primary;
+        padding: .625rem 1rem
+    }
+
+    .ui-jqgrid-htable {
+        thead tr th {
+            background: $white !important;
+            border: 0 none !important;
+            color: $black;
+            font-size: $h5-font-size;
+            font-weight: $font-weight-bold;
+            height: auto;
+            padding: 1.125rem .75rem;
+            vertical-align: bottom;
+            &:first-child{
+                width:50px !important;  
+            }            
+            div {
+                height: auto
+            }
+        }
+    }
+
+    .ui-jqgrid-btable {
+        outline: 0 none;
+
+        .jqgfirstrow {
+            td {
+                border: 0 none !important
+            }
+        }
+
+        tbody tr {
+            background: $white !important;
+            border-color: transparent;
+            color: $black !important;
+
+            &.jqgfirstrow {
+                td {
+                    padding: 0 !important
+                }
+            }
+
+            td {
+                border: 0 none !important;
+                border-top: $border-type-solid $border-width $gray-300 !important;
+                font-size: $font-size-base;
+                padding: 1.125rem .75rem !important;
+                vertical-align: top;
+                &:first-child{
+                    width:50px !important;
+                }  
+                svg {
+                    margin: 0
+                }
+            }
+        }
+    }
+
+    &-sortable {
+        float: left !important
+    }
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+    border: 0 none;
+}
+
+//
+// Custom Datepicker
+//
+
+body .datepicker {
+    padding: .625rem;
+
+    &.dropdown-menu {
+        min-height: 21.875rem;
+        min-width: 19.375rem;
+        max-width: 19.375rem;
+    }
+
+    table {
+        width: 100%;
+
+        thead {
+            tr {
+                display: flex
+            }
+        }
+
+        tr {
+            th, td {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: $gray-600;
+                font-size: .8125rem;
+                height: 2.25rem;
+                margin: .15rem;
+                text-shadow: none;
+                width: 2.25rem;
+
+                &.day {
+                    -webkit-border-radius: 100%;
+                    -ms-border-radius: 100%;
+                    border-radius: 100%;
+                }
+
+                &.new, &.old {
+                    opacity: .5
+                }
+            }
+        }
+
+        tr {
+            th {
+                &.prev, &.next {
+                    -webkit-border-radius: 100%;
+                    -ms-border-radius: 100%;
+                    border-radius: 100%;
+                    font-size: 0;
+                    position: relative;
+
+                    &:before {
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        position: absolute;
+                        content: "";
+                        border-color: currentcolor;
+                        border-style: solid;
+                        height: .5rem;
+                        margin: .875rem;
+                        width: .5rem;
+                    }
+                }
+
+                &.prev {
+                    order: 2;
+
+                    &:before {
+                        border-width: 2px 0 0 2px;
+                        -webkit-transform: translateX(2px) rotate( -45deg );
+                        transform: translateX(2px) rotate( -45deg );
+                    }
+                }
+
+                &.next {
+                    order: 3;
+
+                    &:before {
+                        border-width: 2px 2px 0 0;
+                        -webkit-transform: translateX(-2px) rotate( 45deg );
+                        transform: translateX(-2px) rotate( 45deg );
+                    }
+                }
+
+                &.dow {
+                    font-weight: normal;
+                    text-transform: uppercase
+                }
+
+                &.datepicker-switch {
+                    margin-right: auto;
+                    order: 1;
+                    padding: 0 .625rem;
+                    white-space: nowrap;
+                    width: auto
+                }
+            }
+        }
+
+        tr {
+            td {
+                &.active {
+                    &:hover.active, &.active {
+                        background-color: $primary;
+                        text-shadow: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .datepicker-months, .datepicker-years {
+        tbody {
+            tr {
+                td {
+                    display: inline-block;
+                    height: auto;
+                    margin: 0;
+                    padding: 0;
+                    vertical-align: top;
+                    width: 100%;
+
+                    span {
+                        display: inline-block;
+                        float: none;
+                        height: 42px;
+                        line-height: 42px;
+                        margin: 1%;
+                        padding: 0;
+                        vertical-align: top;
+                        width: 48%
+                    }
+                }
+            }
+        }
+    }
+
+    &:before, &:after {
+        display: none
+    }
+}
+
+.datepicker table tr td span.active:active,
+.datepicker table tr td span.active:hover:active,
+.datepicker table tr td span.active.disabled:active,
+.datepicker table tr td span.active.disabled:hover:active,
+.datepicker table tr td span.active.active,
+.datepicker table tr td span.active:hover.active,
+.datepicker table tr td span.active.disabled.active,
+.datepicker table tr td span.active.disabled:hover.active {
+    background-color: $primary
+}
+
+
+//
+// Custom Timepicker
+//
+
+body .bootstrap-timepicker-widget.dropdown-menu {
+    margin: 0;
+    padding: 0 .625rem;
+
+    table {
+        td {
+            a {
+                background: $transparent;
+                -webkit-border-radius: 0;
+                border-radius: 0;
+                border: 0 none;
+                position: relative;
+                vertical-align: top;
+
+                span {
+                    &:before {
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        position: absolute;
+                        content: "";
+                        border-color: currentcolor;
+                        border-style: solid;
+                        border-width: 2px 0 0 2px;
+                        margin: 0 auto;
+                        height: .5rem;
+                        width: .5rem;
+                        -webkit-transform: translateX(2px);
+                        transform: translateX(2px);
+                    }
+
+                    &.glyphicon-chevron-up:before {
+                        transform: rotate( 45deg );
+                        top: .875rem;
+                    }
+
+                    &.glyphicon-chevron-down:before {
+                        transform: rotate( 225deg );
+                    }
+                }
+            }
+
+            input {
+                -webkit-border-radius: 0;
+                border-radius: 0;
+                border: $border-type-solid $border-width $gray-400;
+                color: $gray-600;
+                font-size: .8125rem;
+                outline: 0 none;
+                padding: .45rem 0;
+                width: 2.5rem;
+            }
+        }
+    }
+
+    &:before, &:after {
+        display: none
+    }
+}
+
+
+//
+// Custom CSS
+//
+
+header {
+    z-index: $zindex-fixed;
+}
+
+.bg-muted {
+    background-color: $gray !important
+}
+
+.bg-lightgray {
+    background-color: $lightest !important
+}
+
+.text-gray {
+    color: $gray-500 !important
+}
+
+.text-red {
+    color: $darkred !important
+}
+
+.text-lightgray {
+    color: $lightgray !important
+}
+
+body .border-gray {
+    border-color: $gray-200 !important
+}
+
+body .border-double {
+    border-width: 3px !important
+}
+
+.font-weight-medium {
+    font-weight: 500!important
+}
+
+.font-size-base {
+    font-size: 1rem !important
+}
+
+.secondary-opacity {
+    background-color: rgba(14,39,65,$tooltip-opacity)
+}
+
+.line-height-base {
+    line-height: 1 !important
+}
+
+.line-height-normal {
+    line-height: normal !important
+}
+
+.cursor-pointer {
+    cursor: pointer !important
+}
+
+input.datepicker {
+    background-image: url(../assets/images/icon-calendar-dark.svg);
+    background-repeat: no-repeat;
+    background-position: calc(100% - 14px) center;
+    font-size: 1rem;
+    outline: none
+}
+
+input.timepicker {
+    background-image: url(../assets/images/icon-clock-dark.svg);
+    background-repeat: no-repeat;
+    background-position: calc(100% - 12px) center;
+    font-size: 1rem;
+    outline: none
+}
+
+body input.time {
+    background-color: $white !important;
+    background-image: url(../assets/images/icon-clock-dark.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: calc(100% - 14px) center !important;
+    border: $border-type-solid $border-width $gray-400 !important;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    padding: 0.375rem 0.75rem;
+}
+
+input[type="radio"],
+input[type="checkbox"],
+.form-check-label, select {
+    cursor: pointer
+}
+
+body div.checker,
+body div.checker input {
+    height: 1.625rem;
+    width: 1.625rem;
+
+    span {
+        background: #fff;
+        border: $border-type-solid $border-width $gray-400;
+        border-radius: .375rem;
+        height: 1.625rem;
+        width: 1.625rem;
+
+        &.checked {
+            background: url(../assets/images/icon-check-dark.svg) no-repeat center center !important
+        }
+    }
+}
+
+button:focus:not(:focus-visible) {
+    outline: 0
+}
+
+.date-time-picker {
+    .datepicker {
+        border-radius: $border-radius 0 0 $border-radius;
+        border-right: 0 none;
+    }
+
+    .time {
+        border-radius: 0 $border-radius $border-radius 0;
+        border-left-color: $black !important;
+    }
+}
+
+.page-sidebar {
+    .navbar-inner {
+        -webkit-transition: all .3s ease;
+        transition: all .3s ease;
+        width: 17.875rem;
+
+        .sub-fluid-menu {
+            li {
+                a {
+                    color: $body-color;
+                    min-height: 2.3125rem;
+
+                    &:hover,
+                    &.MenuActive {
+                        background: $yellow;
+                        color: $primary;
+
+                        svg path {
+                            fill: $primary
+                        }
+
+                        &.custom-stroke {
+                            svg path {
+                                fill: $white;
+                                stroke: $primary
+                            }
+                        }
+                    }
+
+                    &.MenuActive {
+                        font-weight: $font-weight-bold
+                    }
+                }
+            }
+        }
+    }
+
+    .show {
+        .navbar-inner {
+            width: 3.17rem;
+            .left_navc {
+                padding: 1rem 0 !important
+            }
+        }
+
+        .has-sub {
+            a.h5 {
+                display: none !important
+            }
+
+            .sub-fluid-menu {
+                padding-bottom: 0 !important;
+
+                li {
+                    a {
+                        span {
+                            display: none
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+body #popup_container {
+    background: $white;
+    border-color: rgba($black, .2);
+    font-family: $font-family-sans-serif;
+    font-size: $font-size-base;
+
+    #popup_title {
+        border: 0 none;
+        background: $transparent;
+        color: $black;
+        font-size: $h4-font-size;
+        font-weight: $font-weight-bold
+    }
+
+    #popup_content {
+        border: 0 none;
+        background: $transparent;
+        color: $black;
+        padding-top: 0
+    }
+
+    #popup_ok, #popup_ok:focus,
+    #popup_cancel, #popup_cancel:focus {
+        background: $secondary;
+        border-color: $secondary;
+        box-shadow: none;
+        color: $white;
+        font-size: 1rem;
+        font-weight: $font-weight-bold;
+        margin: 0 .25rem;
+        outline: 0 none;
+        text-shadow: none
+    }
+
+    #popup_panel {
+        margin: 2rem 0 0
+    }
+}
+
+.login_form_box {
+
+    @media(min-width:992px) {
+        margin-left: 10%;
+        width: 40%;
+        max-width: 45rem
+    }
+}

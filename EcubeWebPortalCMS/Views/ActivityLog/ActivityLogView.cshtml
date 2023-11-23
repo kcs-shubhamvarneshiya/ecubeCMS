@@ -1,0 +1,26 @@
+@{
+    ViewBag.Title = "Activity Log";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+ }
+<div class="row-fluid">
+    <div class="span12">
+        <h4 class="heading">
+            @ViewBag.Title
+        </h4>
+    </div> 
+    <div class="span12 clearfix contant-toph">
+        <div class="usearch-text">
+            <label>
+                Search
+            </label>
+            <input type="text" id="txtActivityLogSearch" />
+        </div>
+    </div>
+    <div class="span12 user-contant">
+        <div id="dvActivityLog">
+            <table id="tblActivityLog"></table>
+            <div id="dvActivityLogFooter"></div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Utility/ActivityLogView.js"></script>

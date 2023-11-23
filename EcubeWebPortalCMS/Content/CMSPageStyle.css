@@ -1,0 +1,102 @@
+body {margin: 0px; padding: 0px; font-family: 'Roboto', sans-serif;}
+.wrapper {display: block; max-width:1280px; margin:0 auto;}
+.main-banner {display: block;}
+.main-banner img {width: 100%;}
+.benquet {display:block; padding: 0px 15px;}
+.benquet h1 {font-size:57px; border-bottom:solid 1px #7a7a7a; padding-bottom:10px; margin-bottom: 20px;}
+.benquet p {font-size:34px; line-height:50px;}
+
+.table-div {/*padding: 0px 15px;*/}
+.table {text-align: left; padding: 0px 0px; margin:20px 0px; overflow:auto; border:solid 1px #dddddd; border-bottom:0px;}
+.table table {/*min-width:600px;*/ max-width: 100%;}
+.table table tr th, .table table tr td {border-right:solid 1px #dddddd; border-bottom:solid 1px #dddddd; padding: 10px; font-size:34px;}
+.table table tr th:last-child, .table table tr td:last-child{border-right:0px;}
+
+@media (min-width:1023px) and (max-width:1279px){
+.benquet h1 {font-size:32px;}
+.benquet p {font-size:22px; line-height:34px;}
+.table table tr th, .table table tr td {padding: 10px; font-size:18px;}
+}
+
+@media (min-width:768px) and (max-width:991px){
+.benquet h1 {font-size:28px;}
+.benquet p {font-size:18px; line-height:30px;}
+.table table tr th, .table table tr td {padding: 10px; font-size:18px;}
+}
+.hometheater table tr th {background: #ef1b25; color: #fff; font-size: 34px;}
+
+@media only screen and (max-width:767px){
+	.benquet h1 {font-size:20px;}
+	.benquet p {font-size:14px; line-height:24px;}
+	.table table tr th, .table table tr td {padding: 10px; font-size:14px;}
+	.hometheater table tr th {font-size: 18px;}
+	.shatranjtable tr td:first-child {width: 22%;}
+}
+/*---------- media end ----------*/
+
+.indiawebsitelink table a[href]{color: #ef1b25;}
+
+.affilistclublist {padding: 5px;}
+.table table tr:last-child td {padding-bottom: 15px;}
+ul.fileinformation{padding-left:15px;}
+ul.fileinformation li {padding: 3px 0; list-style-type: none; position: relative;}
+ul.fileinformation li:before {
+	position: absolute;
+	content: "";
+	border: 1px solid #ddd;
+	height: 5px;
+	width: 5px;
+	margin-right: 5px;
+    left: -15px;
+    top: 12px;
+}
+ul.fileinformation li a {
+	text-decoration: none;
+	color: #000;
+	font-size: 12px;
+}
+.affilistclublist {
+	font-size: 14px;
+}
+
+table.managingcommitteelist tbody tr td {text-align: center; display: block;}
+table.managingcommitteelist tbody tr {
+	border-bottom: 1px solid #ddd;
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding: 5px 0;
+}
+.bomlist ul li {
+	list-style-type: disc;
+	padding: 3px 0;
+	font-size: 15px;
+}
+.bomlist ul{display: inline-block; padding-left: 25px;}
+.bomlist ul:first-child {
+	margin-right: 15%;    
+}
+.membershipdetails strong, .administrativestrong strong, .contactus strong, .hometheater strong {color: #ef1b25;}
+.membershipdetails ul li {list-style-type: none; font-size: 14px;}
+
+
+
+@media (max-width:479px){
+	.bomlist ul {
+		display: block;
+	}
+}
+/*--------- media end -----*/
+
+.selectmenu{ margin-bottom:20px;}
+
+.staric-main{color: #000; padding: 0px; display: none; margin-top: 20px; margin-bottom: 20px; overflow-x: auto;}
+.staric-main table{border-collapse:collapse; border-spacing:0; width:100%;display:table}
+.staric-main table td, .staric-main table th {border: 1px solid #ddd; text-align: left; padding: 8px;}
+.staric-main table tr{border-bottom:1px solid #ddd}
+.staric-main table tbody tr:nth-child(even){background-color:#f1f1f1}
+.staric-main table tr:nth-child(odd){background-color:#fff}
+.staric-main table tr:nth-child(even){background-color:#f1f1f1}
+.staric-main table tbody tr:hover, .staric-main table tr th,.staric-main table tr td{text-align:center}
+.staric-main table td,.staric-main table th,.staric-main table td,.staric-main table th{padding:8px 8px;display:table-cell;text-align:left;vertical-align:top}
+.staric-main table th:first-child,.staric-main table td:first-child,.staric-main table th:first-child,.staric-main table td:first-child{padding-left:16px}

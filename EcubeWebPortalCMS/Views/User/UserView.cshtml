@@ -1,0 +1,44 @@
+@{
+    ViewBag.Title = "User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool isAdd = Convert.ToBoolean(ViewData["blAddRights"]);
+    bool isEdit = Convert.ToBoolean(ViewData["blEditRights"]);
+    bool isDelete = Convert.ToBoolean(ViewData["blDeleteRights"]);
+}
+<div class="row-fluid">
+    <div class="span12">
+        <h4 class="heading">
+            @ViewBag.Title
+        </h4>
+        @Html.Hidden("hfAdd", @isAdd)
+        @Html.Hidden("hfEdit", @isEdit)
+        @Html.Hidden("hfDelete", @isDelete)
+    </div>
+    <div class="span12 clearfix contant-toph">
+        <div class="usearch-text">
+            <label>
+                Search
+            </label>
+            <input type="text" id="txtUserSearch" />
+        </div>
+        <ul class="adduser-links">
+            <li>
+                @if (isAdd)
+                {
+                    @Html.ActionLink("Add New User", "User", "User")
+                }
+                @if (isDelete)
+                {
+                    <a id="btnDeleteUser" href="javascript:void(0)">Delete User</a>
+                }
+            </li>
+        </ul>
+    </div>
+    <div class="span12 user-contant">
+        <div id="dvUser">
+            <table id="tblUser"></table>
+            <div id="dvUserFooter"></div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Utility/UserView.js"></script>

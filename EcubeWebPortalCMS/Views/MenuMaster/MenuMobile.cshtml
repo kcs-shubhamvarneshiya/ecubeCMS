@@ -1,0 +1,405 @@
+﻿@{
+    ViewBag.Title = "Menu Mobile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var modelCnt = 1;
+
+
+    if (@Model != null && @Model.MenuMobileModelList != null)
+    {
+        modelCnt = @Model.MenuMobileModelList.Count();
+    }
+}
+
+@model EcubeWebPortalCMS.Models.MenuMobileModel
+
+
+
+@using (Html.BeginForm("MenuMobile", "MenuMaster", FormMethod.Post, new { @id = "frmSideMenu", @class = "form_validation_ttip well stdform" }))
+{
+    <div class="">
+        <div class="panel-heading">
+            <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+                <h4 class="heading mb-4 m-md-0">
+                    @ViewBag.Title
+                    @Html.HiddenFor(m => m.HdnSession)
+                </h4>
+            </div>
+        </div>
+        <div class="pan">
+            <div class="card shadow rounded overflow-hidden card-space">
+                @Html.HiddenFor(m => m.HdnIFrame)
+                @Html.HiddenFor(m => m.MenuId)
+                <div class="panel-heading">
+                    <div class="d-flex align-items-center pb-2 main-form--heading ">
+                        <h5 class="heading mb-4 m-md-0">
+                            Menu
+                        </h5>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Menu Key<span class="f_req text-danger">*</span></th>
+                            <th>Menu Display Name<span class="f_req text-danger">*</span></th>
+                            <th>Sequence No<span class="f_req text-danger">*</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.TextBoxFor(m => m.MenuKey, new { @class = "span9 required alphanumwithspc form-control ", @maxlength = "50", @tabindex = "1" })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.MenuDisplayName, new { @class = "span9 required alphanumwithspc form-control ", @maxlength = "50", @tabindex = "2" })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.SeqNo, new { @class = "span9 numeric form-control", @maxlength = "3", @tabindex = "3", @type = "number" })
+                            </td>
+                            @*<td>
+                        <button type="button" class="btn btn-primary" id="addSubMenuRowButton">Add Sub Menu</button>
+                    </td>*@
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="panel-heading">
+                    <div class="d-flex align-items-center pb-2 main-form--heading ">
+                        <h5 class="heading mb-4 m-md-0">
+                            Sub Menu
+                        </h5>
+                    </div>
+                </div>
+                <table class="table" id="subMenuTable">
+                    <thead>
+                        <tr>
+                            <th>Sub Menu Key<span class="f_req text-danger">*</span></th>
+                            <th>Sub Menu Display Name<span class="f_req text-danger">*</span></th>
+                            <th>Sub Sequence No<span class="f_req text-danger">*</span></th>
+                            <th>Sub Icon Image<span class="f_req text-danger">*</span></th>
+                            @if (Model != null && Model.MenuMobileModelList != null && Model.MenuMobileModelList.Count() > 0)
+                            {
+                                <th>Action</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.MenuMobileModelList != null && Model.MenuMobileModelList.Count() > 0)
+                        {
+                            for (int i = 0; i < Model.MenuMobileModelList.Count; i++)
+                            {
+                                <tr id="@("tr"+i)">
+                                    <td>
+                                        @Html.HiddenFor(m => m.MenuMobileModelList[i].SubisDeleted, new { Id = "hdnIsDeleted_" + i })
+                                        @Html.HiddenFor(m => m.MenuMobileModelList[i].SubMenuId, new { Id = "hdnSubMenuId_" + i })
+                                        @Html.TextBoxFor(m => m.MenuMobileModelList[i].SubMenuKey, new { @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.MenuMobileModelList[i].SubMenuDisplayName, new { @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.MenuMobileModelList[i].SubSeqNo, new { @class = "form-control", type = "number" })
+                                    </td>
+                                    <td class="text-nowrap">
+                                        @{
+                                            var subIconImages = Model.MenuMobileModelList[i].SubIconImages;
+                                            if (string.IsNullOrEmpty(subIconImages))
+                                            {
+                                                subIconImages = "/Content/Image/NoImgeDisplay.png";
+                                            }
+                                        }
+                                        <img id="aMenuIconImageName_@i" alt="" class="mr-2" src="@Url.Content(subIconImages)" onerror="this.onerror=null;this.src='/Content/Image/NoImgeDisplay.png';" height="30" width="30" />
+                                        <input type="file" id="SubMenuIconImages_@i" name="SubMenuIconImages_@i" class="mb-2" tabindex="5" onchange="UploadImage(this, @i);" />
+                                        @Html.HiddenFor(m => m.MenuMobileModelList[i].SubIconImages, new { Id = "hdnSubMenuIconImages_" + i, name = "hdnSubMenuIconImages_" + i })
+                                        @Html.HiddenFor(m => m.MenuMobileModelList[i].SubMenuIcon, new { Id = "hdnSubMenuIcon_" + i, name = "hdnSubMenuIcon_" + i })
+
+                                    </td>
+                                    @if (i == 0)
+                                    {
+                                        <td> </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <a onclick="RemoveRow(this,@i)" class="tooltip-custom">
+                                                <span class="tooltiptext">Remove</span>
+                                                <svg width="31" height="31" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="10" fill="#CC1F1F" /><path d="M12.5 15H14.1667H27.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M25.8327 15.0001V26.6667C25.8327 27.1088 25.6571 27.5327 25.3445 27.8453C25.032 28.1578 24.608 28.3334 24.166 28.3334H15.8327C15.3907 28.3334 14.9667 28.1578 14.6542 27.8453C14.3416 27.5327 14.166 27.1088 14.166 26.6667V15.0001M16.666 15.0001V13.3334C16.666 12.8914 16.8416 12.4675 17.1542 12.1549C17.4667 11.8423 17.8907 11.6667 18.3327 11.6667H21.666C22.108 11.6667 22.532 11.8423 22.8445 12.1549C23.1571 12.4675 23.3327 12.8914 23.3327 13.3334V15.0001" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                                            </a>
+                                        </td>
+                                    }
+                                    <td>
+                                        <a id="addSubMenuRowButton" class="tooltip-custom" onclick="AddRow()">
+                                            <span class="tooltiptext">Add More</span>
+                                            <svg width="31" height="31" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect width="40" height="40" rx="10" fill="#337AB7" />
+                                                <path d="M20 13V27" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M13 20H27" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>
+                                    @Html.HiddenFor(m => m.MenuMobileModelList[0].SubisDeleted, new { @Id = "hdnIsDeleted_0" })
+                                    @Html.HiddenFor(m => m.MenuMobileModelList[0].SubMenuId, new { @Id = "hdnSubMenuId_0" })
+                                    @Html.TextBoxFor(m => m.MenuMobileModelList[0].SubMenuKey, new { @class = "form-control" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.MenuMobileModelList[0].SubMenuDisplayName, new { @class = "form-control" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.MenuMobileModelList[0].SubSeqNo, new { @class = "form-control ", type = "number" })
+                                </td>
+                                <td class="text-nowrap">
+                                    @if (Model != null && Model.MenuMobileModelList != null)
+                                    {
+                                        <img id="aMenuIconImageName_0" alt="" class="mr-2" src="@Url.Content(Model.MenuMobileModelList[0].SubIconImages)" onerror="this.onerror=null;this.src='/Content/Image/NoImgeDisplay.png';" height="30" width="30" />
+                                    }
+                                    else
+                                    {
+                                        <img id="aMenuIconImageName_0" alt="" class="mr-2" src="~/Content/Image/NoImgeDisplay.png" height="30" width="30" />
+                                    }
+                                    <input type="file" id="SubMenuIconImages_0" name="SubMenuIconImages_0" class="mb-2" tabindex="5" onchange="UploadImage(this, 0);" />
+                                    @Html.HiddenFor(m => m.MenuMobileModelList[0].SubIconImages, new { @Id = "hdnSubMenuIconImages_0", @name = "hdnSubMenuIconImages_0" })
+                                    @Html.HiddenFor(m => m.MenuMobileModelList[0].SubMenuIcon, new { @Id = "hdnSubMenuIcon_0", @name = "hdnSubMenuIcon_0" })
+
+                                </td>
+                                <td></td>
+                                <td>
+                                    <a id="addSubMenuRowButton" class="tooltip-custom" onclick="AddRow()">
+                                        <span class="tooltiptext">Add More</span>
+                                        <svg width="31" height="31" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="40" height="40" rx="10" fill="#337AB7" />
+                                            <path d="M20 13V27" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M13 20H27" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="col-md-12 mb-2">
+                    <span class="text-danger d-flex"><span>Note: &nbsp; </span><span>Allowed Format:.jpg, .gif, .png ; <br> Allowed Size: 25 X 25</span></span>
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                    <input class="btn btn-primary mr-2" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="15" title='Save SideMenu' />
+                    <input class="btn btn-secondary cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="16" title='Cancel SideMenu' />
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<script type="text/javascript">
+   
+    $(document).ready(function () {
+       
+        DisplayMessage('MobileMenuList');
+
+        window.onbeforeunload = function (e) {
+            if (e.explicitOriginalTarget.id !== 'btnSubmit') {
+                jQuery.ajaxSetup({ async: false });
+                jQuery.ajaxSetup({ async: true });
+            }
+        };
+
+        $("#MobileMenu").addClass("MenuActive");
+        $(".MenuActive").parent().parent().css("display", "block");
+
+        $("#frmSideMenu").on("submit", function () {
+            // Disable the submit button to prevent multiple submissions
+            $("#btnSubmit").prop("disabled", true);    
+            return true;
+        });
+    });
+
+    var ttlCount = @modelCnt;
+    var removeCount = 0;
+
+    function AddRow() {
+
+        var flag = false;
+        flag = ValidateControl(ttlCount);
+        if (flag) {
+            var newRow = $('<tr>' +
+
+                '<td>' +
+                '<input id = "hdnIsDeleted_' + ttlCount + '"  name = "MenuMobileModelList[' + ttlCount + '].SubisDeleted" type = "hidden" value = "" >' +
+                '<input id = "hdnSubMenuId' + ttlCount + '"  name = "MenuMobileModelList[' + ttlCount + '].hdnSubMenuId" type = "hidden" value = "" >' +
+                '<input  id="MenuMobileModelList_' + ttlCount + '__SubMenuKey" name="MenuMobileModelList[' + ttlCount + '].SubMenuKey" type="text" value="" maxlength="50" class="form-control">' +
+                '</td>' +
+
+                '<td>' +
+                '<input id="MenuMobileModelList_' + ttlCount + '__SubMenuDisplayName" name="MenuMobileModelList[' + ttlCount + '].SubMenuDisplayName" type="text" value="" maxlength="50" class="form-control"> ' +
+                '</td>' +
+
+                '<td>' +
+                '<input id="MenuMobileModelList_' + ttlCount + '__SubSeqNo" name="MenuMobileModelList[' + ttlCount + '].SubSeqNo" type="number" value="" maxlength="50" class="form-control">' +
+                '</td>' +
+
+                '<td class="text-nowrap">' +
+                '<img id="aMenuIconImageName_' + ttlCount + '" alt="" class="mr-2" src="/Content/Image/NoImgeDisplay.png" height="30" width="30">' +                
+                '<input type="file" id="SubMenuIconImages_' + ttlCount + '" name="SubMenuIconImage_' + ttlCount + '" class="mb-2" tabindex="5" onchange="UploadImage(this, ' + ttlCount + ');" />' +
+                '<input id="hdnSubMenuIconImages_' + ttlCount + '" name = "MenuMobileModelList[' + ttlCount + '].SubIconImages" type = "hidden"> ' +
+                '<input id="hdnSubMenuIcon_' + ttlCount + '" name = "MenuMobileModelList[' + ttlCount + '].SubMenuIcon" type = "hidden"> ' +
+
+                '</td>' +
+
+                '<td>' +                
+                '<a onclick="RemoveRow(this,' + ttlCount + ')"  class="tooltip-custom">' +
+                '<span class="tooltiptext">Remove</span>' +
+                '<svg width="31" height="31" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="10" fill="#CC1F1F"/><path d="M12.5 15H14.1667H27.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M25.8327 15.0001V26.6667C25.8327 27.1088 25.6571 27.5327 25.3445 27.8453C25.032 28.1578 24.608 28.3334 24.166 28.3334H15.8327C15.3907 28.3334 14.9667 28.1578 14.6542 27.8453C14.3416 27.5327 14.166 27.1088 14.166 26.6667V15.0001M16.666 15.0001V13.3334C16.666 12.8914 16.8416 12.4675 17.1542 12.1549C17.4667 11.8423 17.8907 11.6667 18.3327 11.6667H21.666C22.108 11.6667 22.532 11.8423 22.8445 12.1549C23.1571 12.4675 23.3327 12.8914 23.3327 13.3334V15.0001" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+                '</a>' +
+
+                '</td>' +
+
+                ' <td>' +               
+                '<a id="addSubMenuRowButton" class="tooltip-custom" onclick="AddRow()">' +
+                '<span class="tooltiptext">Add More</span>' +
+                '<svg width="31" height="31" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="10" fill="#337AB7" /><path d="M20 13V27" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M13 20H27" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>' +
+                '</a>' +
+                '</td>' +
+
+                '</tr>');
+
+            $('#subMenuTable tbody').append(newRow);
+            ttlCount++;
+        }
+    }
+
+    function RemoveRow(button, rowId) {
+        $(button).parent().parent().css("display", "none");
+        $("#hdnIsDeleted_" + rowId).val(true);
+        removeCount++;
+    }
+
+    function UploadImage(event, rowId) {  
+        var SubMenuIconImagesId = event.id;
+        var fileUpload = document.getElementById(SubMenuIconImagesId);       
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png|.gif)$", "i");
+
+        jQuery.support.cors = true;
+        if (regex.test(fileUpload.value.toLowerCase())) {
+
+            if (typeof (fileUpload.files) !== "undefined") {
+                var reader = new FileReader();
+                reader.readAsDataURL(fileUpload.files[0]);
+                reader.onload = function (e) {
+                    var image = new Image();
+                    image.src = reader.result;
+                    image.onload = function () {                        
+                        var height = image.height;
+                        var width = image.width;
+                        if (height != 25 || width != 25) {
+                            jQuery('#SubMenuIconImages_' + rowId).val('');
+                            jQuery('#hdnSubMenuIconImages_' + rowId).val('');
+                            jQuery('#hdnSubMenuIcon_' + rowId).val('');
+                            $('#aMenuIconImageName_'+ rowId).attr('src', '/Content/Image/NoImgeDisplay.png');
+                            jAlert("Allowed Size: 25 X 25 in sub Icon Image");
+                            return false;
+                        }
+
+                        var file = document.getElementById(SubMenuIconImagesId).files[0];
+                        var fd = new FormData();
+                        fd.append("files", file);
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "/MenuMaster/UploadMenuIconImage", false);
+                        xhr.send(fd);
+                        $('#hdnSubMenuIconImages_' + rowId).val(file.name);
+                        $('#hdnSubMenuIcon_' + rowId).val(file.name);
+                        $('#aMenuIconImageName_' + rowId).attr('src', image.src);
+
+                    };
+                }
+            }
+            else {
+                $("#" + SubMenuIconImagesId).val('');
+                jAlert("Valid formats include: .jpg, .gif, .png, with filenames that do not contain special characters");
+                return false;
+            }
+        }
+        else {
+            $("#" + SubMenuIconImagesId).val('');
+            jAlert("Valid formats include: .jpg, .gif, .png, with filenames that do not contain special characters");
+            return false;
+        }
+    }
+
+    $('.cancel').click(function () {
+        if ($('#HdnIFrame').val().toLowerCase() == 'false') {
+            window.location.href = 'MobileMenuList';
+        }
+        else {
+            //window.parent.$("#divDialog").dialog("close");
+            window.location.href = 'MobileMenuList';
+        }
+    });   
+
+    function ValidateControl(rowCnt) {
+
+        for (var i = 0; i <= rowCnt; i++) {
+
+            if ($("#hdnIsDeleted_" + i).val() == 'False' || $("#hdnIsDeleted_" + i).val() == undefined || $("#hdnIsDeleted_" + i).val() == '')
+            {
+
+                if ($('#MenuKey').val().trim() == '') {
+                    jAlert(kcs_Message.InputRequired('Menu Key'), 'MenuKey');
+                    return false;
+                }
+                if ($('#MenuDisplayName').val().trim() == '') {
+                    jAlert(kcs_Message.InputRequired('Menu Display Name'), 'MenuDisplayName');
+                    return false;
+                }
+                if ($('#SeqNo').val().trim() == '') {
+                    jAlert(kcs_Message.InputRequired('Seq No'), 'SeqNo');
+                    return false;
+                }
+                if ($("#MenuMobileModelList_" + i + "__SubMenuKey").val() == "") {
+
+                    jAlert(kcs_Message.InputRequired('Sub Menu Key'), 'Sub Menu Key');
+                    return false;
+
+                }
+                if ($("#MenuMobileModelList_" + i + "__SubMenuDisplayName").val() == "") {
+
+                    jAlert(kcs_Message.InputRequired('Sub Menu Display Name'), 'Sub Menu Display Name');
+                    return false;
+
+                }
+                if ($("#MenuMobileModelList_" + i + "__SubSeqNo").val() == "") {
+
+                    jAlert(kcs_Message.InputRequired('Sub Seq No'), 'Sub Seq No');
+                    return false;
+
+                }
+                if ($("#hdnSubMenuIconImages_" + i).val() == "") {
+
+                    jAlert(kcs_Message.InputRequired('Sub Icon Image'), 'Sub Icon Image');
+                    return false;
+
+                }
+
+            }
+        }
+        return true;
+
+
+    }   
+
+    $('#btnSubmit').click(function () {      
+
+        var isValid = ValidateControl(ttlCount);
+        if (!isValid) {
+           // jAlert(kcs_Message.InputRequired('Please enter all submenu details.'), 'MenuMobile');
+            return false;
+        }
+
+    });
+</script>

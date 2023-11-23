@@ -1,0 +1,74 @@
+@model EcubeWebPortalCMS.Models.ExportExcel
+@{
+    ViewBag.Title = "Email Log";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+        </h4>
+    </div>
+    <div class="card shadow rounded overflow-hidden card-space">
+        @using (Html.BeginForm(new { Action = "ExportToExcel" }))
+        {
+            <div class="row clearfix contant-toph">
+                <div class="col-md-4 mb-2 pb-2">
+                    <h5 class="mb-2">
+                        Search
+                    </h5>
+                    @*<input type="text" id="txtEmailLogSearch" />*@
+                    @Html.TextBoxFor(m => m.Filters, null, new { @class = "form-control", @maxlength = "50", @tabindex = "1", @id = "txtEmailLogSearch" })
+                </div>
+                <div class="col-md-4 mb-2 pb-2">
+                    <h5 class="mb-2">
+                        Module
+
+                    </h5>
+                    @Html.HiddenFor(m => m.BookingType, new { @Id = "hdnddlBookingType" })
+                    @Html.DropDownList("ddlBookingType", new SelectList(string.Empty, "Value", "Text"), "--ALL--", new { @class = "form-control", @tabindex = "1" })
+
+                </div>
+                <div class="col-md-4 mb-2 pb-2">
+                    <h5 class="mb-2">
+                        From Date
+
+                    </h5>
+                    @Html.TextBoxFor(m => m.FromDate, null, new { @class = "SearchDate form-control", @maxlength = "50", @tabindex = "3", @id = "txtFromDate", @readonly = "readonly" })
+                </div>
+                <div class="col-md-4 mb-2 pb-2 usearch-text room-book_req-view">
+                    <h5 class="mb-2">
+                        To Date
+
+                    </h5>
+                    @Html.TextBoxFor(m => m.ToDate, null, new { @class = "SearchDate form-control", @maxlength = "50", @tabindex = "4", @id = "txtToDate", @readonly = "readonly" })
+                </div>
+                <div class="col-md-4 mb-2 pb-2 usearch-text">
+                    <h5 class="mb-2">
+                        Status
+                    </h5>
+                    @Html.DropDownListFor(x => x.Status, new List<SelectListItem>()
+                {
+                    new SelectListItem() { Text = "--ALL--", Value = "0", Selected = true },
+                    new SelectListItem { Text = "Sent",  Value = "Sent" },
+                    new SelectListItem { Text = "Failed",  Value = "Failed" }
+                }, new { @class = "form-control", @id = "ddlStatus", @tabindex = "5", })
+                </div>
+                <div class="col-md-4 mb-2 pb-2 export-tablet--view">
+                    <h5 class="mb-2">
+                        &nbsp;
+                    </h5>
+                    <input type="submit" id="btnExcel" class="btn btn-inverse btn-primary mr-2" value="Export To Excel" tabindex="6" />
+                    <input type="button" id="btnSearch" class="btn btn-inverse btn-secondary" tabindex="7" value="Search" />
+                </div>
+            </div>
+        }
+        <div class="user-contant mt-3">
+            <div id="dvEmailLog" class="card shadow rounded overflow-hidden">
+                <table id="tblEmailLog"></table>
+                <div id="dvEmailLogFooter"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Utility/EmailLogView.js"></script>

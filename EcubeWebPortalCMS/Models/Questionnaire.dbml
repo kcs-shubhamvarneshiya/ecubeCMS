@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ClubO7_Dev" Class="QuestionnaireDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.1.80\sql2014;Initial Catalog=ClubO7_Dev;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ECubeCMSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Questionnaire" Member="Questionnaires">
+    <Type Name="Questionnaire">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QuestionnaireTitle" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DeletedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeletedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CommonLink" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IsRecursionCeated" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="RecursionTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RecursionFrom" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RecursionTo" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RecursionSMS" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RecursionEmail" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.GetAllFeedbackQuestionType" Method="GetAllFeedbackQuestionType">
+    <ElementType Name="GetAllFeedbackQuestionTypeResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QuestionTypeName" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Position" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetOptionsByQuestionnaireId" Method="GetOptionsByQuestionnaireId">
+    <Parameter Name="QuestionnaireId" Parameter="questionnaireId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="GetOptionsByQuestionnaireIdResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="QuestionId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="QuestionTitle" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="POSITION" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NAME" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="DefaultValue" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Point" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetQuestionsByQuestionnaireId" Method="GetQuestionsByQuestionnaireId">
+    <Parameter Name="QuestionnaireId" Parameter="questionnaireId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="GetQuestionsByQuestionnaireIdResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="QuestionnaireId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Position" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QuestionTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QuestionTitle" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortName" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Required" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsDisplayInSummary" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsDisplayInDetail" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="MaxLength" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Hint" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="EscalationRegex" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OptionsDisplayType" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="IsTitleBold" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsTitleItalic" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsTitleUnderline" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TitleTextColor" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TableGroupName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="QuestionTypeName" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Margin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FontSize" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ImagePath" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ImageHeight" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ImageWidth" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ImageAlign" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SaveOption" Method="SaveOption">
+    <Parameter Name="OptionsId" Parameter="optionsId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="QuestionId" Parameter="questionId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="Position" Parameter="position" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="Value" Parameter="value" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="DefaultValue" Parameter="defaultValue" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Point" Parameter="point" Type="System.Decimal" DbType="Decimal(18,0)" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int64" DbType="BigInt" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SaveQuestion" Method="SaveQuestion">
+    <Parameter Name="QuestionId" Parameter="questionId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="QuestionnaireId" Parameter="questionnaireId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="Position" Parameter="position" Type="System.Int32" DbType="Int" />
+    <Parameter Name="QuestionTypeId" Parameter="questionTypeId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="QuestionTitle" Parameter="questionTitle" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="ShortName" Parameter="shortName" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="IsActive" Parameter="isActive" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Required" Parameter="required" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IsDisplayInSummary" Parameter="isDisplayInSummary" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IsDisplayInDetail" Parameter="isDisplayInDetail" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="MaxLength" Parameter="maxLength" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Hint" Parameter="hint" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="EscalationRegex" Parameter="escalationRegex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="OptionsDisplayType" Parameter="optionsDisplayType" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="IsTitleBold" Parameter="isTitleBold" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IsTitleItalic" Parameter="isTitleItalic" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IsTitleUnderline" Parameter="isTitleUnderline" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="TitleTextColor" Parameter="titleTextColor" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="TableGroupName" Parameter="tableGroupName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Margin" Parameter="margin" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FontSize" Parameter="fontSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Weight" Parameter="weight" Type="System.Int32" DbType="Int" />
+    <Parameter Name="WeightForYes" Parameter="weightForYes" Type="System.Int32" DbType="Int" />
+    <Parameter Name="WeightForNo" Parameter="weightForNo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MaxWeight" Parameter="maxWeight" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ImagePath" Parameter="imagePath" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="ImageHeight" Parameter="imageHeight" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="ImageWidth" Parameter="imageWidth" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="ImageAlign" Parameter="imageAlign" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="IsDeleted" Parameter="isDeleted" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="SaveQuestionResult">
+      <Column Name="QuestionId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SaveQuestionnaire" Method="SaveQuestionnaire">
+    <Parameter Name="QuestionnaireId" Parameter="questionnaireId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="QuestionnaireTitle" Parameter="questionnaireTitle" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IsActive" Parameter="isActive" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="SaveQuestionnaireResult">
+      <Column Name="QuestionnaireId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetQuestionnaireById" Method="GetQuestionnaireById">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="GetQuestionnaireByIdResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="QuestionnaireTitle" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CommonLink" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteQuestions" Method="DeleteQuestions">
+    <Parameter Name="IdList" Parameter="idList" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="DeletedBy" Parameter="deletedBy" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="DeleteQuestionsResult">
+      <Column Name="TotalReference" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetAllRecursionType" Method="GetAllRecursionType">
+    <ElementType Name="GetAllRecursionTypeResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecursionTypeName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="OnlyOnce" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ISDaily" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsMonthly" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsYearly" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="RecursionValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpdateRecursionDetailsByQuestionnaireId" Method="UpdateRecursionDetailsByQuestionnaireId">
+    <Parameter Name="QuestionnaireId" Parameter="questionnaireId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="IsRecursionCreated" Parameter="isRecursionCreated" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="RecursionTypeId" Parameter="recursionTypeId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RecursionFrom" Parameter="recursionFrom" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="RecursionTo" Parameter="recursionTo" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="RecursionSMS" Parameter="recursionSMS" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="RecursionEmail" Parameter="recursionEmail" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
+    <ElementType Name="UpdateRecursionDetailsByQuestionnaireIdResult">
+      <Column Name="QuestionnaireId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SearchQuestionnaire" Method="SearchQuestionnaire">
+    <Parameter Name="Rows" Parameter="rows" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Page" Parameter="page" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Search" Parameter="search" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="Sort" Parameter="sort" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="IsActive" Parameter="isActive" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="SearchQuestionnaireResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="QuestionnaireTitle" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RecursionTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RecursionFrom" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RecursionTo" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RecursionSMS" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RecursionEmail" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsRecursionCreated" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AnswerCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetFeedbackAnwserList" Method="GetFeedbackAnwserList">
+    <Parameter Name="QuestionnaireId" Parameter="questionnaireId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="MemberCode" Parameter="memberCode" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Fromdate" Parameter="fromdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="ToDate" Parameter="toDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="GetFeedbackAnwserListResult">
+      <Column Name="QuestionnaireTitle" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="AnswerId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="AnswerDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="QuestionId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="QuestionTitle" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="IsDisplayInSummary" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsDisplayInDetail" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="OptionId" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="QuestionTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Detail" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImageWidth" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ImageHeight" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

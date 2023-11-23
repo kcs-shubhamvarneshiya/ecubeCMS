@@ -1,0 +1,99 @@
+﻿@model EcubeWebPortalCMS.Models.EventBookingForPrintTokenModel
+@{
+    ViewBag.Title = "EventBookingForPrintToken";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int EDID = Convert.ToInt32(ViewData["EDID"]);
+}
+
+<style type="text/css">
+    body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    table {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+    }
+
+        table th {
+            background-color: #F7F7F7;
+            color: #333;
+            font-weight: bold;
+        }
+
+        table th, table td {
+            padding: 5px;
+            width: 300px;
+            border: 1px solid #ccc;
+        }
+</style>
+
+<div id="dvRate" class="panel panel-grey mt-5">
+    <div class="panel-heading">
+        <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+            <h4 class="heading mb-4 m-md-0">
+                Event Booking Ticket List
+            </h4>
+
+        </div>
+    </div>
+    @*<div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+            <h4 class="heading mb-4 m-md-0">
+                @ViewBag.Title Rate
+            </h4>
+        </div>*@
+    <div class="panel-body pan">
+        <div class="card shadow rounded overflow-hidden card-space">
+            <div class="">
+                <div class="row d-flex align-items-end">
+                    <div class="col-md-4 mb-3 pb-3">
+                        @Html.Hidden("hdnEDID", EDID)
+                        <h5>
+                            Member No. <span class="f_req text-danger"></span>
+                        </h5>
+                        @Html.HiddenFor(model => model.Id, new { @id = "hfdId" })
+                        @Html.HiddenFor(model => model.MemberId, new { @id = "hfdMemberNoId" })
+                        @*@Html.TextBoxFor(m => m.MemberNo, new { @id = "MemberNo", @class = " form-control ", @maxlength = "50", @tabindex = "1", @next = "MemberName" })*@
+                        @Html.DropDownList("MemberId",
+new SelectList("", "Value", "Text", 0),
+new { @class = "form-control validate[required] txtbox", @TabIndex = "1" }) @*required = "required"*@
+@*, onchange = "SelectedIndexChangedMemberNoId()"*@
+</div>
+<div class="col-md-4 mb-3 pb-3">
+    <h5>
+        Serial No. <span class="f_req text-danger"></span>
+    </h5>
+
+    @Html.TextBoxFor(m => m.SeriolNo, new { @id = "SeriolNo", @class = " form-control ", @maxlength = "50", @tabindex = "1", @next = "MemberName" })
+</div>
+
+<div class="col-md-4 mb-3 pb-3">
+    <h5>
+        Ticket Type<span class="f_req text-danger"></span>
+    </h5>
+    @Html.HiddenFor(m => m.TicketType, new { @id = "hfdTicketId" })
+    @{SelectList selectList = new SelectList(new List<string> { "Member", "Guest", "Parent", "Affiliate", "Sponser" });}
+    @Html.DropDownListFor(m => m.TicketType, selectList, new { @id = "TicketType", @class = " form-control ", @maxlength = "50", @tabindex = "1", @next = "MemberName" })
+</div>
+</div>
+</div>
+<div class="row">
+    <div class="col-md-10 mb-3 pb-3">
+    </div>
+    <div class="col-md-2">
+        <input type="button" class="btn btn-info small" id="btnSearch" value="Search" onclick="SelectedIndexChangedMemberId()" />
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <table id="tblPrintToken"></table>
+</div>
+</div>
+</div>
+</div>
+@*</div>*@
+
+<script src="~/Scripts/Utility/EventBookingForPrintToken.js"></script>

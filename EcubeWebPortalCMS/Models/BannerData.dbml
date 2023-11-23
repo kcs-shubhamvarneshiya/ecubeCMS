@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ClubO7_Dev" Class="BannerDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=kcs-ovh-mssql01\SQL2014;Initial Catalog=ClubO7_Dev;User ID=eCubeeHSM" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ECubeCMSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Banner" Member="Banners">
+    <Type Name="Banner">
+      <Column Name="BannerId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BannerTitle" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="BannerDescription" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FromDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ToDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Image1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Image2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Image3" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Image4" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Image5" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeletedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DeletedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.SearchBanner" Method="SearchBanner">
+    <Parameter Name="Rows" Parameter="rows" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Page" Parameter="page" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Search" Parameter="search" Type="System.String" DbType="VarChar(500)" />
+    <Parameter Name="Sort" Parameter="sort" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="SearchBannerResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BannerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BannerTitle" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="FromDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ToDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteBanner" Method="DeleteBanner">
+    <Parameter Name="IdList" Parameter="idList" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="DeletedBy" Parameter="deletedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="DeleteBannerResult">
+      <Column Name="TotalReference" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetBannerById" Method="GetBannerById">
+    <Parameter Name="BannerId" Parameter="bannerId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetBannerByIdResult">
+      <Column Name="BannerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BannerTitle" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="BannerDescription" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FromDate" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ToDate" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Image1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Image2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Image3" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Image4" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Image5" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.InsertOrUpdateBanner" Method="InsertOrUpdateBanner">
+    <Parameter Name="BannerId" Parameter="bannerId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="BannerTitle" Parameter="bannerTitle" Type="System.String" DbType="VarChar(300)" />
+    <Parameter Name="BannerDescription" Parameter="bannerDescription" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="FromDate" Parameter="fromDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="ToDate" Parameter="toDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Image1" Parameter="image1" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Image2" Parameter="image2" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Image3" Parameter="image3" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Image4" Parameter="image4" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Image5" Parameter="image5" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="IsActive" Parameter="isActive" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="UserId" Parameter="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="InsertOrUpdateBannerResult">
+      <Column Name="InsertedId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>

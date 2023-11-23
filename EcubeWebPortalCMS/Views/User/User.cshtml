@@ -1,0 +1,113 @@
+@model EcubeWebPortalCMS.Models.UserModel
+@{
+    ViewBag.Title = "User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("User", "User", FormMethod.Post, new { @id = "frmUser", @class = "form_validation_ttip well stdform" }))
+{
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <br />
+                <h4 class="heading">
+                    @ViewBag.Title</h4>
+                <br />
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.HdnIFrame)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    First Name
+                <span class="f_req text-danger">*</span>
+                </label>
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "span5 required alphanumwithspc", @maxlength = "50", @tabindex = "2", @next = "SurName" })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Last Name
+                <span class="f_req text-danger">*</span>
+                </label>
+                @Html.TextBoxFor(m => m.SurName, new { @class = "span5 required alphanumwithspc", @maxlength = "50", @tabindex = "3", @next = "MobileNo" })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Mobile No
+                <span class="f_req text-danger">*</span>
+                </label>
+                @Html.TextBoxFor(m => m.MobileNo, new { @class = "span5 required numwithspc ", @maxlength = "15", @tabindex = "4", @next = "EmailID" })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Email Id
+                <span class="f_req text-danger">*</span>
+                </label>
+                @Html.TextBoxFor(m => m.EmailID, new { @class = "span5 required emailid", @maxlength = "50", @tabindex = "5", @next = "UserName" })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Username
+                <span class="f_req text-danger">*</span>
+                </label>
+                @Html.TextBoxFor(m => m.UserName, new { @class = "span5 required alphanumwithspc", @maxlength = "50", @tabindex = "6", @next = "Password" })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Password
+                <span class="f_req text-danger">*</span>
+                </label>
+                @Html.PasswordFor(m => m.Password, new { @class = "span5 required alphanumwithspc", @maxlength = "100", @tabindex = "7", @next = "Address" })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Address                
+                </label>
+                @Html.TextAreaFor(m => m.Address, new { @class = "span5 required", @maxlength = "500", @tabindex = "8", @next = "RoleId" })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Role
+                <span class="f_req text-danger">*</span>
+                </label>
+                @Html.DropDownListFor(m => m.RoleId, Model.RoleList, new { @class = "span5 required chosen", @tabindex = "9", @next = "IsActive" })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Is Active
+                </label>
+                @Html.CheckBoxFor(m => m.IsActive, new { @tabindex = "10", @next = "btnSubmit" })
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <input class="btn btn-inverse" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="12" title="Save User" />
+        <input class="btn cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="13" title="Cancel User" />
+    </div>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#strPassword').val('@ViewBag.Password');
+    });
+</script>
+<script src="~/Scripts/Utility/User.js"></script>

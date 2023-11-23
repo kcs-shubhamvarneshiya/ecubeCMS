@@ -1,0 +1,213 @@
+﻿@charset "UTF-8";
+
+// Variables
+//
+// Variables should follow the `$component-state-property-size` formula for
+// consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
+
+// Color system
+//
+$primary:           #C79F3B !default;
+$secondary:         #19538E !default;
+$white:             #ffffff !default;
+$black:             #000000 !default;
+$dark:              #000000 !default;
+$deepblue:          #092645 !default;
+$red:               #C73B3B !default;
+$darkred:           #ff0000 !default;
+$yellow:            #FFF4D8 !default;
+$muted:             #A19D9D !default;
+$lightest:          #F5F4F4 !default;
+$lightgray:         #C4C4C4 !default;
+$gray:              #EEEEEE !default;
+$gray-100:          #E5E5E5 !default;
+$gray-200:          #E2E2E2 !default;
+$gray-300:          #E6E6ED !default;
+$gray-400:          #CDCDCD !default;
+$gray-500:          #C8C8C8 !default;
+$gray-600:          #6F7C88 !default;
+$gray-900:          #ffffff !default;
+
+
+
+// Body
+//
+// Settings for the `<body>` element.
+
+$body-bg:           $lightest !default;
+$body-color:        $dark !default;
+
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+$container-max-widths: (
+  xl: 1920px
+) !default;
+
+$border-radius:                 .5rem !default;
+$border-radius-xl:              2rem !default;
+$border-radius-sm:              .25rem !default;
+$transparent:                   transparent !default;
+
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+
+// stylelint-disable value-keyword-case
+$font-family-sans-serif:        Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI","Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-sacramento:        'Sacramento', cursive !default;
+
+// stylelint-enable value-keyword-case
+
+$font-weight-lighter:           lighter !default;
+$font-weight-light:             300 !default;
+$font-weight-normal:            400 !default;
+$font-weight-bold:              700 !default;
+$font-weight-bolder:            bolder !default;
+
+$font-size-base:                .875rem !default;
+$font-size-lg:                  1.25rem !default;
+
+$h1-font-size:                  $font-size-base * 3.7857 !default;
+$h2-font-size:                  $font-size-base * 2.5714 !default;
+$h3-font-size:                  $font-size-base * 2.1428 !default;
+$h4-font-size:                  $font-size-base * 1.7150 !default;
+$h5-font-size:                  $font-size-base * 1.2858 !default;
+$h6-font-size:                  $font-size-base * 0.857 !default;
+
+$headings-font-weight:          $font-weight-bold !default;
+
+
+// Buttons
+//
+// For each of Bootstrap's buttons, define text, background, and border color.
+
+$btn-font-weight:               $font-weight-bold !default;
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius:             $border-radius-sm !default;
+
+
+// Forms
+//
+// Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
+
+$input-height:                      2.75rem !default;
+$input-height-sm:                   2.5rem !default;
+$input-btn-focus-box-shadow:        none !important;
+$input-btn-font-size:               1rem !default;
+$input-font-size-sm:                $font-size-base !default;
+
+$form-check-input-margin-y:         .2rem !default;
+
+$custom-radio-indicator-icon-checked: none !default;
+
+
+// Navs
+
+$nav-link-padding-y:                1rem !default;
+$nav-link-padding-x:                2rem !default;
+
+$nav-tabs-border-color:             $gray-300 !default;
+$nav-tabs-border-radius:            $border-radius-xl !default;
+$nav-tabs-link-hover-border-color:  $gray-200 $gray-200 $nav-tabs-border-color !default;
+$nav-tabs-link-active-color:        $gray-600 !default;
+$nav-tabs-link-active-bg:           $body-bg !default;
+$nav-tabs-link-active-border-color: $gray-300 $gray-300 $nav-tabs-link-active-bg !default;
+
+$nav-pills-border-radius:           $border-radius-xl !default;
+$nav-pills-link-active-color:       $primary !default;
+$nav-pills-link-active-bg:          $white !default;
+
+
+// Navbar
+
+$navbar-nav-link-padding-x:         2.25rem !default;
+
+$navbar-light-color:                $white !default;
+$navbar-light-hover-color:          $white !default;
+$navbar-light-active-color:         $white !default;
+
+
+// Cards
+
+$card-border-color:             $gray-200 !default;
+$card-border-bg:                $lightgray !default;
+$card-border-radius:            0 !default;
+$card-cap-bg:                   $transparent !default;
+
+
+// Tables
+//
+// Customizes the `.table` component with basic values, each used across all table variations.
+
+$table-cell-padding:            1.125rem .75rem !default;
+$table-cell-padding-sm:         .3rem !default;
+
+$table-color:                   $black !default;
+$table-th-font-size:            $h5-font-size !default;
+
+$table-border-color:            $gray-300 !default;
+
+
+// Components
+//
+// Define common padding and border radius sizes and more.
+
+$border-width:                  1px !default;
+$border-color:                  #CBCEDD !default;
+$border-type-solid:             solid !default;
+$border-type-dashed:            dashed !default;
+$border-type-dotted:            dotted !default;
+
+$box-shadow-sm:                 0 .125rem .5625rem rgba(184,173,173,.25) !default;
+$box-shadow:                    0 .2857rem .3571rem rgba(150,148,148,.25) !default;
+
+$transition:                    .5s ease-out !default;
+
+
+// Dropdowns
+//
+// Dropdown menu container and contents.
+
+//$dropdown-min-width:            14rem !default;
+$dropdown-padding-y:            0 !default;
+$dropdown-spacer:               .5rem !default;
+$dropdown-border-radius:        0 !default;
+$dropdown-bg:                   $white !default;
+$dropdown-link-color:           $black !default;
+$dropdown-link-hover-color:     $primary !default;
+$dropdown-item-padding-y:       .5rem !default;
+
+
+// Image thumbnails
+
+$thumbnail-padding:             0 !default;
+$thumbnail-bg:                  $deepblue !default;
+$thumbnail-border-width:        .125rem !default;
+$thumbnail-border-color:        $white !default;
+$thumbnail-border-radius:       100% !default;
+$thumbnail-box-shadow:          none !default;
+
+
+// Tooltips
+
+$tooltip-opacity:               .84 !default;
+$tooltip-opacity-light:         .5 !default;
+
+
+// Z-index master list
+//
+// Warning: Avoid customizing these values. They're used for a bird's eye view
+// of components dependent on the z-axis and are designed to all work together.
+
+$zindex-dropdown: 1000 !default;
+$zindex-sticky: 1020 !default;
+$zindex-fixed: 1030 !default;
+$zindex-modal-backdrop: 1040 !default;
+$zindex-modal: 1050 !default;
+$zindex-popover: 1060 !default;
+$zindex-tooltip: 1070 !default;

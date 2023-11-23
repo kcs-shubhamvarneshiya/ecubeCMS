@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Karnavati_QC" Class="BanquetBookingRequestDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.1.80\sql2014;Initial Catalog=ClubO7_Dev;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ECubeCMSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.BanquetBookingRequest" Member="BanquetBookingRequests">
+    <Type Name="BanquetBookingRequest">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MemberId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="BookingType" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="InquiryFor" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="EMail" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Occasion" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BookingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BanquetType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="DeletedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeletedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Function Name="dbo.MS_CountBanquetBookingRequest" Method="MS_CountBanquetBookingRequest">
+    <ElementType Name="MS_CountBanquetBookingRequestResult">
+      <Column Name="Result" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_DeleteBanquetBookingRequest" Method="MS_DeleteBanquetBookingRequest">
+    <Parameter Name="IdList" Parameter="idList" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="DeletedBy" Parameter="deletedBy" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="PageId" Parameter="pageId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_DeleteBanquetBookingRequestResult">
+      <Column Name="TotalReference" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetBanquetBookingRequestAll" Method="MS_GetBanquetBookingRequestAll">
+    <ElementType Name="MS_GetBanquetBookingRequestAllResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="MemberId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="BookingType" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="InquiryFor" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="EMail" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Occasion" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BookingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BanquetType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AdminRemarks" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_SearchBanquetBookingRequest" Method="MS_SearchBanquetBookingRequest">
+    <Parameter Name="Rows" Parameter="rows" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Page" Parameter="page" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Search" Parameter="search" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="Sort" Parameter="sort" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="sortedby" Type="System.Int32" DbType="Int" />
+    <Parameter Name="BanquetType" Parameter="banquetType" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_SearchBanquetBookingRequestResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="MemberId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="BookingType" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="InquiryFor" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="EMail" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Occasion" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FromDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ToDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BanquetTypeId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BanquetType" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="StatusId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="AdminRemarks" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_GetBanquetBookingRequestById" Method="MS_GetBanquetBookingRequestById">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_GetBanquetBookingRequestByIdResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="MemberId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="MemberCode" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BookingType" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="InquiryFor" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="EMail" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Occasion" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FromDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ToDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BanquetTypeId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BanquetType" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AdminRemarks" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="MemberReferredID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReferredMemberCode" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MS_InsertOrUpdateBanquetBookingRequest" Method="MS_InsertOrUpdateBanquetBookingRequest">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="MemberId" Parameter="memberId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(400)" />
+    <Parameter Name="BookingType" Parameter="bookingType" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="InquiryFor" Parameter="inquiryFor" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="EMail" Parameter="eMail" Type="System.String" DbType="NVarChar(400)" />
+    <Parameter Name="Address" Parameter="address" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="City" Parameter="city" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="MobileNo" Parameter="mobileNo" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Occasion" Parameter="occasion" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="FromDate" Parameter="fromDate" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="ToDate" Parameter="toDate" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="BanquetType" Parameter="banquetType" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Remarks" Parameter="remarks" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="MemberReference" Parameter="memberReference" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="AdminRemarks" Parameter="adminRemarks" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="UserId" Parameter="userId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="PageID" Parameter="pageID" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="MS_InsertOrUpdateBanquetBookingRequestResult">
+      <Column Name="INsertedID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>

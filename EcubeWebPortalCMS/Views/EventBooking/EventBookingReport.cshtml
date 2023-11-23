@@ -1,0 +1,47 @@
+﻿@model EcubeWebPortalCMS.Models.EventBookingReportModel
+@{
+    ViewBag.Title = "Event Booking Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+        </h4>
+    </div>
+    <div class="card shadow rounded overflow-hidden card-space">
+        <div class="row">
+            <div class="col-md-4 mb-3 pb-3">
+                @Html.TextBoxFor(m => m.EventDate, new { placeholder = "Date", @class = "span11  date form-control ", @maxlength = "15", @tabindex = "1", @next = "EventToDate" })
+            </div>
+        
+            <div class="col-md-4 mb-3 pb-3">
+                @Html.DropDownListFor(x => x.EventId, new SelectList(string.Empty, "Value", "Text", 0), "Select Event", new { @Id = "ddlEvent", @class = "span9  form-control", @tabindex = "2", @next = "TicketId", @Style = "" })
+            </div>
+        
+            <div class="col-md-4 mb-3 pb-3">
+                @Html.TextBoxFor(m => m.TicketId, new { placeholder = "Serial Id", @class = "span9 numwospc form-control", @maxlength = "50", @tabindex = "3", @next = "MemberCode", @Style = "" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3 pb-3">
+                @Html.TextBoxFor(m => m.MemberCode, new { placeholder = "Member code", @class = "span9 form-control", @maxlength = "50", @tabindex = "4", @next = "Movie", @Style = "" })
+            </div>
+        
+            <div class="col-md-4 mb-3 pb-3">
+                <input type="button" class="btn btn-inverse btn-primary" id="btnSearch" tabindex="4" value="Search" />
+            </div>
+        </div>
+        <div class="user-constant mt-3">
+            <div id="dvEventReport" class="card shadow rounded overflow-hidden">
+                <table id="tblEventReport"></table>
+                <div id="dvEventReportFooter"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="~/Scripts/Utility/EventBookingReport.js"></script>

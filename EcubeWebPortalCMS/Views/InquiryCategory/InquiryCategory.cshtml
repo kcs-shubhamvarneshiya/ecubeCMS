@@ -1,0 +1,76 @@
+﻿@model EcubeWebPortalCMS.Models.InquiryCategoryModel
+@{
+    ViewBag.Title = "Booking Inquiry Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("InquiryCategory", "InquiryCategory", FormMethod.Post, new { @id = "frmInquiryCategory", @class = "form_validation_ttip well stdform" }))
+{
+    <div class="">
+        <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+            <h4 class="heading mb-4 m-md-0">
+                @ViewBag.Title
+            </h4>
+        </div>
+
+        <div class="pan">
+            @Html.HiddenFor(m => m.HdnIFrame)
+            @Html.HiddenFor(m => m.Id)
+            <div class="card shadow rounded overflow-hidden card-space">
+                <div class="row">
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Inquiry Category Name <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.Category, new { @class = "required alphanumwithspc form-control ", @maxlength = "50", @tabindex = "1" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Mobile Number <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.MobileNumber, new { @class = "form-control", @tabindex = "2", @pattern = "[0-9]*", @maxlength = "10", @minlength = "10", @type = "number" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Email <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @maxlength = "100", @tabindex = "3" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Sequence No <span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.SeqNo, new { @class = "form-control", @tabindex = "4", @maxlength = "3", @type = "number" })
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Category Image <span class="f_req text-danger">*</span>
+                        </h5>
+                        <input type="file" name="CategoryImage" id="CategoryImage" tabindex="5" accept="image/*" />
+                        @Html.HiddenFor(m => m.CategoryImage, new { id = "CategoryImage" })
+                        <br />
+                        @if (!string.IsNullOrEmpty(Model.CategoryImage))
+                        {
+                            <img id="aCategoryImage" class="mt-2" alt="" src="@Url.Content(Model.CategoryImage)" />
+                        }
+                        else
+                        {
+                            <img id="aCategoryImage" class="mt-2" hight alt="" src="/Content/Image/noprofile-img.jpg" width="130px" height="98px" />
+                        }
+                    </div>
+                </div>
+                <div class="col-md-12 mb-2">
+                    <span class="text-danger d-flex"><span>Note: &nbsp; </span><span>Allowed Format:.jpg, .gif, .png ; <br> Allowed Size: 130 X 98</span></span>
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                    <input class="btn btn-primary mr-2" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="2" title='Save InquiryCategory' />
+                    <input class="btn btn-secondary cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="3" title='Cancel InquiryCategory' />
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+<script src="~/Scripts/Utility/InquiryCategory.js"></script>

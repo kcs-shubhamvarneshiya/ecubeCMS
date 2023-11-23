@@ -1,0 +1,309 @@
+﻿@model EcubeWebPortalCMS.Models.MovieShowAssignModel
+@using EcubeWebPortalCMS.Common
+
+@{
+    ViewBag.Title = "Assign Movie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+        </h4>
+    </div>
+    <script src="~/Scripts/Utility/MovieShowAssign.js"></script>
+    @using (Html.BeginForm("MovieShowAssignView", "MovieShowAssign", FormMethod.Post, new { @id = "frmMovie", @class = "form_validation_ttip well stdform card shadow rounded overflow-hidden" }))
+    {
+        <div class="card-body">
+            <div class="pan row">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-md-10 mb-3 pb-3">
+                            <h5 class="mb-2">
+                                Movie Screens <span class="f_req text-danger">*</span>
+                            </h5>
+                            @if (TempData["DisabledDates"] != null)
+                            {
+                                @Html.DropDownListFor(m => m.MovieTheatreId, Model.LstMovieTheatreScreen, new { @class = "form-control ", @tabindex = "1", @next = "StrStartDate", @Disabled = "disabled" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.MovieTheatreId, Model.LstMovieTheatreScreen, new { @class = "form-control ", @tabindex = "1", @next = "StrStartDate" })
+                            }
+                            <input id="hdnMovieTheatreId" type="hidden" value="@Model.MovieTheatreId" />
+                            <input id="hdnShowId" type="hidden" value="@Model.Id" />
+                            <input id="hdfTemp" type="hidden" value="@TempData["DisabledDates"]" />
+                        </div>
+                   
+                        <div class="col-md-10 mb-3 pb-3">
+                            <h5 class="mb-2">
+                                Start Date <span class="f_req text-danger">*</span>
+                            </h5>
+                            @if (TempData["DisabledDates"] != null)
+                            {
+                                @Html.TextBoxFor(m => m.StrStartDate, new { @class = "required date datepicker form-control ", @tabindex = "1", @next = "strEndDate", @Disabled = "disabled" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.StrStartDate, new { @class = "required datepicker date form-control ", @tabindex = "1", @next = "strEndDate" })
+                            }
+                            <input id="hdnStartDate" type="hidden" value="@Model.StrStartDate.Encode()" />
+                        </div>
+
+                        <div class="col-md-10 mb-3 pb-3">
+                            <h5 class="mb-2">
+                                End Date <span class="f_req text-danger">*</span>
+                            </h5>
+                            @if (TempData["DisabledDates"] != null)
+                            {
+                                @Html.TextBoxFor(m => m.StrEndDate, new { @class = "required date datepicker form-control ", @tabindex = "2", @next = "btnSubmit", @Disabled = "Disabled" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.StrEndDate, new { @class = "required date datepicker form-control ", @tabindex = "2", @next = "btnSubmit" })
+                            }
+                            <input id="hdnEndDate" type="hidden" value="@Model.StrEndDate.Encode()" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-10 mb-3 pb-3">
+                            <h5 class="mb-2">
+                                Date and Time to Display Movie <span class="f_req text-danger">*</span>
+                            </h5>
+                            <div class="d-flex date-time-picker">
+                                @Html.TextBoxFor(m => m.DateToDisplayMovie, new { @class = "date datepicker form-control", @maxlength = "15", @tabindex = "4", @next = "TimeToDisplayMovie" })
+                                @Html.Hidden("hfDateToDisplay", Model.DateToDisplayMovie)
+                                @Html.TextBoxFor(m => m.TimeToDisplayMovie, new { @class = "required time form-control", @maxlength = "15", @tabindex = "5" })
+                                @Html.Hidden("hfTimeToDisplay", Model.TimeToDisplayMovie)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    @*<div class="row">
+        <div class="col-md-12">*@
+                    <div class=" hide" id="divClassRate">
+                        <div id="divClass" class="row align-items-end"></div>
+                        <div class="row my-3 text-red">
+                            <span class="f_req">Note: Taxation will be calculated based on Configuration of sub-services configure against Class!</span>
+                        </div>
+                    </div>
+                    @*</div>
+        </div>*@
+                </div>
+            </div>
+        </div>
+        int i = 0;
+        <div class="card-body assign-moview--view">
+            <table>
+                <tr>
+                    <th class="bg-secondary text-white text-center px-2 py-2 border border-white border-double font-weight-medium">
+                        Movie / Show Time
+                    </th>
+                    @if (Model.LstMovieShowDetails.FirstOrDefault().S1 != null)
+                    {
+                        <th class="bg-lightgray text-center px-3 py-2 border border-white border-double font-weight-medium" id="@Model.LstMovieShowDetails.FirstOrDefault().S1.Split('/')[0]">
+                            @Model.LstMovieShowDetails.FirstOrDefault().S1.Split('/')[1]
+                        </th>
+                    }
+                    @if (Model.LstMovieShowDetails.FirstOrDefault().S2 != null)
+                    {
+                        <th class="bg-lightgray text-center px-3 py-2 border border-white border-double font-weight-medium" id="@Model.LstMovieShowDetails.FirstOrDefault().S2.Split('/')[0]">
+                            @Model.LstMovieShowDetails.FirstOrDefault().S2.Split('/')[1]
+                        </th>
+                    }
+                    @if (Model.LstMovieShowDetails.FirstOrDefault().S3 != null)
+                    {
+                        <th class="bg-lightgray text-center px-3 py-2 border border-white border-double font-weight-medium" id="@Model.LstMovieShowDetails.FirstOrDefault().S3.Split('/')[0]">
+                            @Model.LstMovieShowDetails.FirstOrDefault().S3.Split('/')[1]
+                        </th>
+                    }
+                    @if (Model.LstMovieShowDetails.FirstOrDefault().S4 != null)
+                    {
+                        <th class="bg-lightgray text-center px-3 py-2 border border-white border-double font-weight-medium" id="@Model.LstMovieShowDetails.FirstOrDefault().S4.Split('/')[0]">
+                            @Model.LstMovieShowDetails.FirstOrDefault().S4.Split('/')[1]
+                        </th>
+                    }
+                    @if (Model.LstMovieShowDetails.FirstOrDefault().S5 != null)
+                    {
+                        <th class="bg-lightgray text-center px-3 py-2 border border-white border-double font-weight-medium" id="@Model.LstMovieShowDetails.FirstOrDefault().S5.Split('/')[0]">
+                            @Model.LstMovieShowDetails.FirstOrDefault().S5.Split('/')[1]
+                        </th>
+                    }
+                    @if (Model.LstMovieShowDetails.FirstOrDefault().S6 != null)
+                    {
+                        <th class="bg-lightgray text-center px-3 py-2 border border-white border-double font-weight-medium" id="@Model.LstMovieShowDetails.FirstOrDefault().S6.Split('/')[0]">
+                            @Model.LstMovieShowDetails.FirstOrDefault().S6.Split('/')[1]
+                        </th>
+                    }
+                    @if (Model.LstMovieShowDetails.FirstOrDefault().S7 != null)
+                    {
+                        <th class="bg-lightgray text-center px-3 py-2 border border-white border-double font-weight-medium" id="@Model.LstMovieShowDetails.FirstOrDefault().S7.Split('/')[0]">
+                            @Model.LstMovieShowDetails.FirstOrDefault().S7.Split('/')[1]
+                        </th>
+                    }
+                    @if (Model.LstMovieShowDetails.FirstOrDefault().S8 != null)
+                    {
+                        <th class="bg-lightgray text-center px-3 py-2 border border-white border-double font-weight-medium" id="@Model.LstMovieShowDetails.FirstOrDefault().S8.Split('/')[0]">
+                            @Model.LstMovieShowDetails.FirstOrDefault().S8.Split('/')[1]
+                        </th>
+                    }
+                    @if (Model.LstMovieShowDetails.FirstOrDefault().S9 != null)
+                    {
+                        <th class="bg-lightgray text-center px-3 py-2 border border-white border-double font-weight-medium" id="@Model.LstMovieShowDetails.FirstOrDefault().S9.Split('/')[0]">
+                            @Model.LstMovieShowDetails.FirstOrDefault().S9.Split('/')[1]
+                        </th>
+                    }
+                    @if (Model.LstMovieShowDetails.FirstOrDefault().S10 != null)
+                    {
+                        <th class="bg-lightgray text-center px-3 py-2 border border-white border-double font-weight-medium" id="@Model.LstMovieShowDetails.FirstOrDefault().S10.Split('/')[0]">
+                            @Model.LstMovieShowDetails.FirstOrDefault().S10.Split('/')[1]
+                        </th>
+                    }
+                    @if (Model.LstMovieShowDetails.FirstOrDefault().S11 != null)
+                    {
+                        <th class="bg-lightgray text-center px-3 py-2 border border-white border-double font-weight-medium" id="@Model.LstMovieShowDetails.FirstOrDefault().S11.Split('/')[0]">
+                            @Model.LstMovieShowDetails.FirstOrDefault().S11.Split('/')[1]
+                        </th>
+                    }
+                    @if (Model.LstMovieShowDetails.FirstOrDefault().S12 != null)
+                    {
+                        <th class="bg-lightgray text-center px-3 py-2 border border-white border-double font-weight-medium" id="@Model.LstMovieShowDetails.FirstOrDefault().S12.Split('/')[0]">
+                            @Model.LstMovieShowDetails.FirstOrDefault().S12.Split('/')[1]
+                        </th>
+                    }
+                </tr>
+
+                @foreach (var d in Model.LstMovieShowDetails.Where(x => x.MovieName != ""))
+                {
+                    i = i + 1;
+                    <tr>
+                        <td class="bg-lightgray text-center px-3 py-2 border border-white border-double font-weight-medium">
+                            @d.MovieName
+                        </td>
+                        @if (Model.LstMovieShowDetails.FirstOrDefault().S1 != null)
+                        {
+                            var a = Model.LstMovieShowDetails.FirstOrDefault().S1.Split('/')[0];
+                            <td class="text-center px-3 py-2 border border-white border-double font-weight-normal">
+                                <input type="checkbox" id="(@d.MovieId-@a)" name="@a" @(Convert.ToInt32(d.S1) > 0 ? "checked" : "") />
+                                @*@Html.CheckBoxFor(m => m.S1, new { @name = a, Convert.ToInt32(d.S1) > 0 ? "checked" : "" })*@
+                            </td>
+                        }
+                        @if (Model.LstMovieShowDetails.FirstOrDefault().S2 != null)
+                        {
+                            var a = Model.LstMovieShowDetails.FirstOrDefault().S2.Split('/')[0];
+                            <td class="text-center px-3 py-2 border border-white border-double font-weight-normal">
+                                <input type="checkbox" id="(@d.MovieId-@a)" name="@a" @(Convert.ToInt32(d.S2) > 0 ? "checked" : "") />
+                                @*@Html.CheckBoxFor(m => m.S1, new { @name = a, @checked = Convert.ToInt32(d.S1) > 0 ? "checked" : "" })*@
+                            </td>
+                        }
+                        @if (Model.LstMovieShowDetails.FirstOrDefault().S3 != null)
+                        {
+                            var a = Model.LstMovieShowDetails.FirstOrDefault().S3.Split('/')[0];
+                            <td class="text-center px-3 py-2 border border-white border-double font-weight-normal">
+                                <input type="checkbox" id="(@d.MovieId-@a)" name="@a" @(Convert.ToInt32(d.S3) > 0 ? "checked" : "") />
+                                @*@Html.CheckBoxFor(m => m.S1, new { @name = a, @checked = Convert.ToInt32(d.S1) > 0 ? "checked" : "" })*@
+                            </td>
+                        }
+                        @if (Model.LstMovieShowDetails.FirstOrDefault().S4 != null)
+                        {
+                            var a = Model.LstMovieShowDetails.FirstOrDefault().S4.Split('/')[0];
+                            <td class="text-center px-3 py-2 border border-white border-double font-weight-normal">
+                                <input type="checkbox" id="(@d.MovieId-@a)" name="@a" @(Convert.ToInt32(d.S4) > 0 ? "checked" : "") />
+                                @*@Html.CheckBoxFor(m => m.S1, new { @name = a, @checked = Convert.ToInt32(d.S1) > 0 ? "checked" : "" })*@
+                            </td>
+                        }
+                        @if (Model.LstMovieShowDetails.FirstOrDefault().S5 != null)
+                        {
+                            var a = Model.LstMovieShowDetails.FirstOrDefault().S5.Split('/')[0];
+                            <td class="text-center px-3 py-2 border border-white border-double font-weight-normal">
+                                <input type="checkbox" id="(@d.MovieId)-(@a)" name="@a" @(Convert.ToInt32(d.S5) > 0 ? "checked" : "") />
+                                @*@Html.CheckBoxFor(m => m.S1, new { @name = a, @checked = Convert.ToInt32(d.S1) > 0 ? "checked" : "" })*@
+                            </td>
+                        }
+                        @if (Model.LstMovieShowDetails.FirstOrDefault().S6 != null)
+                        {
+                            var a = Model.LstMovieShowDetails.FirstOrDefault().S6.Split('/')[0];
+                            <td class="text-center px-3 py-2 border border-white border-double font-weight-normal">
+                                <input type="checkbox" id="(@d.MovieId-@a)" name="@a" @(Convert.ToInt32(d.S6) > 0 ? "checked" : "") />
+                                @*@Html.CheckBoxFor(m => m.S1, new { @name = a, @checked = Convert.ToInt32(d.S1) > 0 ? "checked" : "" })*@
+                            </td>
+                        }
+                        @if (Model.LstMovieShowDetails.FirstOrDefault().S7 != null)
+                        {
+                            var a = Model.LstMovieShowDetails.FirstOrDefault().S7.Split('/')[0];
+                            <td class="text-center px-3 py-2 border border-white border-double font-weight-normal">
+                                <input type="checkbox" id="(@d.MovieId-@a)" name="@a" @(Convert.ToInt32(d.S7) > 0 ? "checked" : "") />
+                                @*@Html.CheckBoxFor(m => m.S1, new { @name = a, @checked = Convert.ToInt32(d.S1) > 0 ? "checked" : "" })*@
+                            </td>
+                        }
+                        @if (Model.LstMovieShowDetails.FirstOrDefault().S8 != null)
+                        {
+                            var a = Model.LstMovieShowDetails.FirstOrDefault().S8.Split('/')[0];
+                            <td class="text-center px-3 py-2 border border-white border-double font-weight-normal">
+                                <input type="checkbox" id="(@d.MovieId-@a)" name="@a" @(Convert.ToInt32(d.S8) > 0 ? "checked" : "") />
+                                @*@Html.CheckBoxFor(m => m.S1, new { @name = a, @checked = Convert.ToInt32(d.S1) > 0 ? "checked" : "" })*@
+                            </td>
+                        }
+                        @if (Model.LstMovieShowDetails.FirstOrDefault().S9 != null)
+                        {
+                            var a = Model.LstMovieShowDetails.FirstOrDefault().S9.Split('/')[0];
+                            <td class="text-center px-3 py-2 border border-white border-double font-weight-normal">
+                                <input type="checkbox" id="(@d.MovieId-@a)" name="@a" @(Convert.ToInt32(d.S9) > 0 ? "checked" : "") />
+                                @*@Html.CheckBoxFor(m => m.S1, new { @name = a, @checked = Convert.ToInt32(d.S1) > 0 ? "checked" : "" })*@
+                            </td>
+                        }
+                        @if (Model.LstMovieShowDetails.FirstOrDefault().S10 != null)
+                        {
+                            var a = Model.LstMovieShowDetails.FirstOrDefault().S10.Split('/')[0];
+                            <td class="text-center px-3 py-2 border border-white border-double font-weight-normal">
+                                <input type="checkbox" id="(@d.MovieId-@a)" name="@a" @(Convert.ToInt32(d.S10) > 0 ? "checked" : "") />
+                                @*@Html.CheckBoxFor(m => m.S1, new { @name = a, @checked = Convert.ToInt32(d.S1) > 0 ? "checked" : "" })*@
+                            </td>
+                        }
+                        @if (Model.LstMovieShowDetails.FirstOrDefault().S11 != null)
+                        {
+                            var a = Model.LstMovieShowDetails.FirstOrDefault().S11.Split('/')[0];
+                            <td class="text-center px-3 py-2 border border-white border-double font-weight-normal">
+                                <input type="checkbox" id="(@d.MovieId-@a)" name="@a" @(Convert.ToInt32(d.S11) > 0 ? "checked" : "") />
+                                @*@Html.CheckBoxFor(m => m.S1, new { @name = a, @checked = Convert.ToInt32(d.S1) > 0 ? "checked" : "" })*@
+                            </td>
+                        }
+                        @if (Model.LstMovieShowDetails.FirstOrDefault().S12 != null)
+                        {
+                            var a = Model.LstMovieShowDetails.FirstOrDefault().S12.Split('/')[0];
+                            <td class="text-center px-3 py-2 border border-white border-double font-weight-normal">
+                                <input type="checkbox" id="(@d.MovieId-@a)" name="@a" @(Convert.ToInt32(d.S12) > 0 ? "checked" : "") />
+                                @*@Html.CheckBoxFor(m => m.S1, new { @name = a, @checked = Convert.ToInt32(d.S1) > 0 ? "checked" : "" })*@
+                            </td>
+                        }
+                    </tr>
+                }
+
+                @*<tr>
+                        <div class="">
+                            <div class="">
+                                <label>
+                                    Date and Time to Display Movie
+
+                                </label>
+                                @Html.TextBoxFor(m => m.DateToDisplayMovie, new { @class = "span9  date form-control", @maxlength = "15", @tabindex = "4", @next = "TimeToDisplayMovie", style = "width: 200px;" })
+                                @Html.Hidden("hfDateToDisplay", Model.DateToDisplayMovie)
+                                @Html.TextBoxFor(m => m.TimeToDisplayMovie, new { @class = "span9 required time form-control", @maxlength = "15", @tabindex = "5", style = "width: 200px;" })
+                                @Html.Hidden("hfTimeToDisplay", Model.TimeToDisplayMovie)
+                            </div>
+                        </div>
+                    </tr>*@
+
+                <tr>
+                    <td colspan="13" align="right" class="pt-4">
+                        <input class="btn btn-primary btn-inverse mr-2" id="btnSave" name="inputSubmit" type="submit" value="Save" tabindex="6" title='Save' />
+                        <a class="btn btn-inverse btn-secondary" href="~/MovieShowAssign/MovieShowAssignDisplay" id="btnCancel" name="inputSubmit" type="submit" value="Cancel" tabindex="7" title='Cancel'>Cancel </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>

@@ -1,0 +1,206 @@
+@model EcubeWebPortalCMS.Models.BanquetBookingRequestModel
+@{
+    ViewBag.Title = "Banquet / Hall Request";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("BanquetBookingRequest", "BanquetBookingRequest", FormMethod.Post, new { @id = "frmBanquetBookingRequest", @class = "form_validation_ttip well stdform" }))
+{
+
+    <div class="">
+        <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+            <h4 class="heading mb-4 m-md-0">@ViewBag.Title</h4>
+        </div>
+        <div class="pan">
+            <div class="card shadow rounded overflow-hidden card-space">
+                <div class="row">
+                    @Html.HiddenFor(m => m.HdnIFrame)
+                    @Html.HiddenFor(m => m.Id)
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-2">
+                        <div class="form-group">
+                            <h5 class="mb-2">
+                                Request Id
+
+                            </h5>
+                            @Html.TextBoxFor(m => m.Id, new { @class = "span9  alphanumwithspc form-control ", @maxlength = "200", @tabindex = "2", @next = "MemberId", @readonly = "true" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <div class="form-group">
+                            <h5 class="mb-2">
+                                Member/Guest Name
+                            </h5>
+                            @Html.TextBoxFor(m => m.Name, new { @class = "span9  alphanumwithspc form-control ", @maxlength = "200", @tabindex = "2", @next = "MemberId", @readonly = "true" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <div class="form-group">
+                            <h5 class="mb-2">
+                                Member Code
+                            </h5>
+                            @Html.TextBoxFor(m => m.MemberCode, new { @class = "span9  numwospc form-control", @maxlength = "19", @tabindex = "3", @next = "BookingType", @readonly = "true" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-2">
+                        <div class="form-group">
+                            <h5 class="mb-2">
+                                Referred By Member Code
+                            </h5>
+                            @Html.TextBoxFor(m => m.ReferredMemberCode, new { @class = "span9  numwospc form-control", @maxlength = "19", @tabindex = "3", @next = "BookingType", @readonly = "true" })
+                        </div>
+                    </div>
+                    @* <div class="col-md-4 mb-2">
+                <div class="form-group">
+                   <h5 class="mb-2">
+                        Member Id
+                    </h5>
+                    @Html.TextBoxFor(m => m.MemberId, new { @class = "span9  numwospc form-control", @maxlength = "19", @tabindex = "3", @next = "BookingType" })
+                </div>
+            </div>*@
+
+                    @*<div class="col-md-4 mb-2">
+                <div class="form-group">
+                   <h5 class="mb-2">
+                        Booking Type
+                    </h5>
+                    @Html.CheckBoxFor(m => m.BookingType, new { @tabindex = "4", @next="InquiryFor" })
+                </div>
+            </div>
+            <div class="col-md-4 mb-2">
+                <div class="form-group">
+                   <h5 class="mb-2">
+                        Inquiry For
+                    </h5>
+                    @Html.TextBoxFor(m => m.InquiryFor, new { @class = "span9  numwospc form-control", @maxlength = "19", @tabindex = "5", @next = "EMail" })
+                </div>
+            </div>*@
+                    <div class="col-md-4 mb-2">
+                        <div class="form-group">
+                            <h5 class="mb-2">
+                                Email
+
+                            </h5>
+                            @Html.TextBoxFor(m => m.EMail, new { @class = "span9  emailid form-control ", @maxlength = "200", @tabindex = "6", @next = "Address", @readonly = "true" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <div class="form-group">
+                            <h5 class="mb-2">
+                                Address
+                            </h5>
+                            @Html.TextBoxFor(m => m.Address, new { @class = "span9  alphanumwithspc form-control ", @maxlength = "500", @tabindex = "7", @next = "City", @readonly = "true" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-2">
+                        <div class="form-group">
+                            <h5 class="mb-2">
+                                City
+
+                            </h5>
+                            @Html.TextBoxFor(m => m.City, new { @class = "span9  alphanumwithspc form-control ", @maxlength = "50", @tabindex = "8", @next = "MobileNo", @readonly = "true" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <div class="form-group">
+                            <h5 class="mb-2">
+                                Mobile
+                            </h5>
+                            @Html.TextBoxFor(m => m.MobileNo, new { @class = "span9  numwithspc form-control ", @maxlength = "15", @tabindex = "9", @next = "Occasion", @readonly = "true" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <div class="form-group">
+                            <h5 class="mb-2">
+                                Occasion
+
+                            </h5>
+                            @Html.TextBoxFor(m => m.Occasion, new { @class = "span9  alphanumwithspc form-control ", @maxlength = "50", @tabindex = "10", @next = "strFromDate", @readonly = "true" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-2">
+                        <div class="form-group">
+                            <h5 class="mb-2">
+                                From Date
+
+                            </h5>
+                            @Html.TextBoxFor(m => m.StrFromDate, new { @class = "span9  form-control ", @tabindex = "11", @next = "strToDate", @readonly = "true" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <div class="form-group">
+                            <h5 class="mb-2">
+                                To Date
+
+                            </h5>
+                            @Html.TextBoxFor(m => m.StrToDate, new { @class = "span9  form-control ", @tabindex = "12", @next = "strBanquetType", @readonly = "true" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <div class="form-group">
+                            <h5 class="mb-2">
+                                Status
+                            </h5>
+                            @Html.DropDownList("Status", new List<SelectListItem>()
+                            {new SelectListItem { Text="Pending Request", Value = "0"},
+                            new SelectListItem { Text="Booked", Value = "1"},
+                            new SelectListItem { Text="Cancel", Value = "2"}
+                            }, new { @class = "form-control " })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 mb-2">
+                        <div class="form-group">
+                            <h5 class="mb-2">
+                                Banquet Type
+                            </h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(m => m.BanquetTypeId, new { @class = "span9  alphanumwithspc form-control ", @maxlength = "50", @tabindex = "13", @next = "Remarks", @readonly = "true", @display = "none" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(m => m.BanquetType, new { @class = "span9  alphanumwithspc form-control ", @maxlength = "50", @tabindex = "13", @next = "Remarks", @readonly = "true" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 mb-2">
+                        <div class="form-group">
+                            <h5 class="mb-2">
+                                Remarks
+                            </h5>
+                            @Html.TextAreaFor(m => m.Remarks, new { @class = "description-height span9  form-control ", @tabindex = "14", @readonly = "true" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 mb-2">
+                        <div class="form-group">
+                            <h5 class="mb-2">
+                                Admin Remarks
+                            </h5>
+                            @Html.TextAreaFor(m => m.AdminRemarks, new { @class = "span9  form-control description-height", @tabindex = "2" })
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                    <input class="btn btn-primary mr-2" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="3" title='Save Banquet Booking Request' />
+                    <input class="btn btn-secondary cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="4" title='Cancel Banquet Booking Request' />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/Utility/BanquetBookingRequest.js"></script>

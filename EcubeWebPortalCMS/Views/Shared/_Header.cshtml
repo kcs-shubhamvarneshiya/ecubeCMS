@@ -1,0 +1,142 @@
+@using EcubeWebPortalCMS.Common;
+@{
+    Layout = null;
+    string headerText = Functions.GetPropertyInfo().Name;
+    string clubName = Functions.GetSettings("ClubName2");
+    clubName = clubName.IsNullString() ? "KCSDemo" : clubName;
+    string username = @EcubeWebPortalCMS.Common.MySession.Current.UserName;
+    string userShortName = username.Substring(0, 2).ToUpper();
+}
+
+<nav class="inner-header navbar bg-white justify-content-start shadow p-3">
+    <div class="navbar-logo d-flex align-items-center">
+        <div class="inner_logo navbar-brand mr-0 p-0">
+            <a href="../Home/Index"><img src="~/Content/Image/logo/@clubName/logo.svg" class="img-fluid" /></a>
+        </div>
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon w-auto h-auto">
+                <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg"><g filter="url(#filter0_d)"><rect x="5" y="4" width="29" height="29" rx="4" fill="white" /><rect x="5.15" y="4.15" width="28.7" height="28.7" rx="3.85" stroke="#C79F3B" stroke-width="0.3" /></g><path d="M12 17.187H27V18.916H12V17.187Z" fill="#C79F3B" /><path d="M12 12H27V13.729H12V12Z" fill="#C79F3B" /><path d="M12 22.374H27V24.103H12V22.374Z" fill="#C79F3B" /><defs><filter id="filter0_d" x="0" y="0" width="39" height="39" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix" /><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" /><feOffset dy="1" /><feGaussianBlur stdDeviation="2.5" /><feColorMatrix type="matrix" values="0 0 0 0 0.512428 0 0 0 0 0.504859 0 0 0 0 0.504859 0 0 0 0.25 0" /><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" /><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" /></filter></defs></svg>
+            </span>
+        </button>
+    </div>
+    <div class="d-lg-inline-block h4 m-0 text-uppercase border-left pl-md-5 pl-3 py-2 club-name">@headerText</div>
+    <div class="ml-auto">
+        <div class="iheader_right">
+            <ul class="nav user_menu list-unstyled align-items-center">
+                <li class="hidden-phone hidden-tablet">
+                    <div class="nb_boxes clearfix">
+                    </div>
+                </li>
+                <li class="">
+                    <div class="pr-2">
+                        <div class="h6 bg-primary font-weight-normal text-white m-0 rounded-circle text-center d-flex align-items-center justify-content-center" style="width:30px;height:30px">@userShortName</div>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle h5 m-0 text-dark text-decoration-none mr-3" data-toggle="dropdown" href="#">
+                        Welcome, <span class="username pr-3">@EcubeWebPortalCMS.Common.MySession.Current.UserName</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#" id="aChangePassword">Change Password</a>
+                        <a class="dropdown-item" href="../Home/LogOut">Log Out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div id="divChangePassword" style="display: none;" title="Change Password">
+    <div class="login_box">
+        @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @id = "LoginForm", @autocomplete = "off" }))
+        {
+            <div class="cnt_b">
+                <div class="formRow mb-3">
+                    <div class="input-prepend input-group">
+                        <span class="input-group-addon add-on"><i class="icon-lock"></i></span>
+                        <input type="password" class="form-control" id="txtCurrentPwd" name="txtCurrentPwd" placeholder="Current Password" value="" title="Current Password" autocomplete="off" next="txtNewPwd" />
+                    </div>
+                </div>
+                <div class="formRow mb-3">
+                    <div class="input-prepend input-group">
+                        <span class="input-group-addon add-on"><i class="icon-lock"></i></span>
+                        <input type="password" class="form-control" id="txtNewPwd" name="txtCurrentPwd" placeholder="New Password" value="" title="New Password" autocomplete="off" next="txtConfirmPwd" />
+                    </div>
+                </div>
+                <div class="formRow">
+                    <div class="input-prepend input-group">
+                        <span class="input-group-addon add-on"><i class="icon-lock"></i></span>
+                        <input type="password" class="form-control" id="txtConfirmPwd" name="txtCurrentPwd" placeholder="Confirm Password" value="" title="Confirm Password" autocomplete="off" next="btnSignIn" />
+                    </div>
+                </div>
+                <div class="formRow clearfix">
+                    <div class="input-prepend">
+                        <button class="btn btn-primary mt-4 pull-right" type="submit" id="btnSignIn">Save</button>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $("#divChangePassword").dialog({
+            bgiframe: true, autoOpen: false, modal: true, width: 500,
+            close: function () {
+                $("#txtCurrentPwd").val('');
+                $("#txtNewPwd").val('');
+                $("#txtConfirmPwd").val('');
+            }
+        });
+        $("#aChangePassword").click(function () {
+            $("#divChangePassword").dialog('open');
+            return false;
+        });
+        $("#btnSignIn").click(function () {
+            var CurrentPwd = $("#txtCurrentPwd").val();
+            var NewPwd = $("#txtNewPwd").val();
+            var ConfirmPwd = $("#txtConfirmPwd").val();
+            if (CurrentPwd == '') {
+                jAlert("Please Enter Current Password.", 'txtCurrentPwd');
+                return false;
+            }
+            else if (NewPwd == '') {
+                $("#").focus();
+                jAlert("Please Enter New Password.", "txtNewPwd");
+                return false;
+            }
+            if (NewPwd != ConfirmPwd) {
+                jAlert("New Password And Confirm Password Does Not Match.", "txtNewPwd");
+                return false;
+            }
+            jQuery.post("/Home/ChangePassword/", { strCurrentPwd: CurrentPwd, strNewPwd: NewPwd }, function (data) {
+                if (data.toString() != "") {
+                    if (data.toString() == "Success") {
+                        jAlert("Password Changed Successfully.");
+                        $("#divChangePassword").dialog('close');
+                    }
+                    else if (data.toString() == "CurrentWrong") {
+                        jAlert("Current Password Does Not Match.");
+                    }
+                    return false;
+                }
+            });
+            return false;
+
+        });
+    });
+
+</script>
+<script type="text/javascript">
+    $(".toggleMenu").click(function () {
+        $(".left_menup").addClass("openNav");
+    });
+    $(".close-panel, #content").click(function () {
+        $(".left_menup").removeClass("openNav");
+    });
+    $("#lMenu ul li a").click(function () {
+        $(this).addClass("MenuActive");
+    });
+</script>

@@ -1,0 +1,80 @@
+@model EcubeWebPortalCMS.Models.RoomBookingRequestModel
+
+@{
+    ViewBag.Title = "Room Request";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool isAdd = Convert.ToBoolean(ViewData["blAddRights"]);
+    bool isEdit = Convert.ToBoolean(ViewData["blEditRights"]);
+    bool isDelete = Convert.ToBoolean(ViewData["blDeleteRights"]);
+}
+
+@if (Model != null)
+{
+    <script type="text/javascript">
+            var selectedRoomType = '@Model.RoomType';
+    </script>
+}
+else
+{
+    <script type="text/javascript">
+        var selectedRoomType = 0;
+    </script>
+}
+<div class="">
+    <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+        <h4 class="heading mb-4 m-md-0">
+            @ViewBag.Title
+        </h4>
+        @Html.Hidden("hfAdd", @isAdd)
+        @Html.Hidden("hfEdit", @isEdit)
+        @Html.Hidden("hfDelete", @isDelete)
+    </div>
+    <div class="card shadow rounded overflow-hidden card-space">
+        <div class="clearfix contant-toph">
+            <div class="row usearch-text room-book_req-view">
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-3">
+                        Search
+                    </h5>
+                    <input type="text" id="txtRoomBookingRequestSearch" class="form-control form-control-sm" />
+                </div>
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-3">
+                        Status
+                    </h5>
+                    @Html.DropDownList("ddlRoomBookingRequestSorting", new List<SelectListItem>()
+                        {new SelectListItem { Text="--ALL--", Value = "10"},
+                        new SelectListItem { Text="Pending Request", Value = "0"},
+                        new SelectListItem { Text="Booked", Value = "1"},
+                        new SelectListItem { Text="Cancel", Value = "2"}},
+                        new { @class = "form-control form-control-sm" })
+                </div>
+                <div class="col-md-4 mb-3 pb-3">
+                    <h5 class="mb-3">
+                        Room Type
+                    </h5>
+                    @Html.HiddenFor(model => Model.RoomType, new { @id = "hdnddlRoomType" })
+                    @Html.DropDownList("ddlRoomType", new SelectList(string.Empty, "Value", "Text"), "--ALL--", new { @class = "form-control form-control-sm" })
+                </div>
+            </div>
+            <div class="d-flex justify-content-end adduser-links mb-4">
+                @*@if(isAdd)
+                    {
+                        @Html.ActionLink("Add New Room Request", "RoomBookingRequest", "RoomBookingRequest")
+                    }*@
+                @if (isDelete)
+                {
+                    <a class="btn btn-secondary" id="btnDeleteRoomBookingRequest" href="javascript:void(0)">Delete Request</a>
+                }
+            </div>
+        </div>
+
+        <div class="user-contant">
+            <div id="dvRoomBookingRequest" class="card shadow rounded overflow-hidden">
+                <table id="tblRoomBookingRequest"></table>
+                <div id="dvRoomBookingRequestFooter"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Utility/RoomBookingRequestView.js"></script>

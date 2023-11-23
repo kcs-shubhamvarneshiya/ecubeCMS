@@ -1,0 +1,52 @@
+@model EcubeWebPortalCMS.Models.RoleModel
+@{
+    ViewBag.Title = "Role";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Role", "Role", FormMethod.Post, new { @id = "frmRole", @class = "form_validation_ttip well stdform" }))
+{
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <h4 class="heading">
+                    @ViewBag.Title
+                </h4>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.HdnIFrame)
+                @Html.HiddenFor(m => m.Rights)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Role Name
+                <span class="f_req text-danger">*</span>
+                </label>
+                @Html.TextBoxFor(m => m.RoleName, new { @class = "span5 required alphanumwithspc", @maxlength = "50", @tabindex = "2", @next = "Description" })
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>
+                    Description
+                </label>
+                @Html.TextBoxFor(m => m.Description, new { @class = "span5  alphanumwithspc", @maxlength = "500", @tabindex = "3", @next = "btnSubmit" })
+            </div>
+        </div>
+        <div class="span12 user-contant">
+            <div id="dvRolePermission">
+                <table id="tblRolePermission"></table>
+                <div id="dvRolePermissionFooter" style="text-align: center;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <input class="btn btn-inverse" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="4" title="Save Role" />
+        <input class="btn cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="5" title="Cancel Role" />
+    </div>
+}
+<script src="~/Scripts/Utility/Role.js"></script>

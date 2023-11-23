@@ -1,0 +1,167 @@
+﻿@model EcubeWebPortalCMS.Models.EventBookingForEventListModel
+@{
+    ViewBag.Title = "EventBookingForEventList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int EventId = 0;
+}
+
+
+<style type="text/css">
+    /*.card.card.shadow.mb-5:active {
+       
+        transform: scale(1.2);
+        border-color:blue;
+        border-width:thin;
+    }*/
+    .card.card.shadow.mb-5:active,
+    .card.card.shadow.mb-5:focus {
+        /* add your desired effect here */
+        transform: scale(1.2);
+        /* increase the size */
+        width: 120%;
+        height: 120%;
+    }
+
+    </style>
+
+
+
+<div class="">
+    <div class="panel-heading">
+        <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+            <h4 class="heading mb-4 m-md-0">
+                Event Booking
+            </h4>
+            
+        </div>
+    </div>
+    <div class="pan">
+        <div class="card shadow rounded overflow-hidden card-space">
+            <div class="banquetbooking-panel">
+                <div class="row">
+                    @{
+                        int i = 0; var data = "";
+                        if (Model.EventList != null)
+                        {
+                            foreach (var item in Model.EventList)
+                            {
+                                <div class="col-md-4 col-xs-12 card card shadow mb-5">
+                                    <div class="event-block card-body p-0">
+                                        <a href="#" class="imgevent" onclick="fillevetnFees(@item.Id.ToString())" data-value="@item.Id.ToString()">
+                                            <div class="banquet-img">
+                                                @{
+                                                    string imagePath = "";
+                                                    if (item.EventImage != null && item.EventImage != "")
+                                                    {
+                                                        if (item.EventImage.Contains("CMSUpload"))
+                                                        {
+                                                            string image = item.EventImage.Replace("../CMSUpload/", "").Replace("../CMSUpload/", "");
+                                                            string imageGettingPath = Model.DocRootDirectoryPath + image.ToString();
+                                                            imagePath = imageGettingPath;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            imagePath = Model.DocRootDirectoryPath + "Images/Event/EventImage/" + item.EventImage.ToString();
+                                                        }
+                                                      <img  src="@imagePath" width = "350px" onerror="this.onerror=null;this.src='/Images/noprofile-img.jpg';" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="/Images/noprofile-img.jpg" onerror="this.onerror=null;this.src='/Images/noprofile-img.jpg';" />
+                                                    }
+                                                }
+
+                                            </div>
+                                            <div class="banquet-disc py-3 px-4">
+                                                <h4 class="text-dark mb-3">@item.EventTitle <strong class="viewprice"></strong></h4>
+                                                <div class="text-dark date h6 font-weight-normal m-0 text-break">@item.EventDate</div>
+                                                <div class="text-dark event-location h6 font-weight-normal m-0 text-break">@item.EventPlace</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="text-center">
+                                <h2 class="text-black">No Available Event</h2>
+                            </div>
+                        }
+                    }
+                </div>
+                @Html.Hidden("hidEventId", @EventId)
+                <div class="row">                    
+                    <div class="col-md-2 col-xs-12 card card shadow mb-5">
+                        <div class="event-block card-body p-0">
+                            <a href="#" class="imgevent" id="imgeventMember" onclick="Redirect('Member')" data-value=@EventId.ToString()>
+                                <div class="banquet-disc py-3 px-4">
+                                    <h4 class="text-dark mb-3">Member Booking<strong class="viewprice"></strong></h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-xs-12 card card shadow mb-5">
+                        <div class="event-block card-body p-0">
+                            <a href="#" class="imgevent" id="imgeventGuest" onclick="Redirect('Guest')" data-value=@EventId.ToString()>
+                                <div class="banquet-disc py-3 px-4">
+                                    <h4 class="text-dark mb-3">Guest Booking<strong class="viewprice"></strong></h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-xs-12 card card shadow mb-5">
+                        <div class="event-block card-body p-0">
+                            <a href="#" class="imgevent" id="imgeventParent" onclick="Redirect('Parent')" data-value=@EventId.ToString()>
+                                <div class="banquet-disc py-3 px-4">
+                                    <h4 class="text-dark mb-3">Parent Booking<strong class="viewprice"></strong></h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-xs-12 card card shadow mb-5">
+                        <div class="event-block card-body p-0">
+                            <a href="#" class="imgevent" id="imgeventAffiliated" onclick="Redirect('Affiliated')" data-value=@EventId.ToString()>
+                                <div class="banquet-disc py-3 px-4">
+                                    <h4 class="text-dark mb-3">Affiliated Booking<strong class="viewprice"></strong></h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    @*<div class="col-md-2 col-xs-12 card card shadow mb-5">
+                        <div class="event-block card-body p-0">
+                            <a href="#" class="imgevent" onclick="fillevetnFees('MemberBooking'.ToString())" data-value="0.ToString()">
+                                <div class="banquet-disc py-3 px-4">
+                                    <h4 class="text-dark mb-3">Member Booking<strong class="viewprice"></strong></h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>*@
+                    <div class="col-md-2 col-xs-12 card card shadow mb-5">
+                        <div class="event-block card-body p-0">
+                            <a href="#" class="imgevent" id="imgeventSponser" onclick="Redirect('Sponser')" data-value=@EventId.ToString()>
+                                <div class="banquet-disc py-3 px-4">
+                                    <h4 class="text-dark mb-3">Sponser Booking<strong class="viewprice"></strong></h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-xs-12 card card shadow mb-5">
+                        <div class="event-block card-body p-0">
+                            <a href="#" class="imgevent" id="imgeventPrint" onclick="Redirect('Print')">
+                                <div class="banquet-disc py-3 px-4">
+                                    <h4 class="text-dark mb-3">Print Tickets<strong class="viewprice"></strong></h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    </div>
+<script src="~/Scripts/Utility/EventBookingForEventList.js"></script>

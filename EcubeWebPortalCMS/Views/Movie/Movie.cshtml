@@ -1,0 +1,156 @@
+@model EcubeWebPortalCMS.Models.MovieModel
+@{
+    ViewBag.Title = "Movie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Movie", "Movie", FormMethod.Post, new { @id = "frmMovie", @class = "form_validation_ttip well stdform" }))
+{
+
+    <script>
+
+    </script>
+    <div class="">
+        <div class="d-flex align-items-center border-bottom pb-2 mb-3 main-form--heading ">
+            <h4 class="heading mb-4 m-md-0">
+                @ViewBag.Title
+                @Html.HiddenFor(m => m.HdnSession)
+            </h4>
+        </div>
+        <div class="pan">
+            <div class="">
+                @Html.HiddenFor(m => m.HdnIFrame)
+                @Html.HiddenFor(m => m.Id)
+            </div>
+            <div class="card shadow rounded overflow-hidden card-space">
+                <div class="row">
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Movie Name<span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(m => m.MovieName, new { @class = "required alphanumwithspc form-control ", @maxlength = "50", @tabindex = "2", @next = "MovieCategory" })
+                    </div>
+
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Movie Category
+                        </h5>
+                        @Html.DropDownListFor(m => m.MovieCategory, new List<SelectListItem>
+                    {
+                        new SelectListItem{ Text="Select Movie Category", Value = "" },
+                        new SelectListItem{ Text="Action", Value = "Action" },
+                        new SelectListItem{ Text="Adventure", Value = "Adventure" },
+                        new SelectListItem{ Text="Biography", Value = "Biography" },
+                        new SelectListItem{ Text="Comedy", Value = "Comedy" },
+                        new SelectListItem{ Text="Drama", Value = "Drama" },
+                        new SelectListItem{ Text="Horror", Value = "Horror" },
+                        new SelectListItem{ Text="Musical", Value = "Musical" },
+                        new SelectListItem{ Text="Regional", Value = "Regional" },
+                        new SelectListItem{ Text="Romantic", Value = "Romantic" },
+                        new SelectListItem{ Text="Suspense", Value = "Suspense" },
+                        new SelectListItem{ Text="Thriller", Value = "Thriller" },
+                        }, new { @class = "  alphanumwithspc form-control ", @maxlength = "20", @tabindex = "3", @next = "MovieRating" })
+                        @*@Html.TextBoxFor(m => m.MovieCategory, new { @class = "  alphanumwithspc form-control ", @maxlength = "20", @tabindex = "3", @next="MovieRating" })*@
+                    </div>
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Movie Rating
+
+                        </h5>
+                        <div class="d-flex align-items-center">
+                            <div style="max-width:5rem">
+                                @Html.TextBoxFor(m => m.MovieRating, new { @class = "decimal onedecimal form-control", @maxlength = "3", @tabindex = "4", @next = "MovieLanguage" })
+                            </div>
+                            <div class="h5 ml-2 mb-0 text-nowrap">/ 5</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Movie Language
+
+                        </h5>
+                        @Html.TextBoxFor(m => m.MovieLanguage, new { @class = "  alphanumwithspc form-control ", @maxlength = "100", @tabindex = "5", @next = "MovieContentType" })
+                    </div>
+
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Movie Content Type
+
+                        </h5>
+                        @Html.TextBoxFor(m => m.MovieContentType, new { @class = "  alphanumwithspc form-control ", @maxlength = "50", @tabindex = "6", @next = "MovieType" })
+                    </div>
+
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Movie Type
+                        </h5>
+                        @Html.TextBoxFor(m => m.MovieType, new { @class = "  alphanumwithspc form-control ", @maxlength = "50", @tabindex = "7", @next = "AppDescription" })
+                    </div>
+                </div>
+                <div class="row d-flex align-items-end">
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Allow movie entry before start time in Scanner App (Minutes)<span class="f_req text-danger">*</span>
+                        </h5>
+                        @Html.TextBoxFor(x => x.BeforeMinutes, new { @class = " form-control numwospc", @maxlength = "3", @tabindex = "8" })
+
+                    </div>
+
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Allow movie entry after start time in Scanner App (Minutes)<span class="f_req text-danger">*</span>
+                        </h5>
+
+                        @Html.TextBoxFor(x => x.AfterMinutes, new { @class = " form-control numwospc", @maxlength = "3", @tabindex = "9" })
+                    </div>
+
+                    <div class="col-md-4 d-flex mb-3 pb-3">
+                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "  alphanumwithspc form-control ", @maxlength = "50", @tabindex = "10", @next = "btnSubmit" })
+                        <h5 class="mb-2 ml-2">
+                            Is Active
+                        </h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Mobile App Description
+                        </h5>
+                        @Html.TextAreaFor(m => m.AppDescription, new { @class = " form-control ", @maxlength = "500", @tabindex = "11", @next = "UploadImage" })
+                    </div>
+
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Movie Image
+
+                        </h5>
+                        <input type="file" id="UploadImage" class="mb-2" tabindex="12" />
+                        @Html.HiddenFor(m => m.UploadImage, new { id = "UploadImage" })
+                        <br />
+                        <img id="aImageName" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';" class="movie-mobile--img" alt="" src="@Model.UploadImage" />
+                        <br />
+                        <span class="text-danger d-flex"><span>Note: &nbsp; </span><span>Allowed Format:.jpg, .gif, .png ; <br /> Allowed Size: 329 X 164</span></span>
+                    </div>
+
+                    <div class="col-md-4 mb-3 pb-3">
+                        <h5 class="mb-2">
+                            Mobile Image
+                        </h5>
+                        <input type="file" id="MobileImage" class="mb-2" tabindex="13" />
+                        @Html.HiddenFor(m => m.ShowMobileImage, new { id = "ShowMobileImage" })
+                        <br />
+                        <img id="aMobileImageName" onerror="this.onerror=null;this.src='/Content/Image/noprofile-img.jpg';"  class="movie-mobile--img" alt="" src="@Model.ShowMobileImage" />
+
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end mt-3">
+                    <input class="btn btn-primary mr-2 btn-inverse" id="btnSubmit" name="inputSubmit" type="submit" value="Save" tabindex="14" title='Save Movie' />
+                    <input class="btn btn-secondary cancel" id="btnCancel" name="inputCancel" type="button" value="Cancel" tabindex="15" title='Cancel Movie' />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/Utility/Movie.js"></script>

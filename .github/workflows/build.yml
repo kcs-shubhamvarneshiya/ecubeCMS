@@ -28,7 +28,7 @@ jobs:
 
       - name: SonarQube Scan
         run: |
-          echo "starting analyzing..."  
+          echo "starting analyzing.."  
 
           dotnet tool install --global dotnet-sonarscanner
           

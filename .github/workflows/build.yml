@@ -23,11 +23,15 @@ jobs:
               dotnet-version: '5.0.x'     
 
       - name: SonarQube Scan
-          echo "starting analyzing..."
-        run: |  
+        run: |
+          echo "starting analyzing..."  
+
           dotnet tool install --global dotnet-sonarscanner
+          
           SonarScanner.MSBuild.exe begin /k:"eCubeMemberCMSWebApp" /d:sonar.host.url="https://sonarqube.kcspl.in" /d:sonar.token="dca7a8f306acdaa720a1feec1a94215cfa08f846"
+          
           MsBuild.exe ./EcubeWebPortalCMS.sln /t:Rebuild
+          
           SonarScanner.MSBuild.exe end /d:sonar.login="dca7a8f306acdaa720a1feec1a94215cfa08f846"
           
       - name: Check SonarQube Quality Gate    

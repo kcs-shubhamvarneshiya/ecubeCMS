@@ -3,53 +3,54 @@ name: SonarQube Quality Gate Check
 on:
   push:
     branches:
-      - "*" 
-      
+      - "*"
+
   pull_request:
     branches:
-      - "*" 
+      - "*"
 jobs:
   sonarqube_analysis:
-    runs-on: ubuntu-latest
+    runs-on: windows-2019
 
     steps:
+      - name: Add msbuild to PATH
+        uses: Dana-Prajea/Setup-MSBuild@v1.1
+        with:
+          vs-prerelease: true
+          vs-version: "[19]"
+      - name: java install
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin" # See 'Supported distributions' for available options
+          java-version: "17"
+
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup .NET 5.x
+      - name: Setup .NET 6.x
         uses: actions/setup-dotnet@v3
         with:
-              dotnet-version: '5.0.x'       
+          # Semantic version range syntax or exact version of a dotnet version
+          dotnet-version: "6.0.x"
 
       - name: SonarQube Scan
+          echo "starting analyzing..."
         run: |
-          echo "starting analyzing.."  
+          dotnet tool install --global dotnet-sonarscanner
+          dotnet sonarscanner begin /k:"eCubeMemberCMSWebApp" /d:sonar.host.url="http://sonarqube.kcspl.in:9000" /d:sonar.login="82937a40b7dbb37782bacb338c7bca84a24196e9"
+          MSBuild.exe /t:Rebuild /p:TargetFramework=net46
+          dotnet sonarscanner end /d:sonar.login="82937a40b7dbb37782bacb338c7bca84a24196e9"
 
-          #dotnet tool install --global dotnet-sonarscanner
-          
-          pwd
-          #curl -v -O https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/5.15.0.80890/sonar-scanner-msbuild-5.15.0.80890-net46.zip
-          ls -ltrha
-          #find . -name "*.zip" | while read filename; do unzip -o -d "`dirname "$filename"`" "$filename"; done;
-          find . -name "*.zip" | xargs -P 5 -I fileName sh -c 'unzip -o -d "$(dirname "fileName")/$(basename -s .zip "fileName")" "fileName"'
-          #unzip sonar-scanner-msbuild-5.15.0.80890-net5.0.zip
-          ls -ltrha
-          export PATH=$PATH:/home/runner/work/ecubeCMS/ecubeCMS/sonar-scanner-msbuild-5.15.0.80890-net5.0
-          echo $PATH
-          
-          SonarScanner.MSBuild.exe begin /k:"eCubeMemberCMSWebApp" /d:sonar.host.url="https://sonarqube.kcspl.in" /d:sonar.login="dca7a8f306acdaa720a1feec1a94215cfa08f846"
-          MsBuild.exe /t:Rebuild
-          SonarScanner.MSBuild.exe end /d:sonar.login="dca7a8f306acdaa720a1feec1a94215cfa08f846"
-          
-      - name: Check SonarQube Quality Gate    
+      - name: Check SonarQube Quality Gate
         run: |
-          sudo apt-get install jq
-          STATUS=$(curl -s "http://sonarqube.kcspl.in:9000/api/qualitygates/project_status?projectKey=eCubeMemberCMSWebApp" -u "dca7a8f306acdaa720a1feec1a94215cfa08f846" | jq -r '.projectStatus.status'    
-          echo "Quality gate values : ${QUALITY_GATE_STATUS}"
-          
-          if [ "${QUALITY_GATE_STATUS}" != "OK" ]; then
-            echo "Quality Gate check failed!"
+          echo "Starting quality gate"
+
+          $response = Invoke-WebRequest -Uri "http://sonarqube.kcspl.in:9000/api/qualitygates/project_status?projectKey=eCubeMemberCMSWebApp" -Headers @{ Authorization = "Basic 82937a40b7dbb37782bacb338c7bca84a24196e9" }
+          $status = ($response.Content | ConvertFrom-Json).projectStatus.status
+          Write-Host "SonarQube Quality Gate status: $status"
+          if ($status -ne "OK") {
+            Write-Host "Quality Gate check failed!"
             exit 1
-          else
-            echo "Quality Gate check passed!"
-          fi
+          } else {
+            Write-Host "Quality Gate check passed!"
+          }

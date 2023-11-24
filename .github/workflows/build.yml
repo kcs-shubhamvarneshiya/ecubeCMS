@@ -19,15 +19,26 @@ jobs:
       - name: Setup .NET 5.x
         uses: actions/setup-dotnet@v3
         with:
-        # Semantic version range syntax or exact version of a dotnet version
-              dotnet-version: '5.0.x'     
+              dotnet-version: '5.0.x'       
 
       - name: SonarQube Scan
-          echo "starting analyzing..."
-        run: |  
-          dotnet tool install --global dotnet-sonarscanner
-          SonarScanner.MSBuild.exe begin /k:"eCubeMemberCMSWebApp" /d:sonar.host.url="https://sonarqube.kcspl.in" /d:sonar.token="dca7a8f306acdaa720a1feec1a94215cfa08f846"
-          MsBuild.exe ./EcubeWebPortalCMS.sln /t:Rebuild
+        run: |
+          echo "starting analyzing.."  
+
+          #dotnet tool install --global dotnet-sonarscanner
+          
+          pwd
+          #curl -v -O https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/5.15.0.80890/sonar-scanner-msbuild-5.15.0.80890-net46.zip
+          ls -ltrha
+          #find . -name "*.zip" | while read filename; do unzip -o -d "`dirname "$filename"`" "$filename"; done;
+          find . -name "*.zip" | xargs -P 5 -I fileName sh -c 'unzip -o -d "$(dirname "fileName")/$(basename -s .zip "fileName")" "fileName"'
+          #unzip sonar-scanner-msbuild-5.15.0.80890-net5.0.zip
+          ls -ltrha
+          export PATH=$PATH:/home/runner/work/ecubeCMS/ecubeCMS/sonar-scanner-msbuild-5.15.0.80890-net5.0
+          echo $PATH
+          
+          SonarScanner.MSBuild.exe begin /k:"eCubeMemberCMSWebApp" /d:sonar.host.url="https://sonarqube.kcspl.in" /d:sonar.login="dca7a8f306acdaa720a1feec1a94215cfa08f846"
+          MsBuild.exe /t:Rebuild
           SonarScanner.MSBuild.exe end /d:sonar.login="dca7a8f306acdaa720a1feec1a94215cfa08f846"
           
       - name: Check SonarQube Quality Gate    

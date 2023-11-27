@@ -37,15 +37,15 @@ jobs:
           echo "starting analyzing..."
         run: |
           dotnet tool install --global dotnet-sonarscanner
-          dotnet sonarscanner begin /k:"eCubeMemberCMSWebApp" /d:sonar.host.url="http://sonarqube.kcspl.in:9000" /d:sonar.login="82937a40b7dbb37782bacb338c7bca84a24196e9"
+          dotnet sonarscanner begin /k:"${{secrets.SONAR_PROJECT_KEY}}" /d:sonar.host.url="${{secrets.SONAR_HOST_URL}}" /d:sonar.login="${{secrets.SONAR_PROJECT_TOKEN}}"
           MSBuild.exe /t:Rebuild /p:TargetFramework=net46
-          dotnet sonarscanner end /d:sonar.login="82937a40b7dbb37782bacb338c7bca84a24196e9"
+          dotnet sonarscanner end /d:sonar.login="${{secrets.SONAR_PROJECT_TOKEN}}"
 
       - name: Check SonarQube Quality Gate
         run: |
-          echo "Starting quality gate"
+          echo "Checking Quality gate status..."
 
-          $response = Invoke-WebRequest -Uri "http://sonarqube.kcspl.in:9000/api/qualitygates/project_status?projectKey=eCubeMemberCMSWebApp" -Headers @{ Authorization = "Basic 82937a40b7dbb37782bacb338c7bca84a24196e9" }
+          $response = Invoke-WebRequest -Uri "${{secrets.SONAR_HOST_URL}}/api/qualitygates/project_status?projectKey=${{secrets.SONAR_PROJECT_KEY}}" -Headers @{ Authorization = "Basic ${{secrets.SONAR_PROJECT_TOKEN}}" }
           $status = ($response.Content | ConvertFrom-Json).projectStatus.status
           Write-Host "SonarQube Quality Gate status: $status"
           if ($status -ne "OK") {
